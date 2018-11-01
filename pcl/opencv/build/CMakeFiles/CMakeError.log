@@ -1,0 +1,59 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5964a/fast"
+make[1]: Entering directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_5964a.dir/build.make CMakeFiles/cmTC_5964a.dir/build
+make[2]: Entering directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5964a.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_5964a.dir/CheckSymbolExists.c.o   -c /home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_5964a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5964a.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_5964a.dir/CheckSymbolExists.c.o  -o cmTC_5964a -rdynamic 
+CMakeFiles/cmTC_5964a.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_5964a.dir/build.make:97: recipe for target 'cmTC_5964a' failed
+make[2]: *** [cmTC_5964a] Error 1
+make[2]: Leaving directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_5964a/fast' failed
+make[1]: *** [cmTC_5964a/fast] Error 2
+make[1]: Leaving directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+
+File /home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b907c/fast"
+make[1]: Entering directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_b907c.dir/build.make CMakeFiles/cmTC_b907c.dir/build
+make[2]: Entering directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b907c.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_b907c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b907c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b907c.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_b907c.dir/CheckFunctionExists.c.o  -o cmTC_b907c -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_b907c.dir/build.make:97: recipe for target 'cmTC_b907c' failed
+make[2]: *** [cmTC_b907c] Error 1
+make[2]: Leaving directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b907c/fast' failed
+make[1]: *** [cmTC_b907c/fast] Error 2
+make[1]: Leaving directory '/home/udit/codes/pcl/opencv/build/CMakeFiles/CMakeTmp'
+
+
