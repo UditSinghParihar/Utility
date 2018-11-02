@@ -1,5 +1,0 @@
-/home/udit/codes/pcl/opencv/build/CMakeFiles/edit_cache.dir
-/home/udit/codes/pcl/opencv/build/CMakeFiles/color2gray.dir
-/home/udit/codes/pcl/opencv/build/CMakeFiles/feature_detection.dir
-/home/udit/codes/pcl/opencv/build/CMakeFiles/cv_test.dir
-/home/udit/codes/pcl/opencv/build/CMakeFiles/rebuild_cache.dir

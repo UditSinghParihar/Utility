@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/sq_root_exe.dir/src/lib_test.cpp.o CMakeFiles/sq_root_exe.dir/src/myclass.cpp.o  -o sq_root_exe 

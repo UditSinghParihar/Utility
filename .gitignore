@@ -2,3 +2,7 @@
 build/
 
 sublimes/
+
+keras/
+
+*.out

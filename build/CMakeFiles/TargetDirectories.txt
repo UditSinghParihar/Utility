@@ -1,3 +1,0 @@
-/home/udit/codes/build/CMakeFiles/edit_cache.dir
-/home/udit/codes/build/CMakeFiles/rebuild_cache.dir
-/home/udit/codes/build/CMakeFiles/sq_root_exe.dir
