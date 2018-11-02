@@ -459,7 +459,7 @@
 			"file": "/home/udit/codes/pcl/ransac_plane.cpp",
 			"settings":
 			{
-				"buffer_size": 3075,
+				"buffer_size": 3074,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -469,24 +469,6 @@
 			"settings":
 			{
 				"buffer_size": 1756,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
-			"settings":
-			{
-				"buffer_size": 72581,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/udit/database_viewer/poses_database.g2o",
-			"settings":
-			{
-				"buffer_size": 76613,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -504,7 +486,25 @@
 			"file": "/home/udit/codes/pcl/opencv/feature_detection.cpp",
 			"settings":
 			{
-				"buffer_size": 6790,
+				"buffer_size": 7845,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
+			"settings":
+			{
+				"buffer_size": 72581,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/database_viewer/poses_database.g2o",
+			"settings":
+			{
+				"buffer_size": 76604,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -697,7 +697,7 @@
 	],
 	"find":
 	{
-		"height": 39.7727272727
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -865,7 +865,7 @@
 	"groups":
 	[
 		{
-			"selected": 12,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -892,10 +892,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1863.63636364,
+						"translation.y": 238.636363636,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1026,8 +1026,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								76538,
+								76538
 							]
 						],
 						"settings":
@@ -1035,10 +1035,10 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 13896.2272727,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1096,7 +1096,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1105,15 +1105,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3075,
+						"buffer_size": 3074,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								723,
-								723
+								1667,
+								1667
 							]
 						],
 						"settings":
@@ -1122,10 +1122,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 495.454545455,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1154,11 +1154,67 @@
 						"translation.y": 14.7727272727,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
 					"buffer": 10,
+					"file": "/home/udit/codes/pcl/opencv/CMakeLists.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1616,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								105,
+								105
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "/home/udit/codes/pcl/opencv/feature_detection.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7845,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								301,
+								301
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
 					"file": "/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
 					"semi_transient": false,
 					"settings":
@@ -1182,91 +1238,35 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "/home/udit/database_viewer/poses_database.g2o",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 76613,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "/home/udit/codes/pcl/opencv/CMakeLists.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1616,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1336,
-								1336
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
 					"buffer": 13,
-					"file": "/home/udit/codes/pcl/opencv/feature_detection.cpp",
+					"file": "/home/udit/database_viewer/poses_database.g2o",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6790,
+						"buffer_size": 76604,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5809,
-								5809
+								74785,
+								74785
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1469.31818182,
+						"translation.y": 14246.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1282,8 +1282,8 @@
 						"selection":
 						[
 							[
-								1702,
-								1702
+								4079,
+								4079
 							]
 						],
 						"settings":
@@ -1292,10 +1292,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 195.454545455,
+						"translation.y": 1325.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1303,7 +1303,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 35.2272727273
+		"height": 25.0
 	},
 	"input":
 	{
@@ -1348,7 +1348,7 @@
 	"project": "optimizer.sublime-project",
 	"replace":
 	{
-		"height": 65.9090909091
+		"height": 44.3181818182
 	},
 	"save_all_on_build": true,
 	"select_file":
