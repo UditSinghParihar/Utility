@@ -21,7 +21,7 @@ void display_image(const Mat& image){
 }
 
 void matched_pairs(const Mat& img1, const Mat& img2, vector<DMatch>& good_matches, Mat& out_image, vector<KeyPoint>& keypoints1, vector<KeyPoint>& keypoints2){
-	const int count_features = 500;
+	const int count_features = 550;
     Ptr<xfeatures2d::SIFT> feature_detect = xfeatures2d::SIFT::create(count_features);
     Mat descriptors1, descriptors2;
     feature_detect->detectAndCompute(img1, noArray(), keypoints1, descriptors1);
