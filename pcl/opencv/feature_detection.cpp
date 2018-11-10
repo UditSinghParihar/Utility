@@ -16,7 +16,7 @@ typedef pcl::PointCloud<PointT> PointCloudT;
 void display_image(const Mat& image){
 	namedWindow("opencv_viewer", WINDOW_AUTOSIZE);
 	imshow("opencv_viewer", image);
-	waitKey(2500);
+	waitKey(3000);
 	destroyWindow("opencv_viewer");
 }
 
