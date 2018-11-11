@@ -1,10 +1,10 @@
 #ignore all files in any directory named build
 build/
 
-sublimes/
-
 keras/
 
 *.out
+*.o
+*.s
 
 neural-networks-and-deep-learning/
