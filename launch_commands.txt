@@ -1,0 +1,205 @@
+ls /dev/ttyUSB* -l
+sudo chmod 777 /dev/ttyUSB0
+roslaunch p2os_launch p2os_teleop_joy.launch
+roslaunch teleop_twist_joy teleop.launch
+
+rosrun rosaria RosAria
+rosrun rosaria_client interface
+
+roslaunch openni_launch openni.launch depth_registration:=true
+rosrun image_view image_view image:=/camera/rgb/image_color
+
+rosrun tf static_transform_publisher 0.2 0 0.45 0 0 0 base_link camera_link 100
+
+roslaunch rtabmap_ros rtabmap_transform.launch rtabmap_args:="--delete_db_on_start" visual_odometry:=false frame_id:=/base_link odom_topic:=/pose rviz:=true rtabmapviz:=true
+roslaunch rtabmap_ros rtabmap_transform.launch localization:=true visual_odometry:=false frame_id:=/base_link odom_topic:=/pose rviz:=true rtabmapviz:=true
+
+roslaunch move_base move_base.launch
+rosrun rviz rviz
+
+roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" rviz:=true rtabmapviz:=true
+roslaunch rtabmap_ros rtabmap.launch localization:=true rviz:=true rtabmapviz:=true
+
+rosrun rtabmap_ros rtabmap --params # parameters
+rtabmap_args:="--delete_db_on_start" # should need to be passed, it won't delete db automatically
+
+
+## Changes in the rtabmap.launch
+
+<param name="frame_id" type="string" value="base_link"/>
+<remap from="odom" to="/base_controller/odom"/>
+or 
+<remap from="odom" to="/pose"/>
+or
+<arg name="odom_topic"               default="pose"/>
+
+$ rostopic info /rtabmap/odom
+Type : nav_msgs/Odometry
+Publishers:
+/rtabmap/rgbd_odometry
+
+Subscribers:
+/rtabmap/rtabmapviz 
+/rtabmap/rtabmap
+
+
+$ rosrun rqt_graph rqt_graph  # visualize
+
+
+$ rostopic info /pose
+
+
+position(visual_odometry/short term) v/s trajectory(loop closure/long term)
+
+
+# Error in transformations for wheel odometry 
+
+$ rosrun tf view_frames && evince frames.pdf
+$ rosrun tf tf_echo <source> <target>
+launch file -> sequentially launches
+
+#/base_link -> rotational center
+
+# 2D Pose Estimate -> positon and orientation
+# 2D Navigation Goal
+
+$ roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" visual_odometry:=false frame_id:=/base_link odom_topic:=/pose rviz:=true rtabmapviz:=true 
+
+# Navigation -> nav_msgs/OccupancyGrid -> Laser
+
+# fusing similar to turtlebot
+
+# static transform between camera_link and base_link -> kinect_odometry.launch
+# difference between frame_id and odom_frame_id and visual_odometry need to be set false 
+$ roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" visual_odometry:=true odom_topic:=/pose rviz:=true rtabmapviz:=true
+
+# Static transform publisher:
+
+<launch>
+<!-- x(in m) y z yaw(in rad) pitch roll -- >
+<node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="1 0 0 0 0 0 1 link1_parent link1 100" />
+</launch>
+
+$ rosrun tf static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms
+$ rosrun tf static_transform_publisher 0.2 0 0.45 0 0 0 base_link camera_link 100
+
+# argument -> passed through command line ; param -> set up on launch file
+
+# demo:
+$ roslaunch rtabmap_ros rgbdslam_datasets.launch
+~/data$ rosbag play --clock -d 5 -r 0.5 rgbd_dataset_freiburg3_long_office_household.bag
+
+# Loop closure:
+$ rostopic echo /rtabmap/info/loopClosureId
+
+$ rosrun rtabmap_ros rtabmap --params
+ # Optimizer\Strategy=0 # TORO
+ # Optimizer\VarianceIgnored=true # high covariance in /pose
+ # Reg\Force3Dof=true # x,y,yaw
+
+ <param name="Reg/Force3Dof" value="true"/>
+ <param name="Optimizer/Slam2D" value="true"/>
+ <param name="Optimizer/Strategy" value="0"/>
+ <param name="Optimizer/VarianceIgnored" value="0"/>
+
+
+ # scan
+  <param name="subscribe_scan"      type="bool"   value="true"/>
+
+  <!-- Navigation stuff (move_base) -->
+  <include unless="$(arg simulation)" file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+     <arg     if="$(arg sw_registered)" name="depth_registration" value="false"/>
+     <arg unless="$(arg sw_registered)" name="depth_registration" value="true"/>
+  </include>
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+
+
+roslaunch rtabmap_ros rtabmap_transform.launch rtabmap_args:="--delete_db_on_start" visual_odometry:=false frame_id:=/base_link odom_topic:=/pose subscribe_scan:=true rviz:=true rtabmapviz:=true
+roslaunch rtabmap_ros rtabmap_transform.launch localization:=true subscribe_scan:=true visual_odometry:=false frame_id:=/base_link odom_topic:=/pose rviz:=true rtabmapviz:=true
+
+
+# change demo_turtlebot_mapping.launch < rtabmap_transform.launch
+$ roslaunch rtabmap_ros demo_turtlebot_mapping_transform.launch 
+
+# c++11 errors in CmakeLists.txt -> catkin_make
+
+# rostopic pub move_base/goal messg_type 
+
+# rosparam get <parameter>
+
+# Global planner: /move_base/NavfnROS/plan
+# Local planner: /move_base/DWAPlannerROS/local..
+
+# Rosbag record
+rosbag record -O subset /turtle1/cmd_vel /turtle1/pose
+
+# Topics: /rtabmap/rtabmap subscribed to (approx sync):
+rosbag record -O rrc1 /pose /camera/rgb/image_rect_color /camera/depth_registered/image_raw /camera/rgb/camera_info /tf
+
+
+Visual odometry:
+rosbag record -O rrc1a /camera/rgb/image_rect_color /camera/depth_registered/image_raw /camera/rgb/camera_info /tf
+roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" rtabmapviz:=true use_sim_time:=true
+rosbag play --clock rrc1a.bag -d 5 -r 0.8
+
+
+ssh udit@10.2.36.224 
+[Password: udit]
+scp rrc2.bag udit@10.2.36.224:~
+
+vim escape -> : q!
+
+
+RGBD/ENABLED=1
+Frame rate of the sensor
+Loop/Highest_hypothesis_value -> >= 0.11
+
+<node pkg="rtabmap_ros" type="rtabmap" name="rtabmap">
+
+   <!-- Disable ICP refining -->
+   <!-- v0.10 --> <param name="LccIcp/Type"  type="string" value="0"/> <!-- 0=No ICP, 1=ICP 3D, 2=ICP 2D -->
+   <!-- v0.11 --> <param name="Reg/Strategy" type="string" value="0"/> <!-- 0=Vis, 1=Icp, 2=VisIcp -->
+
+   <!-- Decrease ICP correspondence ratio to 15% for example -->
+   <!-- v0.10 --> <param name="LccIcp2/CorrespondenceRatio" type="string" value="0.15"/>
+   <!-- v0.11 --> <param name="Icp/CorrespondenceRatio"     type="string" value="0.15"/>
+
+</node>
+
+<param name="RGBD/OptimizeMaxError"                type="double"      value="0.1"  />  # Increase it
+
+
+Icp/CorrespondenceRatio = 0.2 # [Max distance for point correspondences.] Default: 0.1
+RGBD/OptimizeMaxError = 1.5  # Default: 1 [Reject loop closures if optimization error ratio is greater than this value]
+
+Default:
+Vis/MinInliers = "20" # Minimum feature correspondences to compute/accept the transformation.
+Vis/InlierDistance = "0.1"  # [Vis/EstimationType = 0] Maximum distance for feature correspondences. Used by 3D->3D estimation approach
+
+rqt_plot /pose/twist/twist/linear/x /cmd_vel/linear/x
+
+source ~/softwares/tensorflow/venv/bin/activate # $ start_tf
+
+df -h 
+sudo du -cha --max-depth=1 | grep -E "M|G"
+
+
+python download_mp.py -o '/media/udit/Seagate Backup Plus Drive/Matterport_Dataset' & while true ; do du -h --max-depth=1 /media/udit/Seagate\ Backup\ Plus\ Drive/Matterport_Dataset/ ; done
+ 
+# Real time gpu monitor
+watch -n 1 nvidia-smi 
+
+
+ssh avijit@10.2.132.9  [pasword: ultimate2]
+ssh udit@10.2.36.224 [password: udit]
+# internal ip address
+ip route get 8.8.8.8 | awk '{print $NF; exit}'
+sudo service ssh restart
+
+
+tmux attach-session -t <session-name>
+tmux list-sessions 
+tmux new -s <session-name>
+
+#internet restart
+sudo service network-manager restart
