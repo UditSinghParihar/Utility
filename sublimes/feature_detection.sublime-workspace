@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"g2o",
+				"g2o_file"
+			],
+			[
+				"tra",
+				"transforms"
+			],
+			[
 				"m",
 				"m_id"
 			],
@@ -400,7 +408,7 @@
 			"file": "/home/udit/codes/pcl/cloud_assemble.cpp",
 			"settings":
 			{
-				"buffer_size": 3726,
+				"buffer_size": 4799,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -594,7 +602,7 @@
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 39.7727272727
 	},
 	"find_in_files":
 	{
@@ -608,6 +616,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"pair",
+			"get_sorted_clouds",
+			"find_spaces",
+			"get_homogeneous",
 			"hethod",
 			"Registration",
 			"_voxelSize",
@@ -731,11 +743,7 @@
 			"linksin",
 			"linksout",
 			"linksin",
-			"1000.000000",
-			"iteration nr",
-			"press q",
-			"PCL_INFO",
-			"press q"
+			"1000.000000"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -762,7 +770,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -778,8 +786,8 @@
 						"selection":
 						[
 							[
-								84,
-								84
+								0,
+								0
 							]
 						],
 						"settings":
@@ -790,7 +798,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -799,15 +807,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3726,
+						"buffer_size": 4799,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2656,
-								2656
+								467,
+								467
 							]
 						],
 						"settings":
@@ -816,10 +824,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1171.59090909,
+						"translation.y": 230.681818182,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -835,8 +843,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								353,
+								353
 							]
 						],
 						"settings":
@@ -847,7 +855,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
