@@ -203,3 +203,6 @@ tmux new -s <session-name>
 
 #internet restart
 sudo service network-manager restart
+
+# installed packages
+sudo apt list --installed

@@ -391,7 +391,8 @@
 			"file": "/home/udit/codes/launch_commands.txt",
 			"settings":
 			{
-				"buffer_size": 7248,
+				"buffer_size": 7295,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
@@ -506,6 +507,7 @@
 	},
 	"file_history":
 	[
+		"/home/udit/catkin_ws/src/realsense-2.1.1/README.md",
 		"/home/udit/data/launch_commands.txt",
 		"/home/udit/data/bagfiles/wheel_odom/all_rrc2/poses_modified_3dof.g2o",
 		"/home/udit/codes/pcl/optimized_poses2.g2o",
@@ -632,8 +634,7 @@
 		"/home/udit/catkin_ws/src/rtabmap_ros/cfg/rtabmap.ini",
 		"/home/udit/softwares/g2o/README.md",
 		"/usr/local/lib/librtabmap_core.so.0.17.5",
-		"/home/udit/Rtabmap_modified.cpp",
-		"/home/udit/Rtabmap_modified.h"
+		"/home/udit/Rtabmap_modified.cpp"
 	],
 	"find":
 	{
@@ -651,6 +652,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ssh",
+			"apt",
+			"list",
+			"simple_vi",
+			"simple",
 			"hethod",
 			"Registration",
 			"_voxelSize",
@@ -773,12 +779,7 @@
 			"getconnectedgraph",
 			"linksin",
 			"linksout",
-			"linksin",
-			"1000.000000",
-			"iteration nr",
-			"press q",
-			"PCL_INFO",
-			"press q"
+			"linksin"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -814,15 +815,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7248,
+						"buffer_size": 7295,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6993,
-								6993
+								7295,
+								7295
 							]
 						],
 						"settings":
@@ -832,7 +833,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2736.36363636,
+						"translation.y": 2480.68181818,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -864,7 +865,7 @@
 						"translation.y": 156.818181818,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -890,10 +891,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 234.090909091,
+						"translation.y": 118.181818182,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -909,8 +910,8 @@
 						"selection":
 						[
 							[
-								1552,
-								1552
+								1978,
+								1978
 							]
 						],
 						"settings":
@@ -919,10 +920,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 482.954545455,
+						"translation.y": 547.727272727,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -951,7 +952,7 @@
 						"translation.y": 14.7727272727,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -1007,7 +1008,7 @@
 						"translation.y": 531.818181818,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1023,8 +1024,8 @@
 						"selection":
 						[
 							[
-								4465,
-								4465
+								965,
+								965
 							]
 						],
 						"settings":
@@ -1033,10 +1034,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 975.0,
+						"translation.y": 78.4090909091,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
