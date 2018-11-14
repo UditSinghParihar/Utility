@@ -179,7 +179,7 @@ public:
 		load_point_cloud(1);
 		add_to_map();
 		
-		for(size_t i=0; i<10; ++i){
+		for(size_t i=50; i<100; ++i){
 			int cloud_to_load = transforms[i][1];
 			if(cloud_queue[cloud_to_load] == false){
 				cloud_queue[cloud_to_load] = true;

@@ -4,31 +4,107 @@
 		"selected_items":
 		[
 			[
-				"g2o",
-				"g2o_file"
+				"transformpoin",
+				"transform_point_cloud"
+			],
+			[
+				"hom",
+				"homogeneous"
+			],
+			[
+				"ho",
+				"homogeneous"
+			],
+			[
+				"tr",
+				"transfomed_cloud"
+			],
+			[
+				"ass",
+				"assemble_clouds"
+			],
+			[
+				"add",
+				"add_to_map"
 			],
 			[
 				"tra",
 				"transforms"
 			],
 			[
+				"get",
+				"get_homogeneous"
+			],
+			[
+				"new",
+				"new_point_cloud"
+			],
+			[
+				"nw",
+				"new_point_cloud"
+			],
+			[
+				"load",
+				"load_point_cloud"
+			],
+			[
+				"cloud",
+				"cloud_parser"
+			],
+			[
+				"pointclo",
+				"PointCloudT"
+			],
+			[
+				"Point",
+				"PointCloudT"
+			],
+			[
+				"prin",
+				"print_cloud_queue"
+			],
+			[
+				"clou",
+				"cloud_queue"
+			],
+			[
+				"get_clou",
+				"get_cloud_names"
+			],
+			[
+				"loa",
+				"load_clouds"
+			],
+			[
+				"in",
+				"index"
+			],
+			[
+				"c",
+				"coordinates"
+			],
+			[
+				"m_",
+				"m_x"
+			],
+			[
 				"m",
-				"m_id"
+				"m_y"
+			],
+			[
+				"size",
+				"size_t"
+			],
+			[
+				"g2o",
+				"g2oParser"
 			],
 			[
 				"co",
 				"color"
 			],
 			[
-				"c",
-				"c_str"
-			],
-			[
 				"ge",
-				"get_color"
-			],
-			[
-				"get",
 				"get_color"
 			],
 			[
@@ -56,10 +132,6 @@
 				"price"
 			],
 			[
-				"in",
-				"int_array"
-			],
-			[
 				"T",
 				"T"
 			],
@@ -70,10 +142,6 @@
 			[
 				"int",
 				"int_array"
-			],
-			[
-				"m_",
-				"m_num"
 			],
 			[
 				"ob",
@@ -96,20 +164,12 @@
 				"house"
 			],
 			[
-				"prin",
-				"print1"
-			],
-			[
 				"In",
 				"Inside"
 			],
 			[
 				"print",
 				"print2"
-			],
-			[
-				"ho",
-				"house_owner"
 			],
 			[
 				"h",
@@ -130,10 +190,6 @@
 			[
 				"arg",
 				"argv"
-			],
-			[
-				"hom",
-				"homogeneous_to_quaternion"
 			],
 			[
 				"st",
@@ -158,10 +214,6 @@
 			[
 				"t",
 				"target"
-			],
-			[
-				"tr",
-				"transformPointCloud"
 			],
 			[
 				"tar",
@@ -206,10 +258,6 @@
 			[
 				"out",
 				"output"
-			],
-			[
-				"loa",
-				"loadPCDFile"
 			],
 			[
 				"deg",
@@ -399,7 +447,7 @@
 			"file": "/home/udit/codes/pcl/opencv/feature_detection.cpp",
 			"settings":
 			{
-				"buffer_size": 7856,
+				"buffer_size": 7983,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -408,17 +456,16 @@
 			"file": "/home/udit/codes/pcl/cloud_assemble.cpp",
 			"settings":
 			{
-				"buffer_size": 4799,
+				"buffer_size": 5146,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/udit/codes/pcl/opencv/CMakeLists.txt",
+			"file": "/home/udit/database_viewer/optimized.g2o",
 			"settings":
 			{
-				"buffer_size": 1616,
-				"encoding": "UTF-8",
+				"buffer_size": 39736,
 				"line_ending": "Unix"
 			}
 		}
@@ -471,6 +518,23 @@
 	},
 	"file_history":
 	[
+		"/home/udit/codes/sublime_test.cpp",
+		"/home/udit/codes/sorted.cpp",
+		"/home/udit/codes/vectors.cpp",
+		"/home/udit/codes/calculate.cpp",
+		"/home/udit/codes/test.cpp",
+		"/home/udit/projects/loop_closure/README.md",
+		"/home/udit/data/matterport_warehouse/all/images_addresses/rgb_imgs_medium.txt",
+		"/home/udit/projects/loop_closure/manual_icp/CMakeLists.txt",
+		"/home/udit/projects/loop_closure/cloud_assemble/cloud_assemble.cpp",
+		"/home/udit/projects/loop_closure/cloud_assemble/CMakeLists.txt",
+		"/home/udit/projects/loop_closure/.gitignore",
+		"/home/udit/codes/pcl/opencv/CMakeLists.txt",
+		"/home/udit/codes/pcl/CMakeLists.txt",
+		"/home/udit/database_viewer/optimized.g2o",
+		"/home/udit/codes/pcl/include/g2o_parser.h",
+		"/home/udit/codes/monster.cpp",
+		"/home/udit/codes/const_class_member.cpp",
 		"/home/udit/softwares/rtabmap/corelib/src/Rtabmap.cpp",
 		"/home/udit/softwares/rtabmap/corelib/include/rtabmap/core/Rtabmap.h",
 		"/usr/local/lib/pkgconfig/opencv4.pc",
@@ -506,7 +570,6 @@
 		"/home/udit/softwares/libviso2/readme.txt",
 		"/home/udit/codes/file_parser",
 		"/home/udit/softwares/libviso2/CMakeLists.txt",
-		"/home/udit/codes/pcl/CMakeLists.txt",
 		"/home/udit/softwares/rtabmap/guilib/src/DatabaseViewer.cpp",
 		"/home/udit/codes/math_test.cpp",
 		"/home/udit/corridor1/corridor1.g2o",
@@ -516,7 +579,6 @@
 		"/home/udit/codes/eigen_test.cpp",
 		"/home/udit/corridor1.g2o",
 		"/home/udit/delete_me_later.tmp",
-		"/home/udit/codes/vectors.cpp",
 		"/home/udit/softwares/rtabmap/tools/DatabaseViewer/main.cpp",
 		"/home/udit/softwares/rtabmap/corelib/src/DBReader.cpp",
 		"/home/udit/softwares/rtabmap/corelib/src/DBDriver.cpp",
@@ -583,22 +645,7 @@
 		"/home/udit/isam.g2o",
 		"/home/udit/codes/pcl/pcl_load.cpp",
 		"/home/udit/poses.txt",
-		"/home/udit/codes/template.cpp",
-		"/home/udit/codes/passing2.cpp",
-		"/home/udit/codes/passing.cpp",
-		"/home/udit/codes/multithreading.cpp",
-		"/home/udit/catkin_ws/src/rtabmap_ros/launch/custom_launch/export.launch",
-		"/home/udit/Documents/RTAB-Map/poses.g2o",
-		"/home/udit/codes/static_test.cpp",
-		"/home/udit/tmux.send",
-		"/home/udit/codes/calculate.cpp",
-		"/home/udit/catkin_ws/src/rtabmap_ros/cfg/rtabmap.ini",
-		"/home/udit/softwares/g2o/README.md",
-		"/usr/local/lib/librtabmap_core.so.0.17.5",
-		"/home/udit/Rtabmap_modified.cpp",
-		"/home/udit/Rtabmap_modified.h",
-		"/home/udit/softwares/rtabmap/corelib/include/rtabmap/core/Link.h",
-		"/home/udit/softwares/rtabmap/corelib/include/rtabmap/core/Optimizer.h"
+		"/home/udit/codes/template.cpp"
 	],
 	"find":
 	{
@@ -616,6 +663,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cloud_queue",
+			"print_tr",
+			"inverse",
+			"homogeneous",
+			"transform",
+			"transfomr",
+			"homogenous",
+			"new",
+			"transformPointCloud",
+			"Assembled_cloud",
+			"make_pair",
+			"cloud_names",
+			"make_pair",
+			"pair",
+			"Foo",
 			"pair",
 			"get_sorted_clouds",
 			"find_spaces",
@@ -728,22 +790,7 @@
 			"_memory",
 			"_optimizedPoses",
 			"()",
-			"optimize",
-			"incGraph",
-			"optimize",
-			"optimizer_",
-			"optimizeFromLastNode_",
-			"uassert",
-			"type",
-			"OptimizerG2O",
-			"optimizer",
-			"constraints",
-			"constr",
-			"getconnectedgraph",
-			"linksin",
-			"linksout",
-			"linksin",
-			"1000.000000"
+			"optimize"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -751,6 +798,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"cloud_paths",
+			"Point",
 			"simple_visualize",
 			"radian",
 			"0.000001",
@@ -764,13 +813,13 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -779,15 +828,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7856,
+						"buffer_size": 7983,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								7983,
+								7983
 							]
 						],
 						"settings":
@@ -795,10 +844,10 @@
 							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1781.81818182,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -807,15 +856,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4799,
+						"buffer_size": 5146,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								467,
-								467
+								4496,
+								4496
 							]
 						],
 						"settings":
@@ -824,27 +873,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 230.681818182,
+						"translation.y": 2067.04545455,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/home/udit/codes/pcl/opencv/CMakeLists.txt",
+					"file": "/home/udit/database_viewer/optimized.g2o",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1616,
+						"buffer_size": 39736,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								353,
-								353
+								940,
+								940
 							]
 						],
 						"settings":
@@ -855,7 +904,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -908,7 +957,7 @@
 	"project": "feature_detection.sublime-project",
 	"replace":
 	{
-		"height": 44.3181818182
+		"height": 68.7727272727
 	},
 	"save_all_on_build": true,
 	"select_file":
