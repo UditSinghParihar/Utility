@@ -4,6 +4,58 @@
 		"selected_items":
 		[
 			[
+				"le",
+				"leaf_size"
+			],
+			[
+				"save",
+				"save_to_pcd"
+			],
+			[
+				"ass",
+				"assembled_map"
+			],
+			[
+				"clo",
+				"cloud_index"
+			],
+			[
+				"gre",
+				"green_colorization"
+			],
+			[
+				"sim",
+				"simple_visualize"
+			],
+			[
+				"red",
+				"red_colorization"
+			],
+			[
+				"simpl",
+				"simple_voxelize"
+			],
+			[
+				"vox",
+				"voxelized_cloud"
+			],
+			[
+				"arg",
+				"argc"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"vo",
+				"voxelized_cloud"
+			],
+			[
+				"voxe",
+				"voxelized_cloud"
+			],
+			[
 				"transformpoin",
 				"transform_point_cloud"
 			],
@@ -18,10 +70,6 @@
 			[
 				"tr",
 				"transfomed_cloud"
-			],
-			[
-				"ass",
-				"assemble_clouds"
 			],
 			[
 				"add",
@@ -172,10 +220,6 @@
 				"print2"
 			],
 			[
-				"h",
-				"house_number"
-			],
-			[
 				"dir",
 				"directory"
 			],
@@ -188,10 +232,6 @@
 				"directory"
 			],
 			[
-				"arg",
-				"argv"
-			],
-			[
 				"st",
 				"stdout"
 			],
@@ -202,10 +242,6 @@
 			[
 				"target",
 				"target"
-			],
-			[
-				"sim",
-				"simple_visualize"
 			],
 			[
 				"sou",
@@ -456,7 +492,16 @@
 			"file": "/home/udit/codes/pcl/cloud_assemble.cpp",
 			"settings":
 			{
-				"buffer_size": 5146,
+				"buffer_size": 6754,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/codes/pcl/colorize.cpp",
+			"settings":
+			{
+				"buffer_size": 1322,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -518,19 +563,25 @@
 	},
 	"file_history":
 	[
+		"/home/udit/Desktop/poses.g2o",
+		"/home/udit/projects/loop_closure/docs/reading_resources.md",
+		"/home/udit/projects/loop_closure/README.md",
+		"/home/udit/codes/pcl/voxelize.cpp",
+		"/home/udit/catkin_ws/src/rtabmap_ros/launch/custom_launch/realsense_play.launch",
+		"/home/udit/catkin_ws/src/rtabmap_ros/launch/custom_launch/export.launch",
+		"/home/udit/data/matterport_warehouse/all/predictions/medium_predictions.txt",
+		"/home/udit/data/matterport_warehouse/all/images_addresses/rgb_imgs_medium.txt",
+		"/home/udit/codes/pcl/CMakeLists.txt",
 		"/home/udit/codes/sublime_test.cpp",
 		"/home/udit/codes/sorted.cpp",
 		"/home/udit/codes/vectors.cpp",
 		"/home/udit/codes/calculate.cpp",
 		"/home/udit/codes/test.cpp",
-		"/home/udit/projects/loop_closure/README.md",
-		"/home/udit/data/matterport_warehouse/all/images_addresses/rgb_imgs_medium.txt",
 		"/home/udit/projects/loop_closure/manual_icp/CMakeLists.txt",
 		"/home/udit/projects/loop_closure/cloud_assemble/cloud_assemble.cpp",
 		"/home/udit/projects/loop_closure/cloud_assemble/CMakeLists.txt",
 		"/home/udit/projects/loop_closure/.gitignore",
 		"/home/udit/codes/pcl/opencv/CMakeLists.txt",
-		"/home/udit/codes/pcl/CMakeLists.txt",
 		"/home/udit/database_viewer/optimized.g2o",
 		"/home/udit/codes/pcl/include/g2o_parser.h",
 		"/home/udit/codes/monster.cpp",
@@ -639,17 +690,11 @@
 		"/home/udit/softwares/isam/data/sphere2500.txt",
 		"/home/udit/softwares/isam/data/manhattanOlson3500.txt",
 		"/home/udit/softwares/isam/data/torus10000.txt",
-		"/home/udit/softwares/isam/data/torus2000Points.txt",
-		"/home/udit/softwares/isam/doc/README",
-		"/home/udit/softwares/isam/CMakeLists.txt",
-		"/home/udit/isam.g2o",
-		"/home/udit/codes/pcl/pcl_load.cpp",
-		"/home/udit/poses.txt",
-		"/home/udit/codes/template.cpp"
+		"/home/udit/softwares/isam/data/torus2000Points.txt"
 	],
 	"find":
 	{
-		"height": 39.7727272727
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -663,6 +708,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"green",
+			"red",
+			"simple_visualize",
+			"voxelized_cloud",
+			"assembled_map",
 			"cloud_queue",
 			"print_tr",
 			"inverse",
@@ -785,12 +835,7 @@
 			"edgeConstraints",
 			"optimize",
 			"optimizeCurrentMap",
-			"Link",
-			"_optimizedPoses",
-			"_memory",
-			"_optimizedPoses",
-			"()",
-			"optimize"
+			"Link"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -798,6 +843,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"corridor",
+			"between_racks",
+			"cloud",
 			"cloud_paths",
 			"Point",
 			"simple_visualize",
@@ -813,13 +861,13 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -835,8 +883,8 @@
 						"selection":
 						[
 							[
-								7983,
-								7983
+								5353,
+								5353
 							]
 						],
 						"settings":
@@ -844,10 +892,10 @@
 							"syntax": "Packages/C++/C++.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1781.81818182,
+						"translation.y": 1300.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -856,15 +904,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5146,
+						"buffer_size": 6754,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4496,
-								4496
+								5537,
+								5537
 							]
 						],
 						"settings":
@@ -873,14 +921,42 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2067.04545455,
+						"translation.y": 2743.18181818,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/udit/codes/pcl/colorize.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1322,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1310,
+								1310
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "/home/udit/database_viewer/optimized.g2o",
 					"semi_transient": false,
 					"settings":
@@ -892,8 +968,8 @@
 						"selection":
 						[
 							[
-								940,
-								940
+								2107,
+								2107
 							]
 						],
 						"settings":
@@ -901,10 +977,10 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 428.409090909,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -957,7 +1033,7 @@
 	"project": "feature_detection.sublime-project",
 	"replace":
 	{
-		"height": 68.7727272727
+		"height": 69.3181818182
 	},
 	"save_all_on_build": true,
 	"select_file":

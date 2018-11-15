@@ -507,6 +507,7 @@
 	},
 	"file_history":
 	[
+		"/home/udit/projects/loop_closure/rtabmap_configurations/rtabmap.ini",
 		"/home/udit/catkin_ws/src/realsense-2.1.1/README.md",
 		"/home/udit/data/launch_commands.txt",
 		"/home/udit/data/bagfiles/wheel_odom/all_rrc2/poses_modified_3dof.g2o",
@@ -633,8 +634,7 @@
 		"/home/udit/codes/calculate.cpp",
 		"/home/udit/catkin_ws/src/rtabmap_ros/cfg/rtabmap.ini",
 		"/home/udit/softwares/g2o/README.md",
-		"/usr/local/lib/librtabmap_core.so.0.17.5",
-		"/home/udit/Rtabmap_modified.cpp"
+		"/usr/local/lib/librtabmap_core.so.0.17.5"
 	],
 	"find":
 	{
@@ -652,6 +652,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"optimize",
 			"ssh",
 			"apt",
 			"list",
@@ -778,8 +779,7 @@
 			"constr",
 			"getconnectedgraph",
 			"linksin",
-			"linksout",
-			"linksin"
+			"linksout"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -800,7 +800,7 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
@@ -822,8 +822,8 @@
 						"selection":
 						[
 							[
-								7295,
-								7295
+								5258,
+								5258
 							]
 						],
 						"settings":
@@ -833,7 +833,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2480.68181818,
+						"translation.y": 1771.59090909,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
