@@ -424,33 +424,6 @@
 			}
 		},
 		{
-			"file": "/home/udit/codes/pcl/transformation.cpp",
-			"settings":
-			{
-				"buffer_size": 1756,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
-			"settings":
-			{
-				"buffer_size": 72581,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/udit/database_viewer/poses_database.g2o",
-			"settings":
-			{
-				"buffer_size": 76869,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "/home/udit/codes/pcl/manual_correspondance.cpp",
 			"settings":
 			{
@@ -507,6 +480,8 @@
 	},
 	"file_history":
 	[
+		"/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
+		"/home/udit/codes/pcl/transformation.cpp",
 		"/home/udit/projects/loop_closure/rtabmap_configurations/rtabmap.ini",
 		"/home/udit/catkin_ws/src/realsense-2.1.1/README.md",
 		"/home/udit/data/launch_commands.txt",
@@ -564,7 +539,6 @@
 		"/home/udit/rrc2_test/poses_rrc2.g2o",
 		"/home/udit/codes/static_lookup.cpp",
 		"/home/udit/codes/static.cpp",
-		"/home/udit/codes/pcl/transformation.cpp",
 		"/home/udit/softwares/gtborg-gtsam-6b6a8495bb91/GTSAM-Concepts.md",
 		"/home/udit/Downloads/stockfish-9-linux/src/bitboard.cpp",
 		"/home/udit/Downloads/stockfish-9-linux/src/main.cpp",
@@ -575,7 +549,6 @@
 		"/home/udit/sort_3dof.txt",
 		"/home/udit/softwares/isam/data/city10000.txt",
 		"/home/udit/softwares/isam/examples/example.cpp",
-		"/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
 		"/media/udit/JARVIS_USB/rrc2/poses_original_3dof.g2o",
 		"/home/udit/data/bagfiles/wheel_odom/all_rrc2/poses_original_3dof.g2o",
 		"/home/udit/data/bagfiles/wheel_odom/all_rrc2/images/rrc2_3dof.yaml",
@@ -822,8 +795,8 @@
 						"selection":
 						[
 							[
-								5258,
-								5258
+								6915,
+								6919
 							]
 						],
 						"settings":
@@ -833,7 +806,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1771.59090909,
+						"translation.y": 2437.5,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -852,8 +825,8 @@
 						"selection":
 						[
 							[
-								1285,
-								1285
+								0,
+								0
 							]
 						],
 						"settings":
@@ -862,10 +835,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 156.818181818,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -891,10 +864,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 118.181818182,
+						"translation.y": 76.1363636364,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -920,7 +893,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 547.727272727,
+						"translation.y": 387.5,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -928,91 +901,6 @@
 				},
 				{
 					"buffer": 4,
-					"file": "/home/udit/codes/pcl/transformation.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1756,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								47,
-								47
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 14.7727272727,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 72581,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/home/udit/database_viewer/poses_database.g2o",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 76869,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								76869,
-								76869
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 531.818181818,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
 					"file": "/home/udit/codes/pcl/manual_correspondance.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1037,7 +925,7 @@
 						"translation.y": 78.4090909091,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
