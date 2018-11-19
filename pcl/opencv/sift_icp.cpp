@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <opencv2/opencv.hpp>
 #include <opencv2/xfeatures2d.hpp>
 #include <pcl/point_types.h>
@@ -84,9 +85,12 @@ private:
 	PointCloudT::Ptr source, target;
 	pcl::Correspondences correspondences;
 	Eigen::Matrix4f homogeneous;
+	vector<int> cloud1_keypoints;
+	vector<int> cloud2_keypoints;
 
 private:
-	PointCloudT::Ptr images2cloud(const Mat& rgb_image, const Mat& depth_image, const vector<pair<int, int>> &coordinates, vector<int>& out_cloud_indexes){
+	PointCloudT::Ptr images2cloud_debug(const Mat& rgb_image, const Mat& depth_image, const vector<pair<int, int>> &coordinates, 
+										vector<int>& out_cloud_indexes, vector<int>& cloud_keypoints){
 		const float f = 570.3, cx = 320.0, cy = 240.0;
 		PointCloudT::Ptr cloud(new PointCloudT());
 		cloud->width = rgb_image.cols;
@@ -99,9 +103,6 @@ private:
 			for(int x=0; x<rgb_image.cols; ++x){
 				pcl::PointXYZRGB point;
 				if(depth_image.at<unsigned short>(y, x) == 0){
-					//point.x = bad_point;
-					//point.y = bad_point;
-					//point.z = bad_point;
 					++bad_image_index;
 				}
 				else{
@@ -112,26 +113,43 @@ private:
 					point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
 					point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
 					std::pair<int, int> element = std::make_pair(x, y);
-					if(std::find(coordinates.begin(), coordinates.end(), element) != coordinates.end()){
-						//cout << "Matched cloud point index: " << image_index << endl;
+					auto iter = std::find(coordinates.begin(), coordinates.end(), element);
+					if(iter != coordinates.end()){
 						out_cloud_indexes.push_back(image_index);
+						int element_index = distance(coordinates.begin(), iter);
+						cloud_keypoints.push_back(element_index);
 					}
 					++image_index;
 					cloud->points.push_back(point);
 				}
 			}
 		}
-		fprintf(stdout, "bad_image_index: %d\timage_index: %d\tMatched cloud points: %lu\n", bad_image_index, image_index, out_cloud_indexes.size());
 		return cloud;
 	}
 
-	void fill_correspondences(void){
-		fprintf(stdout, "Size of cloud_indexes1: %lu\nSize of cloud_indexes2: %lu\n", cloud_indexes1.size(), cloud_indexes2.size());
-		for(int i=0; i<cloud_indexes1.size(); ++i){
-			correspondences.push_back(pcl::Correspondence(cloud_indexes1[i], cloud_indexes2[i], 0.0));
+	void print_cloud_keypoints(const vector<int>& cloud_indexes, const vector<int>& cloud_keypoints){
+		fprintf(stdout, "size cloud_indexes: %lu\tsize cloud_keypoints: %lu\n", cloud_indexes.size(), cloud_keypoints.size());
+		for(auto element : cloud_keypoints){
+			cout << element << "\t" << endl;
 		}
 	}
 
+	void fill_correspondences(void){
+		for(int index1=0; index1<cloud1_keypoints.size(); ++index1){
+			auto iter = std::find(cloud2_keypoints.begin(), cloud2_keypoints.end(), cloud1_keypoints[index1]);
+			if(iter != cloud2_keypoints.end()){
+				int index2 = distance(cloud2_keypoints.begin(), iter);
+				correspondences.push_back(pcl::Correspondence(cloud_indexes1[index1], cloud_indexes2[index2], 0.0));
+			}
+		}
+	}
+
+	void print_correspondences(void){
+		cout << "Size of correspondences: " << correspondences.size() << endl;
+		for(size_t i=0; i<correspondences.size(); ++i){
+			cout << correspondences[i] << endl;
+		}
+	}
 	void simple_icp(void){
 		if(correspondences.size() == 0){
 			cout << "Doing align\n";
@@ -150,9 +168,6 @@ private:
 			transform_estimation.estimateRigidTransformation(*source, *target, correspondences, homogeneous);
 		}
 		transformPointCloud(*target, *target, homogeneous.inverse());
-		/*for(size_t i=0; i<correspondences.size(); ++i){
-			cout << correspondences[i] << endl;
-		}*/
 	}
 
 	void display_homogeneous_to_quaternion(void){
@@ -172,7 +187,7 @@ private:
 
 	void simple_visualize(void){
 		pcl::visualization::PCLVisualizer viewer("ICP");
-		//viewer.addCorrespondences<PointT>(source, target, correspondences);
+		viewer.addCorrespondences<PointT>(source, target, correspondences);
 		pcl::visualization::PointCloudColorHandlerCustom<PointT> rgb1(source, 230, 20, 20);
 		pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb2(target);
 		viewer.addPointCloud(source, rgb1, "source");
@@ -196,11 +211,14 @@ public:
 	
 	void start_processing(void){
 		fprintf(stdout, "Size of kps1_coord: %lu\nSize of kps2_coord: %lu\n", kps1_coord.size(), kps2_coord.size());
-		source = images2cloud(rgb1, depth1, kps1_coord, cloud_indexes1);
-		target = images2cloud(rgb2, depth2, kps2_coord, cloud_indexes2);
+		source = images2cloud_debug(rgb1, depth1, kps1_coord, cloud_indexes1, cloud1_keypoints);
+		target = images2cloud_debug(rgb2, depth2, kps2_coord, cloud_indexes2, cloud2_keypoints);
 		fill_correspondences();
-		//simple_icp();
-		//display_homogeneous_to_quaternion();
+		// print_cloud_keypoints(cloud_indexes1, cloud1_keypoints);
+		// print_cloud_keypoints(cloud_indexes2, cloud2_keypoints);
+		// print_correspondences();
+		simple_icp();
+		display_homogeneous_to_quaternion();
 		simple_visualize();
 	}
 };
