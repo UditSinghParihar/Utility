@@ -26,7 +26,7 @@ private:
 	void display_corresponding_image(void){
 		namedWindow("opencv_viewer", WINDOW_AUTOSIZE);
 		imshow("opencv_viewer", matched_image);
-		waitKey(3000);
+		waitKey(2500);
 		destroyWindow("opencv_viewer");
 	}
 
@@ -121,11 +121,12 @@ private:
 				}
 			}
 		}
-		fprintf(stdout, "bad_image_index: %d\t image_index: %d\t rows: %d\t cols: %d\n", bad_image_index, image_index, rgb_image.rows, rgb_image.cols);
+		fprintf(stdout, "bad_image_index: %d\timage_index: %d\tMatched cloud points: %lu\n", bad_image_index, image_index, out_cloud_indexes.size());
 		return cloud;
 	}
 
 	void fill_correspondences(void){
+		fprintf(stdout, "Size of cloud_indexes1: %lu\nSize of cloud_indexes2: %lu\n", cloud_indexes1.size(), cloud_indexes2.size());
 		for(int i=0; i<cloud_indexes1.size(); ++i){
 			correspondences.push_back(pcl::Correspondence(cloud_indexes1[i], cloud_indexes2[i], 0.0));
 		}
@@ -154,7 +155,7 @@ private:
 		}*/
 	}
 
-	void homogeneous_to_quaternion(void){
+	void display_homogeneous_to_quaternion(void){
 		Eigen::Matrix3f rotate;
 		for(int i = 0; i<3 ; i++)
 			for(int j = 0; j<3 ; j++ )
@@ -171,7 +172,7 @@ private:
 
 	void simple_visualize(void){
 		pcl::visualization::PCLVisualizer viewer("ICP");
-		viewer.addCorrespondences<PointT>(source, target, correspondences);
+		//viewer.addCorrespondences<PointT>(source, target, correspondences);
 		pcl::visualization::PointCloudColorHandlerCustom<PointT> rgb1(source, 230, 20, 20);
 		pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb2(target);
 		viewer.addPointCloud(source, rgb1, "source");
@@ -194,11 +195,12 @@ public:
 					target{new PointCloudT}{};
 	
 	void start_processing(void){
+		fprintf(stdout, "Size of kps1_coord: %lu\nSize of kps2_coord: %lu\n", kps1_coord.size(), kps2_coord.size());
 		source = images2cloud(rgb1, depth1, kps1_coord, cloud_indexes1);
 		target = images2cloud(rgb2, depth2, kps2_coord, cloud_indexes2);
 		fill_correspondences();
-		simple_icp();
-		homogeneous_to_quaternion();
+		//simple_icp();
+		//display_homogeneous_to_quaternion();
 		simple_visualize();
 	}
 };
