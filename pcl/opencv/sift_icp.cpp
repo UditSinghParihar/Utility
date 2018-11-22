@@ -89,7 +89,7 @@ private:
 	vector<int> cloud2_keypoints;
 
 private:
-	PointCloudT::Ptr images2cloud_debug(const Mat& rgb_image, const Mat& depth_image, const vector<pair<int, int>> &coordinates, 
+	PointCloudT::Ptr images2cloud(const Mat& rgb_image, const Mat& depth_image, const vector<pair<int, int>> &coordinates, 
 										vector<int>& out_cloud_indexes, vector<int>& cloud_keypoints){
 		const float f = 570.3, cx = 320.0, cy = 240.0;
 		PointCloudT::Ptr cloud(new PointCloudT());
@@ -150,6 +150,11 @@ private:
 			cout << correspondences[i] << endl;
 		}
 	}
+
+	void transform_cloud(Eigen::Matrix4f transform){
+		transformPointCloud(*target, *target, transform);
+	}
+
 	void simple_icp(void){
 		if(correspondences.size() == 0){
 			cout << "Doing align\n";
@@ -167,7 +172,8 @@ private:
 			pcl::registration::TransformationEstimationSVD<PointT, PointT> transform_estimation;
 			transform_estimation.estimateRigidTransformation(*source, *target, correspondences, homogeneous);
 		}
-		transformPointCloud(*target, *target, homogeneous.inverse());
+		transform_cloud(homogeneous.inverse());
+		//transformPointCloud(*target, *target, homogeneous.inverse());
 	}
 
 	void display_homogeneous_to_quaternion(void){
@@ -185,8 +191,15 @@ private:
 		fprintf(stdout, "g2o edge:\n%f %f 0 0 0 %f %f\n", homogeneous(0,3), homogeneous(1,3), coeffs[2], coeffs[3]);
 	}
 
+	Eigen::Matrix4f get_translation_matrix(void){
+		Eigen::Matrix4f translation = Eigen::Matrix4f::Identity();
+		homogeneous(3, 2) = 100;
+		return translation;
+	}
+
 	void simple_visualize(void){
 		pcl::visualization::PCLVisualizer viewer("ICP");
+		viewer.addCoordinateSystem(1.0);
 		viewer.addCorrespondences<PointT>(source, target, correspondences);
 		pcl::visualization::PointCloudColorHandlerCustom<PointT> rgb1(source, 230, 20, 20);
 		pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb2(target);
@@ -196,6 +209,7 @@ private:
 		while(! viewer.wasStopped())
 			viewer.spinOnce();
 	}
+
 
 public:
 	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2, 
@@ -211,14 +225,16 @@ public:
 	
 	void start_processing(void){
 		fprintf(stdout, "Size of kps1_coord: %lu\nSize of kps2_coord: %lu\n", kps1_coord.size(), kps2_coord.size());
-		source = images2cloud_debug(rgb1, depth1, kps1_coord, cloud_indexes1, cloud1_keypoints);
-		target = images2cloud_debug(rgb2, depth2, kps2_coord, cloud_indexes2, cloud2_keypoints);
+		source = images2cloud(rgb1, depth1, kps1_coord, cloud_indexes1, cloud1_keypoints);
+		target = images2cloud(rgb2, depth2, kps2_coord, cloud_indexes2, cloud2_keypoints);
 		fill_correspondences();
+		Eigen::Matrix4f translate = get_translation_matrix();
+		transform_cloud(translate);
 		// print_cloud_keypoints(cloud_indexes1, cloud1_keypoints);
 		// print_cloud_keypoints(cloud_indexes2, cloud2_keypoints);
 		// print_correspondences();
-		simple_icp();
-		display_homogeneous_to_quaternion();
+		// simple_icp();
+		// display_homogeneous_to_quaternion();
 		simple_visualize();
 	}
 };

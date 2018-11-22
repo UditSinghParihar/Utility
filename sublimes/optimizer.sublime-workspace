@@ -480,6 +480,8 @@
 	},
 	"file_history":
 	[
+		"/home/udit/.bashrc",
+		"/home/udit/catkin_ws/src/rtabmap_ros/launch/custom_launch/export.launch",
 		"/home/udit/data/bagfiles/wheel_odom/poses_test_rrc2.g2o",
 		"/home/udit/codes/pcl/transformation.cpp",
 		"/home/udit/projects/loop_closure/rtabmap_configurations/rtabmap.ini",
@@ -600,14 +602,12 @@
 		"/home/udit/codes/passing2.cpp",
 		"/home/udit/codes/passing.cpp",
 		"/home/udit/codes/multithreading.cpp",
-		"/home/udit/catkin_ws/src/rtabmap_ros/launch/custom_launch/export.launch",
 		"/home/udit/Documents/RTAB-Map/poses.g2o",
 		"/home/udit/codes/static_test.cpp",
 		"/home/udit/tmux.send",
 		"/home/udit/codes/calculate.cpp",
 		"/home/udit/catkin_ws/src/rtabmap_ros/cfg/rtabmap.ini",
-		"/home/udit/softwares/g2o/README.md",
-		"/usr/local/lib/librtabmap_core.so.0.17.5"
+		"/home/udit/softwares/g2o/README.md"
 	],
 	"find":
 	{
@@ -625,6 +625,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tf",
+			"depth",
+			"rosbag",
 			"optimize",
 			"ssh",
 			"apt",
@@ -749,10 +752,7 @@
 			"OptimizerG2O",
 			"optimizer",
 			"constraints",
-			"constr",
-			"getconnectedgraph",
-			"linksin",
-			"linksout"
+			"constr"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -795,8 +795,8 @@
 						"selection":
 						[
 							[
-								6915,
-								6919
+								3022,
+								3022
 							]
 						],
 						"settings":
@@ -806,7 +806,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2437.5,
+						"translation.y": 2956.81818182,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
