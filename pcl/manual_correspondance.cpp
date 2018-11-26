@@ -62,9 +62,9 @@ Eigen::Matrix4f simple_icp(CloudTypePtr source, CloudTypePtr target, pcl::Corres
 		transform_estimation.estimateRigidTransformation(*source, *target, out_correspondences, homogeneous);
 	}
 	transformPointCloud(*target, *target, homogeneous.inverse());
-	for(size_t i=0; i<out_correspondences.size(); ++i){
-		cout << out_correspondences[i] << endl;
-	}
+	// for(size_t i=0; i<out_correspondences.size(); ++i){
+	// 	cout << out_correspondences[i] << endl;
+	// }
 	return homogeneous;
 }
 
@@ -119,18 +119,41 @@ void real_cloud_icp(char const *argv[]){
 	simple_visualize(source, target, icp_correspondences);
 }
 
+float rad2deg(float radian){
+	return radian * 180 / PI;
+}
+
+void display_homogeneous_to_quaternion(Eigen::Matrix4f homogeneous){
+	Eigen::Matrix3f rotate;
+	for(int i = 0; i<3 ; i++)
+		for(int j = 0; j<3 ; j++ )
+			rotate(i,j) = homogeneous(i,j);
+	Eigen::Quaternionf q(rotate);
+	
+	// cout << "Homogeneous matrix: \n" << homogeneous << endl;
+	// cout << "Homogeneous inverse:\n" << homogeneous.inverse() << endl;	
+	fprintf(stdout, "\nTranslation \n%f %f %f\n", homogeneous(0,3), homogeneous(1,3), homogeneous(2,3));
+	Eigen::Matrix<float, 4, 1> coeffs = q.coeffs();	
+	fprintf(stdout, "Quaternion:\n%f %f %f %f\n", coeffs[0], coeffs[1], coeffs[2], coeffs[3]);
+	fprintf(stdout, "g2o edge:\n%f %f 0 0 0 %f %f\n", homogeneous(0,3), homogeneous(1,3), coeffs[2], coeffs[3]);
+	auto euler = q.toRotationMatrix().eulerAngles(0, 1, 2);
+	fprintf(stdout, "Quaternion to euler in degree: %g %g %g\n",rad2deg(euler[0]), rad2deg(euler[1]), rad2deg(euler[2]) );
+}
+
 void toy_cloud_icp(char const *argv[]){
 	PointCloud<PointXYZ>::Ptr source_cloud(new PointCloud<PointXYZ>());
 	PointCloud<PointXYZ>::Ptr transformed_cloud(new PointCloud<PointXYZ>());
 	const int num_points = 25;
 	cloud_create(source_cloud, num_points);
 	shift_cloud(source_cloud, transformed_cloud);
-	simple_visualize(source_cloud, transformed_cloud);
 	pcl::Correspondences out_correspondences;
 	if(strcmp(argv[1], "-manual")==0){
 		fill_correspondences(out_correspondences, num_points);
 	}
-	simple_icp<PointCloud<PointXYZ>::Ptr, PointCloud<PointXYZ>, PointXYZ>(source_cloud, transformed_cloud, out_correspondences);
+	simple_visualize(source_cloud, transformed_cloud, out_correspondences);
+	Eigen::Matrix4f homogeneous = simple_icp<PointCloud<PointXYZ>::Ptr, PointCloud<PointXYZ>, PointXYZ>
+											(source_cloud, transformed_cloud, out_correspondences);
+	display_homogeneous_to_quaternion(homogeneous);
 	simple_visualize(source_cloud, transformed_cloud, out_correspondences);
 }
 
