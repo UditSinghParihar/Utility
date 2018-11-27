@@ -7,6 +7,7 @@
 #include <pcl/registration/icp.h>
 #include <pcl/registration/registration.h>
 #include <Eigen/Dense>
+#include <pcl/io/pcd_io.h>
 
 using namespace cv;
 using namespace std;
@@ -35,7 +36,7 @@ private:
 	}
 
 	void match_keypoints(void){
-		const int count_features = 550;
+		const int count_features = 500;
 		Ptr<xfeatures2d::SIFT> feature_detect = xfeatures2d::SIFT::create(count_features);
 		Mat descriptors1, descriptors2;
 		feature_detect->detectAndCompute(rgb1, noArray(), keypoints1, descriptors1);
@@ -94,8 +95,6 @@ private:
 										vector<int>& out_cloud_indexes, vector<int>& cloud_keypoints){
 		const float f = 570.3, cx = 320.0, cy = 240.0;
 		PointCloudT::Ptr cloud(new PointCloudT());
-		cloud->width = rgb_image.cols;
-		cloud->height = rgb_image.rows;
 		cloud->is_dense = false;
 		float bad_point = std::numeric_limits<float>::quiet_NaN();
 		int image_index = 0;
@@ -125,6 +124,8 @@ private:
 				}
 			}
 		}
+		cloud->width = cloud->points.size();
+		cloud->height = 1;
 		return cloud;
 	}
 
@@ -189,7 +190,7 @@ private:
 		
 		cout << "Homogeneous matrix: \n" << homogeneous << endl;
 		fprintf(stdout, "\nTranslation \n%f %f %f\n", homogeneous(0,3), homogeneous(1,3), homogeneous(2,3));
-		Eigen::Matrix<float, 4, 1> coeffs = q.coeffs();	
+		Eigen::Matrix<float, 4, 1> coeffs = q.coeffs();
 		fprintf(stdout, "Quaternion:\n%f %f %f %f\n", coeffs[0], coeffs[1], coeffs[2], coeffs[3]);
 		fprintf(stdout, "g2o edge:\n%f %f 0 0 0 %f %f\n", homogeneous(0,3), homogeneous(1,3), coeffs[2], coeffs[3]);
 		auto euler = q.toRotationMatrix().eulerAngles(0, 1, 2);
@@ -198,7 +199,7 @@ private:
 
 	Eigen::Affine3f get_custom_translation(void){
 		Eigen::Affine3f translate = Eigen::Affine3f::Identity();
-		translate.translation() << 0.0, 0.0, 25;
+		translate.translation() << 0.0, 0.0, -1;
 		translate.rotate(Eigen::AngleAxisf(PI, Eigen::Vector3f::UnitY()));
 		return translate;
 	}
@@ -215,6 +216,10 @@ private:
 			viewer.spinOnce();
 	}
 
+	void save_to_pcd(string output_path){
+		pcl::io::savePCDFileASCII(output_path, *source + *target);
+		fprintf(stdout, "Assemlbed Point Cloud saved to: %s\n", output_path.c_str());
+	}
 
 public:
 	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2, 
@@ -242,6 +247,7 @@ public:
 		simple_icp();
 		display_homogeneous_to_quaternion();
 		simple_visualize();
+		// save_to_pcd("/home/udit/Desktop/assembled.pcd");
 	}
 };
 

@@ -206,3 +206,6 @@ sudo service network-manager restart
 
 # installed packages
 sudo apt list --installed
+
+# locally visualizing markdown file
+$ grip <path_to_markdown_file>
