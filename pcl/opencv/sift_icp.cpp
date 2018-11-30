@@ -8,6 +8,7 @@
 #include <pcl/registration/registration.h>
 #include <Eigen/Dense>
 #include <pcl/io/pcd_io.h>
+#include <pcl/visualization/registration_visualizer.h>
 
 using namespace cv;
 using namespace std;
@@ -39,13 +40,14 @@ private:
 		const int count_features = 500;
 		Ptr<xfeatures2d::SIFT> feature_detect = xfeatures2d::SIFT::create(count_features);
 		Mat descriptors1, descriptors2;
+
 		feature_detect->detectAndCompute(rgb1, noArray(), keypoints1, descriptors1);
 		feature_detect->detectAndCompute(rgb2, noArray(), keypoints2, descriptors2);
 		
 		Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
 		vector<vector<DMatch>> knn_matches;
 		matcher->knnMatch(descriptors1, descriptors2, knn_matches, 2);
-
+		
 		const float threshold_ratio = 0.7f;
 		for(size_t i=0; i<knn_matches.size(); ++i){
 			if(knn_matches[i][0].distance < threshold_ratio * knn_matches[i][1].distance)
@@ -209,9 +211,9 @@ private:
 		viewer.addCoordinateSystem(1.0);
 		viewer.addCorrespondences<PointT>(source, target, correspondences);
 		pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb1(source);
-		pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb2(target);
+		pcl::visualization::PointCloudColorHandlerCustom<PointT> red(target, 230, 20, 20);
 		viewer.addPointCloud(source, rgb1, "source");
-		viewer.addPointCloud(target, rgb2, "target");
+		viewer.addPointCloud(target, red, "target");
 		while(! viewer.wasStopped())
 			viewer.spinOnce();
 	}
@@ -238,8 +240,8 @@ public:
 		source = images2cloud(rgb1, depth1, kps1_coord, cloud_indexes1, cloud1_keypoints);
 		target = images2cloud(rgb2, depth2, kps2_coord, cloud_indexes2, cloud2_keypoints);
 		fill_correspondences();
-		Eigen::Affine3f translate = get_custom_translation();
-		translate_cloud(translate);
+		// Eigen::Affine3f translate = get_custom_translation();
+		// translate_cloud(translate);
 		simple_visualize();
 		// print_cloud_keypoints(cloud_indexes1, cloud1_keypoints);
 		// print_cloud_keypoints(cloud_indexes2, cloud2_keypoints);
