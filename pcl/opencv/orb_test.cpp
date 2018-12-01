@@ -44,7 +44,7 @@ int main( int argc, char* argv[] )
                  Scalar::all(-1), std::vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
     //-- Show detected matches
     imshow("Good Matches", img_matches );
-    waitKey();
+    waitKey(0);
     return 0;
 }
 

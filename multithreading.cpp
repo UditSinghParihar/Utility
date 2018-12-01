@@ -19,7 +19,7 @@ int main(int argc, char const *argv[]){
 	pthread_t thread1, thread2;
 	int id1 = 100, id2 = 200;
 	pthread_create(&thread1, NULL, fun1, &id1);
-	pthread_create(&thread2, NULL, fun2, &id2);
+	pthread_create(&thread2, NULL, fun1, &id2);
 	pthread_exit(NULL);
 	return 0;
 }
