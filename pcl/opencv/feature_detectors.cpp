@@ -1,7 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/xfeatures2d.hpp>
-#include "opencv2/features2d.hpp"
 
 using namespace std;
 using namespace cv;
@@ -11,10 +10,6 @@ void display_image(const Mat& image){
 	imshow("opencv_viewer", image);
 	waitKey(0);
 	destroyWindow("opencv_viewer");
-}
-
-void get_mask(Mat& mask, int start_x, int start_y, int width, int height){
-	mask(Rect(start_x, start_y, width, height)) = 255;
 }
 
 template <typename detectorType>
