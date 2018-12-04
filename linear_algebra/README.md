@@ -1,6 +1,7 @@
 ## TODO ##
 
 1. [ ] SVD.
+	1. [Tutorial on SVD](https://fenix.tecnico.ulisboa.pt/downloadFile/3779576344458/singular-value-decomposition-fast-track-tutorial.pdf)
 2. [ ] QR Decomposition.
 3. [ ] Cholesky Decomposition.
 4. [ ] Least square optimization.
