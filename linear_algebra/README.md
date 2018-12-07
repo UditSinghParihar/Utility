@@ -9,3 +9,7 @@
 6. [ ] Graph slam implementation.
 7. [ ] Lie Group Algebra.
 8. [ ] Gauss-Newton algorithm.
+
+#### Image Processing ####
+1. [ ] Rectified image/ Aligned image.
+2. [ ] Camera intrinsics.
