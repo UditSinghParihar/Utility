@@ -202,29 +202,6 @@ private:
 		}
 	}
 
-	void manual_prediction(int cloud_index){
-		vector<int>between_racks{62, 65, 66, 67, 68, 69, 70, 71, 141, 142, 143, 144, 145,
-					147, 153, 154, 155, 156};
-		for(int index=120; index<=131; ++index){
-			between_racks.push_back(index);
-		}
-
-		vector<int>corridor{72, 73, 74, 75, 76, 77, 78, 79, 132, 133, 136, 138, 139,
-						140};
-		for(int index=81; index<=119; ++index){
-			corridor.push_back(index);
-		}
-
-
-		if(std::find(between_racks.begin(), between_racks.end(), cloud_index) != between_racks.end()){
-			red_colorization();
-		}
-
-		else if(std::find(corridor.begin(), corridor.end(), cloud_index) != corridor.end()){
-			green_colorization();
-		}
-	}
-
 	void network_prediction(int cloud_index){
 		if(image_labels[cloud_index] == 1){ red_colorization();}
 		else if(image_labels[cloud_index] == 2){ green_colorization();}
@@ -274,13 +251,12 @@ public:
 				load_point_cloud(cloud_to_load);
 				simple_voxelize(0.01f);
 				network_prediction(cloud_to_load);
-				// manual_prediction(cloud_to_load);
 				//transform_point_cloud(transforms[i]);
 				add_to_map();
 			}
 		}
 		simple_visualize();
-		save_to_pcd("/home/udit/Desktop/assembled2.pcd");
+		save_to_pcd("/home/udit/Desktop/assembled.pcd");
 	}
 };
 

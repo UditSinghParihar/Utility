@@ -13,3 +13,10 @@
 #### Image Processing ####
 1. [ ] Rectified image/ Aligned image.
 2. [ ] Camera intrinsics.
+
+#### Robotics Books ####
+1. [ ] [Introduction to Robotics by Craig](http://www.mech.sharif.ir/c/document_library/get_file?uuid=5a4bb247-1430-4e46-942c-d692dead831f&groupId=14040)
+2. [ ] [Michael Kaess Thesis on SAM](http://people.csail.mit.edu/kaess/pub/Kaess08thesis.pdf)
+
+#### Algorithms Book ####
+1. [ ] [The Algorithm Design Manual](http://mimoza.marmara.edu.tr/~msakalli/cse706_12/SkienaTheAlgorithmDesignManual.pdf)
