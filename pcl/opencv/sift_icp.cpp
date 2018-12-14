@@ -111,6 +111,14 @@ private:
 					point.z = depth_image.at<unsigned short>(y, x)/1000.0;
 					point.x = (x - cx) * point.z / f;
 					point.y = (y - cy) * point.z / f;
+					
+					float temp_z = point.z; 
+					float temp_x = point.x;
+					float temp_y = point.y;
+					point.x = temp_z;
+					point.z = -temp_y;
+					point.y = -temp_x;
+
 					point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
 					point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
 					point.b = rgb_image.at<cv::Vec3b>(y, x)[0];

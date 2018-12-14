@@ -33,6 +33,14 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 				point.z = depth_image.at<unsigned short>(y, x)/1000.0;
 				point.x = (x - cx) * point.z / f;
 				point.y = (y - cy) * point.z / f;
+				
+				float temp_z = point.z; 
+				float temp_x = point.x;
+				float temp_y = point.y;
+				point.x = temp_z;
+				point.z = -temp_y;
+				point.y = -temp_x;
+
 				point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
 				point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
 				point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
@@ -67,12 +75,12 @@ int main(int argc, char const *argv[]){
 		fprintf(stdout, "Unable to open images\n");
 		return 1;
 	}
-	display_image(rgb1);
+	// display_image(rgb1);
 	PointCloudT::Ptr cloud1(new PointCloudT);
 	PointCloudT::Ptr cloud2(new PointCloudT);
 	images2cloud(cloud1, rgb1, depth1);
 	images2cloud(cloud2, rgb2, depth2);
 	simple_visualize(cloud1);
-	simple_visualize(cloud2);
+	// simple_visualize(cloud2);
 	return 0;
 }
