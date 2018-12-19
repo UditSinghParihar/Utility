@@ -95,7 +95,7 @@ private:
 private:
 	PointCloudT::Ptr images2cloud(const Mat& rgb_image, const Mat& depth_image, const vector<pair<int, int>> &coordinates, 
 										vector<int>& out_cloud_indexes, vector<int>& cloud_keypoints){
-		const float f = 570.3, cx = 320.0, cy = 240.0;
+		const float f = 525, cx = 319.5, cy = 239.5;
 		PointCloudT::Ptr cloud(new PointCloudT());
 		cloud->is_dense = false;
 		float bad_point = std::numeric_limits<float>::quiet_NaN();

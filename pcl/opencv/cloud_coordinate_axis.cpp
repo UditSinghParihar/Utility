@@ -75,7 +75,7 @@ int main(int argc, char const *argv[]){
 		fprintf(stdout, "Unable to open images\n");
 		return 1;
 	}
-	// display_image(rgb1);
+	display_image(rgb1);
 	PointCloudT::Ptr cloud1(new PointCloudT);
 	PointCloudT::Ptr cloud2(new PointCloudT);
 	images2cloud(cloud1, rgb1, depth1);
