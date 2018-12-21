@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <cmath>
 
 #define PI 3.1415
 
@@ -19,14 +20,16 @@ struct Pose{
 	float x;
 	float y;
 	float theta_z;
-	Pose(float x=0.0, float y=0.0, float theta_z=0.0){
+	int id;
+	Pose(float x=0.0, float y=0.0, float theta_z=0.0, int id=0){
 		this->x = x;
 		this->y = y;
 		this->theta_z = theta_z;
+		this->id = id;
 	};
 	
 	friend ostream& operator<<(ostream& out, const Pose& pose){
-		out << "x: "<< pose.x << "\ty: " << pose.y
+		out << "Id: " << pose.id << "\tx: "<< pose.x << "\ty: " << pose.y
 			<< "\ttheta_z(deg): " << rad2deg(pose.theta_z) << "\n--\n";
 		return out;
 	}
@@ -36,14 +39,20 @@ struct Edge{
 	float delta_x;
 	float delta_y;
 	float delta_theta;
-	Edge(float delta_x=0.0, float delta_y=0.0, float delta_theta=0.0){
+	int to_id;
+	int from_id;
+	Edge(float delta_x=0.0, float delta_y=0.0, float delta_theta=0.0,
+			int from_id=0, int to_id=0){
 		this->delta_x = delta_x;
 		this->delta_y = delta_y;
 		this->delta_theta = delta_theta;
+		this->from_id =from_id;
+		this->to_id = to_id;
 	};
 
 	friend ostream& operator<<(ostream& out, const Edge& edge){
-		out << "delta_x: " << edge.delta_x << "\tdelta_y: " << edge.delta_y
+		out << "from: " << edge.from_id << "\tto: " << edge.to_id 
+			<< "\tdelta_x: " << edge.delta_x << "\tdelta_y: " << edge.delta_y
 			<< "\tdelta_theta(deg): " << rad2deg(edge.delta_theta) << "\n--\n";
 	}	
 };
@@ -111,6 +120,8 @@ void add_noise(const Edge& correct_edge, Edge& noisy_edge){
 	noisy_edge.delta_x = noise + correct_edge.delta_x;
 	noisy_edge.delta_y = noise + correct_edge.delta_y;
 	noisy_edge.delta_theta = noise + correct_edge.delta_theta;
+	noisy_edge.from_id = correct_edge.from_id;
+	noisy_edge.to_id = correct_edge.to_id;
 }
 
 void add_loop_closing_edge(const Pose& first, const Pose& second,
@@ -119,6 +130,12 @@ void add_loop_closing_edge(const Pose& first, const Pose& second,
 	get_current_frame_in_world_frame(first_in_world_frame, first);
 	get_current_frame_in_world_frame(second_in_world_frame, second);
 	second_frame_in_first = first_in_world_frame.inverse()*second_in_world_frame;
+	
+	float delta_x = second_frame_in_first.matrix()(0, 3);
+	float delta_y = second_frame_in_first.matrix()(1, 3);
+	float delta_theta = acos(second_frame_in_first.matrix()(0, 0));
+	edges.push_back(Edge(delta_x, delta_y, delta_theta, first.id, second.id));
+
 	cout << second_frame_in_first.matrix() << endl;
 }
 
@@ -129,13 +146,13 @@ void write_g2o_file(const vector<Pose>& poses, const vector<Edge>& edges,
 	string edge_type = "EDGE_SE2";
 	string upper_triangular_info_matrix = "1000.0 0.0 0.0 1000.0 0.0 1000.0";
 	for(int i=0; i<poses.size(); ++i){
-		file_write << vertex_type << " " << i << " "<< poses[i].x << " "
+		file_write << vertex_type << " " << poses[i].id << " "<< poses[i].x << " "
 					<< poses[i].y << " " << poses[i].theta_z << endl;
 	}
 
-	for(int i=0; i<edges.size()-1; ++i){
-		file_write << edge_type << " " << i  << " " << i+1 << " "
-					<< edges[i].delta_x << " " << edges[i].delta_y << " "
+	for(int i=0; i<edges.size(); ++i){
+		file_write << edge_type << " " << edges[i].from_id  << " " << edges[i].to_id 
+					<< " " << edges[i].delta_x << " " << edges[i].delta_y << " "
 					<< edges[i].delta_theta << " " << upper_triangular_info_matrix
 					<< endl;
 	}
@@ -154,90 +171,100 @@ void print_graph(const vector<Pose>& poses, const vector<Edge>& edges){
 	}
 }
 
-int main(int argc, char const *argv[]){
-	if(argc != 3){
-		fprintf(stdout, "Usage: ./relative_edges binary_noise[0/1] output.g2o\n");
-		return 1;
-	}
-	const int binary_noise = stoi(argv[1]);
-	Pose initial_pose{2, 2, 0};
-	Pose current_pose = initial_pose;
-	Pose new_pose_current_frame, new_pose_world_frame;
+void generate_trajectory(vector<Pose>& poses, vector<Edge>& edges,
+							const Pose& initial_pose, const int binary_noise){
+	Pose current_pose_world_frame = initial_pose;
+	Pose new_pose_current_frame;
 	Affine3f current_frame_in_world_frame;
-	initial_frame_in_world_frame(current_frame_in_world_frame);	
-
-	vector<Pose> poses;
-	vector<Edge> edges;
-
+	initial_frame_in_world_frame(current_frame_in_world_frame);
+	
 	for(int i=0; i<10; ++i){
-		Edge correct_edge{2, 0, 0};
-		poses.push_back(current_pose);
+		Edge correct_edge{2, 0, 0, current_pose_world_frame.id,
+							current_pose_world_frame.id+1};
+		poses.push_back(current_pose_world_frame);
 
-		Edge noisy_edge;
-		add_noise(correct_edge, noisy_edge);
-		
 		if(binary_noise == 0){
-			new_point_in_current_frame(correct_edge, current_pose, new_pose_current_frame);
+			new_point_in_current_frame(correct_edge, current_pose_world_frame, new_pose_current_frame);
 			edges.push_back(correct_edge);
 		}
 		else{
-			new_point_in_current_frame(noisy_edge, current_pose, new_pose_current_frame);
+			Edge noisy_edge;
+			add_noise(correct_edge, noisy_edge);
+			new_point_in_current_frame(noisy_edge, current_pose_world_frame, new_pose_current_frame);
 			edges.push_back(noisy_edge);
 		}
 		new_point_in_world_frame(new_pose_current_frame, current_frame_in_world_frame, 
-									new_pose_world_frame);
+									current_pose_world_frame);
 		
-		current_pose = new_pose_world_frame;
-		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose); 
+		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose_world_frame); 
+		++current_pose_world_frame.id;
 	}
 
 	for(int i=0; i<6; ++i){
-		Edge correct_edge{2, 0, PI/6};
-		poses.push_back(current_pose);
-		
-		Edge noisy_edge;
-		add_noise(correct_edge, noisy_edge);
+		Edge correct_edge{2, 0, PI/6, current_pose_world_frame.id,
+							current_pose_world_frame.id+1};
+		poses.push_back(current_pose_world_frame);
 
 		if(binary_noise == 0){
-			new_point_in_current_frame(correct_edge, current_pose, new_pose_current_frame);
+			new_point_in_current_frame(correct_edge, current_pose_world_frame, new_pose_current_frame);
 			edges.push_back(correct_edge);
 		}
 		else{
-			new_point_in_current_frame(noisy_edge, current_pose, new_pose_current_frame);
+			Edge noisy_edge;
+			add_noise(correct_edge, noisy_edge);
+			new_point_in_current_frame(noisy_edge, current_pose_world_frame, new_pose_current_frame);
 			edges.push_back(noisy_edge);
 		}		
 		new_point_in_world_frame(new_pose_current_frame, current_frame_in_world_frame, 
-									new_pose_world_frame);
+									current_pose_world_frame);
 		
-		current_pose = new_pose_world_frame;
-		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose); 
+		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose_world_frame); 
+		++current_pose_world_frame.id;
 	}
 
 	for(int i=0; i<10; ++i){
-		Edge correct_edge{2, 0, 0};
-		poses.push_back(current_pose);
-
-		Edge noisy_edge;
-		add_noise(correct_edge, noisy_edge);
+		Edge correct_edge{2, 0, 0,current_pose_world_frame.id,
+							current_pose_world_frame.id+1};
+		poses.push_back(current_pose_world_frame);
 
 		if(binary_noise == 0){
-			new_point_in_current_frame(correct_edge, current_pose, new_pose_current_frame);
+			new_point_in_current_frame(correct_edge, current_pose_world_frame, new_pose_current_frame);
 			edges.push_back(correct_edge);
 		}
 		else{
-			new_point_in_current_frame(noisy_edge, current_pose, new_pose_current_frame);
+			Edge noisy_edge;
+			add_noise(correct_edge, noisy_edge);
+			new_point_in_current_frame(noisy_edge, current_pose_world_frame, new_pose_current_frame);
 			edges.push_back(noisy_edge);
 		}
 		new_point_in_world_frame(new_pose_current_frame, current_frame_in_world_frame, 
-									new_pose_world_frame);
+									current_pose_world_frame);
 		
-		current_pose = new_pose_world_frame;
-		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose); 
+		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose_world_frame); 
+		++current_pose_world_frame.id;
+	}
+	edges.pop_back();
+}
+
+int main(int argc, char const *argv[]){
+	if(argc != 2){
+		fprintf(stdout, "Usage: ./relative_edges output.g2o\n");
+		return 1;
 	}
 
-	add_loop_closing_edge(poses.front(), poses.back(), edges);
-	// print_graph(poses, edges);
-	plot_graph(poses);
-	write_g2o_file(poses, edges, argv[2]);
+	Pose initial_pose{2, 2, 0};
+	vector<Pose> correct_poses;
+	vector<Edge> correct_edges;
+	vector<Pose> noisy_poses;
+	vector<Edge> noisy_edges;
+
+	generate_trajectory(correct_poses, correct_edges, initial_pose, 0);
+	generate_trajectory(noisy_poses, noisy_edges, initial_pose, 1);
+
+	add_loop_closing_edge(correct_poses.front(), correct_poses.back(), noisy_edges);
+	print_graph(noisy_poses, noisy_edges);
+	plot_graph(correct_poses);
+	plot_graph(noisy_poses);
+	write_g2o_file(noisy_poses, noisy_edges, argv[1]);
 	return 0;
 }
