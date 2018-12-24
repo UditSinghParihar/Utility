@@ -135,8 +135,6 @@ void add_loop_closing_edge(const Pose& first, const Pose& second,
 	float delta_y = second_frame_in_first.matrix()(1, 3);
 	float delta_theta = acos(second_frame_in_first.matrix()(0, 0));
 	edges.push_back(Edge(delta_x, delta_y, delta_theta, first.id, second.id));
-
-	cout << second_frame_in_first.matrix() << endl;
 }
 
 void write_g2o_file(const vector<Pose>& poses, const vector<Edge>& edges,
