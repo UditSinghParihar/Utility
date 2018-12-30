@@ -260,30 +260,3 @@ public:
 		// save_to_pcd("/home/udit/Desktop/assembled.pcd");
 	}
 };
-
-
-int main(int argc, char* argv[] ){
-	if(argc != 5){
-		fprintf(stdout, "Usage: ./sift_icp rgb1.png rgb2.png depth1.png depth2.png\n");
-		return 1;
-	}
-	Mat rgb1 = imread(argv[1], IMREAD_COLOR );
-	Mat rgb2 = imread(argv[2], IMREAD_COLOR );
-	Mat depth1 = imread(argv[3], IMREAD_ANYDEPTH);
-	Mat depth2 = imread(argv[4], IMREAD_ANYDEPTH);
-	if(rgb1.empty() || rgb2.empty()){
-		fprintf(stdout, "Unable to open images\n");
-		return 1;
-	}
-	
-	vector<pair<int, int>> kps1_coord;
-	vector<pair<int, int>> kps2_coord;   
-	
-	ImageOperations image_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord};
-	image_processor.start_processing();
-
-	CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord};
-	cloud_processor.start_processing();
-
-	return 0;
-}

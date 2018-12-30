@@ -14,5 +14,11 @@ int main(int argc, char const *argv[]){
 	for(size_t index=0; index<numbers.size(); ++index){
 		cout << numbers[index] << endl;
 	}
+
+	vector<int> list;
+	list = vector<int>{1, 2, 3, 4};
+	for(auto element : list){
+		cout << element << endl;
+	}
 	return 0;
 }

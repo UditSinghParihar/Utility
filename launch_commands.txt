@@ -190,8 +190,6 @@ python download_mp.py -o '/media/udit/Seagate Backup Plus Drive/Matterport_Datas
 watch -n 1 nvidia-smi 
 
 
-ssh avijit@10.2.132.9  [pasword: ultimate2]
-ssh udit@10.2.36.224 [password: udit]
 # internal ip address
 ip route get 8.8.8.8 | awk '{print $NF; exit}'
 sudo service ssh restart
