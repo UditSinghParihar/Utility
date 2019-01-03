@@ -9,6 +9,7 @@
 #include <Eigen/Dense>
 #include <pcl/io/pcd_io.h>
 #include <pcl/visualization/registration_visualizer.h>
+#include <cmath>
 
 using namespace cv;
 using namespace std;
@@ -231,6 +232,15 @@ private:
 		fprintf(stdout, "Assemlbed Point Cloud saved to: %s\n", output_path.c_str());
 	}
 
+	void decompose_into_angles(void){
+		const Eigen::Matrix4f &mat = homogeneous;
+		float y_angle = atan2(-mat(2, 0), sqrt(pow(mat(0, 0), 2) + pow(mat(1, 0), 2)));
+		float z_angle = atan2(mat(1, 0)/cos(y_angle), mat(0, 0)/cos(y_angle));
+		float x_angle = atan2(mat(2, 1)/cos(y_angle), mat(2, 2)/cos(y_angle));
+		fprintf(stdout, "x_angle: %f\ty_angle: %f\tz_angle%f\n", rad2deg(x_angle),
+				rad2deg(y_angle), rad2deg(z_angle));
+	}
+
 public:
 	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2, 
 					vector<pair<int, int>>& arg_kps1_coord, vector<pair<int, int>>& arg_kps2_coord):
@@ -256,6 +266,7 @@ public:
 		// print_correspondences();
 		simple_icp();
 		display_homogeneous_to_quaternion();
+		decompose_into_angles();
 		simple_visualize();
 		// save_to_pcd("/home/udit/Desktop/assembled.pcd");
 	}

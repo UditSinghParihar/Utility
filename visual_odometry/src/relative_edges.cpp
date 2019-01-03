@@ -1,83 +1,64 @@
 #include "graph.h"
 
-void generate_trajectory(vector<Pose>& poses, vector<Edge>& edges,
-							const Pose& initial_pose, const float noise){
-	Pose current_pose_world_frame = initial_pose;
+void generate_sub_trajectory(Pose& current_pose_world_frame,
+								Affine3f& current_frame_in_world_frame, 
+								float delta_x, float delta_y,
+								float delta_theta, const int steps,
+								vector<Pose>& poses, vector<Edge>& edges,
+								const float noise){
 	Pose new_pose_current_frame;
+	for(int i=0; i<steps; ++i){
+		if(noise != 0){
+			add_noise(delta_x, delta_y, delta_theta, noise);
+		}
+		Edge edge(delta_x, delta_y, delta_theta, current_pose_world_frame.id,
+					current_pose_world_frame.id+1);
+		edges.push_back(edge);
+
+		new_point_in_current_frame(edge, current_pose_world_frame,
+									new_pose_current_frame);
+		new_point_in_world_frame(new_pose_current_frame,
+									current_frame_in_world_frame,
+									current_pose_world_frame);
+		++current_pose_world_frame.id;
+		poses.push_back(current_pose_world_frame);
+		
+		get_current_frame_in_world_frame(current_frame_in_world_frame, 
+											current_pose_world_frame);
+	}
+}
+
+void assemble_sub_trajectory(vector<Pose>& poses, vector<Edge>& edges,
+								const float noise=0.0){
+	Pose current_pose_world_frame = Pose{2, 2, 0};
 	Affine3f current_frame_in_world_frame;
-	initial_frame_in_world_frame(current_frame_in_world_frame);
-	
-	for(int i=0; i<10; ++i){
-		Edge correct_edge{2, 0, 0, current_pose_world_frame.id,
-							current_pose_world_frame.id+1};
-		poses.push_back(current_pose_world_frame);
+	get_current_frame_in_world_frame(current_frame_in_world_frame, 
+										current_pose_world_frame);
 
-		if(noise == 0.0){
-			new_point_in_current_frame(correct_edge, current_pose_world_frame, new_pose_current_frame);
-			edges.push_back(correct_edge);
-		}
-		else{
-			Edge noisy_edge;
-			add_noise(correct_edge, noisy_edge, noise);
-			new_point_in_current_frame(noisy_edge, current_pose_world_frame, new_pose_current_frame);
-			edges.push_back(noisy_edge);
-		}
-		new_point_in_world_frame(new_pose_current_frame, current_frame_in_world_frame, 
-									current_pose_world_frame);
-		
-		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose_world_frame); 
-		++current_pose_world_frame.id;
-	}
+	poses.push_back(current_pose_world_frame);
 
-	for(int i=0; i<6; ++i){
-		Edge correct_edge{2, 0, PI/6, current_pose_world_frame.id,
-							current_pose_world_frame.id+1};
-		poses.push_back(current_pose_world_frame);
+	float delta_x = 2;
+	float delta_y = 0;
+	float delta_theta_straight = 0;
+	float delta_theta_curve = PI/6;
+	const int steps_straight = 10;
+	const int steps_curve = 6;
 
-		if(noise == 0.0){
-			new_point_in_current_frame(correct_edge, current_pose_world_frame, new_pose_current_frame);
-			edges.push_back(correct_edge);
-		}
-		else{
-			Edge noisy_edge;
-			add_noise(correct_edge, noisy_edge, noise);
-			new_point_in_current_frame(noisy_edge, current_pose_world_frame, new_pose_current_frame);
-			edges.push_back(noisy_edge);
-		}		
-		new_point_in_world_frame(new_pose_current_frame, current_frame_in_world_frame, 
-									current_pose_world_frame);
-		
-		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose_world_frame); 
-		++current_pose_world_frame.id;
-	}
+	generate_sub_trajectory(current_pose_world_frame, current_frame_in_world_frame,
+							delta_x, delta_y, delta_theta_straight, steps_straight, 
+							poses, edges, noise);
+	generate_sub_trajectory(current_pose_world_frame, current_frame_in_world_frame,
+							delta_x, delta_y, delta_theta_curve, steps_curve, 
+							poses, edges, noise);
+	generate_sub_trajectory(current_pose_world_frame, current_frame_in_world_frame,
+							delta_x, delta_y, delta_theta_straight, steps_straight, 
+							poses, edges, noise);
 
-	for(int i=0; i<10; ++i){
-		Edge correct_edge{2, 0, 0,current_pose_world_frame.id,
-							current_pose_world_frame.id+1};
-		poses.push_back(current_pose_world_frame);
-
-		if(noise == 0.0){
-			new_point_in_current_frame(correct_edge, current_pose_world_frame, new_pose_current_frame);
-			edges.push_back(correct_edge);
-		}
-		else{
-			Edge noisy_edge;
-			add_noise(correct_edge, noisy_edge, noise);
-			new_point_in_current_frame(noisy_edge, current_pose_world_frame, new_pose_current_frame);
-			edges.push_back(noisy_edge);
-		}
-		new_point_in_world_frame(new_pose_current_frame, current_frame_in_world_frame, 
-									current_pose_world_frame);
-		
-		get_current_frame_in_world_frame(current_frame_in_world_frame, current_pose_world_frame); 
-		++current_pose_world_frame.id;
-	}
-	edges.pop_back();
 }
 
 int main(int argc, char const *argv[]){
-	if(argc != 2){
-		fprintf(stdout, "Usage: ./relative_edges output.g2o\n");
+	if(argc != 3){
+		fprintf(stdout, "Usage: ./relative_edges output.g2o noise\n");
 		return 1;
 	}
 
@@ -87,8 +68,8 @@ int main(int argc, char const *argv[]){
 	vector<Pose> noisy_poses;
 	vector<Edge> noisy_edges;
 
-	generate_trajectory(correct_poses, correct_edges, initial_pose, 0);
-	generate_trajectory(noisy_poses, noisy_edges, initial_pose, 0.3);
+	assemble_sub_trajectory(correct_poses, correct_edges, 0);
+	assemble_sub_trajectory(noisy_poses, noisy_edges, stof(argv[2]));
 
 	add_loop_closing_edges(correct_poses, noisy_edges);
 	print_graph(noisy_poses, noisy_edges);

@@ -42,8 +42,8 @@ struct Edge{
 	float delta_x;
 	float delta_y;
 	float delta_theta;
-	int to_id;
 	int from_id;
+	int to_id;
 	Edge(float delta_x=0.0, float delta_y=0.0, float delta_theta=0.0,
 			int from_id=0, int to_id=0){
 		this->delta_x = delta_x;
@@ -83,11 +83,6 @@ void new_point_in_world_frame(const Pose& pose_current, const Affine3f& homogene
 	pose_world.theta_z = pose_current.theta_z;
 }
 
-void initial_frame_in_world_frame(Affine3f& homogeneous){
-	homogeneous = Affine3f::Identity();
-	homogeneous.translation() << 2.0, 2.0, 0;
-}
-
 void plot_coordinate_axis(void){
 	vector<int> x_points{0, 0, 10};
 	vector<int> y_points{10, 0, 0};
@@ -115,15 +110,15 @@ void plot_graph(const vector<Pose>& poses){
 	plt::show();
 }
 
-void add_noise(const Edge& correct_edge, Edge& noisy_edge, const float range=0.0){
+void add_noise(float& delta_x, float& delta_y, float& delta_theta, 
+				const float range=0.0){
 	const int numbers = range * 200;
 	const float noise = (-range) + float(rand()%(numbers))/100;
 
-	noisy_edge.delta_x = noise + correct_edge.delta_x;
-	noisy_edge.delta_y = noise + correct_edge.delta_y;
-	noisy_edge.delta_theta = noise + correct_edge.delta_theta;
-	noisy_edge.from_id = correct_edge.from_id;
-	noisy_edge.to_id = correct_edge.to_id;
+	delta_x += noise;	
+	delta_y += noise;
+	delta_theta += noise;
+	cout << "Noise is: " << noise << endl;
 }
 
 void add_loop_closing_edge(const Pose& first, const Pose& second,
@@ -137,10 +132,9 @@ void add_loop_closing_edge(const Pose& first, const Pose& second,
 	float delta_y = second_frame_in_first.matrix()(1, 3);
 	float delta_theta = acos(second_frame_in_first.matrix()(0, 0));
 	
-	Edge correct_edge(delta_x, delta_y, delta_theta, first.id, second.id);
-	Edge noisy_edge;
-	add_noise(correct_edge, noisy_edge, 0.05);
-	edges.push_back(noisy_edge);
+	Edge edge(delta_x, delta_y, delta_theta, first.id, second.id);
+	add_noise(edge.delta_x, edge.delta_y, edge.delta_theta, 0.05);
+	edges.push_back(edge);
 }
 
 void add_loop_closing_edges(const vector<Pose>& poses, vector<Edge>& edges){
@@ -170,6 +164,8 @@ void write_g2o_file(const vector<Pose>& poses, const vector<Edge>& edges,
 					<< endl;
 	}
 
+	file_write << "FIX 0" << endl;
+
 	file_write.close();
 }
 
@@ -183,5 +179,7 @@ void print_graph(const vector<Pose>& poses, const vector<Edge>& edges){
 		cout << edges[i];
 	}
 }
+
+
 
 #endif

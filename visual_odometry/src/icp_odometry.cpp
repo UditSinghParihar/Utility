@@ -1,7 +1,7 @@
 #include <iostream>
 #include <dirent.h>
 #include <string>
-#include "graph.h"
+#include "generate_graph.h"
 #include "sift_icp.h"
 
 using namespace std;
@@ -89,23 +89,18 @@ public:
 
 class GenerateEdges{
 private:
+	vector<Pose> poses;
+	vector<Edge> edges;
 	const vector<string>& rgb_images;
 	const vector<string>& depth_images;
 	Mat rgb1, rgb2, depth1, depth2;
 
 private:
-	void load_sequential_images(void){
-		rgb1 = imread(rgb_images[1], IMREAD_COLOR );
-		rgb2 = imread(rgb_images[2], IMREAD_COLOR );
-		depth1 = imread(depth_images[1], IMREAD_ANYDEPTH);
-		depth2 = imread(depth_images[2], IMREAD_ANYDEPTH);
-	}
-
-	void display_image(const Mat& image){
-		namedWindow("opencv_viewer", WINDOW_AUTOSIZE);
-		imshow("opencv_viewer", image);
-		waitKey(0);
-		destroyWindow("opencv_viewer");
+	void load_images(const int index1, const int index2){
+		rgb1 = imread(rgb_images[index1], IMREAD_COLOR );
+		rgb2 = imread(rgb_images[index2], IMREAD_COLOR );
+		depth1 = imread(depth_images[index1], IMREAD_ANYDEPTH);
+		depth2 = imread(depth_images[index2], IMREAD_ANYDEPTH);
 	}
 
 public:
@@ -114,8 +109,44 @@ public:
 					depth_images{depth_list}{};
 	
 	void start_processing(void){
-		load_sequential_images();
-		display_image(rgb1);
+		GenerateGraph graph_generator{poses, edges};
+		
+		for(int i=0; i<12; ++i){	
+			load_images(i, i+1);
+
+			vector<pair<int, int>> kps1_coord;
+			vector<pair<int, int>> kps2_coord;  
+			
+			ImageOperations image_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord};
+			image_processor.start_processing();
+
+			float delta_x=0.0, delta_y=0.0, delta_theta=0.0;
+			CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord, 1};
+			cloud_processor.start_processing();
+			cloud_processor.get_edge_parameters(delta_x, delta_y, delta_theta);
+
+			graph_generator.add_edge(delta_x, delta_y, delta_theta);
+		}
+
+		GraphVisualizer graph_visualizer{poses, edges};
+		graph_visualizer.start_processing();
+	}
+
+	void synthetic_trajectory(void){
+		GenerateGraph graph_generator{poses, edges};
+		GraphVisualizer graph_visualizer{poses, edges};
+
+		for(int i=0; i<10; ++i){
+			graph_generator.add_edge(2, 0, 0);
+		}
+		for(int i=0; i<6; ++i){
+			graph_generator.add_edge(2, 0, PI/6);
+		}
+		for(int i=0; i<10; ++i){
+			graph_generator.add_edge(2, 0, 0);
+		}
+
+		graph_visualizer.start_processing();
 	}
 };
 
@@ -133,6 +164,7 @@ int main(int argc, char const *argv[]){
 
 	GenerateEdges generator(rgb_images, depth_images);
 	generator.start_processing();
+	// generator.synthetic_trajectory();
 
 	return 0;
 }

@@ -9,6 +9,7 @@
 #include <Eigen/Dense>
 #include <pcl/io/pcd_io.h>
 #include <pcl/visualization/registration_visualizer.h>
+#include <cmath>
 
 using namespace cv;
 using namespace std;
@@ -76,7 +77,7 @@ public:
 	void start_processing(void){
 		match_keypoints();
 		kps_to_pixel_coordinates();
-		display_corresponding_image();
+		// display_corresponding_image();
 	}
 };
 
@@ -91,6 +92,7 @@ private:
 	Eigen::Matrix4f homogeneous;
 	vector<int> cloud1_keypoints;
 	vector<int> cloud2_keypoints;
+	const int sift_enable;
 
 private:
 	PointCloudT::Ptr images2cloud(const Mat& rgb_image, const Mat& depth_image, const vector<pair<int, int>> &coordinates, 
@@ -139,13 +141,6 @@ private:
 		return cloud;
 	}
 
-	void print_cloud_keypoints(const vector<int>& cloud_indexes, const vector<int>& cloud_keypoints){
-		fprintf(stdout, "size cloud_indexes: %lu\tsize cloud_keypoints: %lu\n", cloud_indexes.size(), cloud_keypoints.size());
-		for(auto element : cloud_keypoints){
-			cout << element << "\t" << endl;
-		}
-	}
-
 	void fill_correspondences(void){
 		for(int index1=0; index1<cloud1_keypoints.size(); ++index1){
 			auto iter = std::find(cloud2_keypoints.begin(), cloud2_keypoints.end(), cloud1_keypoints[index1]);
@@ -156,18 +151,7 @@ private:
 		}
 	}
 
-	void print_correspondences(void){
-		cout << "Size of correspondences: " << correspondences.size() << endl;
-		for(size_t i=0; i<correspondences.size(); ++i){
-			cout << correspondences[i] << endl;
-		}
-	}
-
 	void translate_cloud(const Eigen::Matrix4f& transform){
-		transformPointCloud(*target, *target, transform);
-	}
-
-	void translate_cloud(const Eigen::Affine3f& transform){
 		transformPointCloud(*target, *target, transform);
 	}
 
@@ -207,13 +191,6 @@ private:
 		fprintf(stdout, "Quaternion to euler in degree: %g %g %g\n",rad2deg(euler[0]), rad2deg(euler[1]), rad2deg(euler[2]) );
 	}
 
-	Eigen::Affine3f get_custom_translation(void){
-		Eigen::Affine3f translate = Eigen::Affine3f::Identity();
-		translate.translation() << 0.0, 0.0, -1;
-		translate.rotate(Eigen::AngleAxisf(PI, Eigen::Vector3f::UnitY()));
-		return translate;
-	}
-
 	void simple_visualize(void){
 		pcl::visualization::PCLVisualizer viewer("ICP");
 		viewer.addCoordinateSystem(1.0);
@@ -231,9 +208,18 @@ private:
 		fprintf(stdout, "Assemlbed Point Cloud saved to: %s\n", output_path.c_str());
 	}
 
+	void get_delta_theta_z(float& z_angle){
+		const Eigen::Matrix4f &mat = homogeneous;
+		float y_angle = atan2(-mat(2, 0), sqrt(pow(mat(0, 0), 2) + pow(mat(1, 0), 2)));
+		z_angle = atan2(mat(1, 0)/cos(y_angle), mat(0, 0)/cos(y_angle));
+		float x_angle = atan2(mat(2, 1)/cos(y_angle), mat(2, 2)/cos(y_angle));
+	}
+
 public:
 	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2, 
-					vector<pair<int, int>>& arg_kps1_coord, vector<pair<int, int>>& arg_kps2_coord):
+					vector<pair<int, int>>& arg_kps1_coord,
+					vector<pair<int, int>>& arg_kps2_coord,
+					const int arg_sift_enable=0):
 					kps1_coord{arg_kps1_coord},
 					kps2_coord{arg_kps2_coord},
 					rgb1{arg_rgb1},
@@ -241,22 +227,25 @@ public:
 					depth1{arg_depth1},
 					depth2{arg_depth2},
 					source{new PointCloudT},
-					target{new PointCloudT}{};
+					target{new PointCloudT},
+					sift_enable{arg_sift_enable}{};
 	
 	void start_processing(void){
-		fprintf(stdout, "Size of kps1_coord: %lu\nSize of kps2_coord: %lu\n", kps1_coord.size(), kps2_coord.size());
 		source = images2cloud(rgb1, depth1, kps1_coord, cloud_indexes1, cloud1_keypoints);
 		target = images2cloud(rgb2, depth2, kps2_coord, cloud_indexes2, cloud2_keypoints);
-		fill_correspondences();
-		// Eigen::Affine3f translate = get_custom_translation();
-		// translate_cloud(translate);
-		simple_visualize();
-		// print_cloud_keypoints(cloud_indexes1, cloud1_keypoints);
-		// print_cloud_keypoints(cloud_indexes2, cloud2_keypoints);
-		// print_correspondences();
+		if(sift_enable == 1){
+			fill_correspondences();
+		}
+		
+		// simple_visualize();
 		simple_icp();
-		display_homogeneous_to_quaternion();
-		simple_visualize();
-		// save_to_pcd("/home/udit/Desktop/assembled.pcd");
+		// display_homogeneous_to_quaternion();
+		// simple_visualize();
+	}
+
+	void get_edge_parameters(float& delta_x, float& delta_y, float& delta_theta){
+		delta_x = homogeneous(0,3); 
+		delta_y = homogeneous(1,3);
+		get_delta_theta_z(delta_theta);
 	}
 };
