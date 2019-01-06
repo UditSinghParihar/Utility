@@ -4,7 +4,6 @@
 #include <iostream>
 #include <algorithm>
 #include <opencv2/opencv.hpp>
-#include <opencv2/xfeatures2d.hpp>
 #include <pcl/point_types.h>
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/registration/icp.h>
@@ -22,67 +21,6 @@ using namespace std;
 
 typedef pcl::PointXYZRGB PointT;
 typedef pcl::PointCloud<PointT> PointCloudT;
-
-class ImageOperations{
-private:
-	Mat &rgb1, &rgb2, &depth1, &depth2;
-	vector<KeyPoint> keypoints1, keypoints2;
-	vector<DMatch> matches;
-	Mat matched_image;
-	vector<pair<int, int>>& kps1_coord;
-	vector<pair<int, int>>& kps2_coord;	
-
-private:
-	void display_corresponding_image(void){
-		namedWindow("opencv_viewer", WINDOW_AUTOSIZE);
-		imshow("opencv_viewer", matched_image);
-		waitKey(0);
-		destroyWindow("opencv_viewer");
-	}
-
-	void match_keypoints(void){
-		const int count_features = 500;
-		Ptr<xfeatures2d::SIFT> feature_detect = xfeatures2d::SIFT::create(count_features);
-		Mat descriptors1, descriptors2;
-
-		feature_detect->detectAndCompute(rgb1, noArray(), keypoints1, descriptors1);
-		feature_detect->detectAndCompute(rgb2, noArray(), keypoints2, descriptors2);
-		
-		Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create(DescriptorMatcher::FLANNBASED);
-		vector<vector<DMatch>> knn_matches;
-		matcher->knnMatch(descriptors1, descriptors2, knn_matches, 2);
-		
-		const float threshold_ratio = 0.7f;
-		for(size_t i=0; i<knn_matches.size(); ++i){
-			if(knn_matches[i][0].distance < threshold_ratio * knn_matches[i][1].distance)
-				matches.push_back(knn_matches[i][0]);
-		}
-		drawMatches(rgb1, keypoints1, rgb2, keypoints2, matches, matched_image);
-	}
-
-	void kps_to_pixel_coordinates(void){
-		for(vector<DMatch>::const_iterator iter=matches.begin(); iter!=matches.end(); ++iter){
-			kps1_coord.push_back(make_pair(int(keypoints1[iter->queryIdx].pt.x), int(keypoints1[iter->queryIdx].pt.y)));
-			kps2_coord.push_back(make_pair(int(keypoints2[iter->trainIdx].pt.x), int(keypoints2[iter->trainIdx].pt.y)));
-		}
-	}
-
-public:
-	ImageOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2,
-					vector<pair<int, int>>& arg_kps1_coord, vector<pair<int, int>>& arg_kps2_coord):
-					rgb1{arg_rgb1},
-					rgb2{arg_rgb2},
-					depth1{arg_depth1},
-					depth2{arg_depth2},
-					kps1_coord{arg_kps1_coord},
-					kps2_coord{arg_kps2_coord}{};
-
-	void start_processing(void){
-		match_keypoints();
-		kps_to_pixel_coordinates();
-		// display_corresponding_image();
-	}
-};
 
 class CloudOperations{
 private:
@@ -178,6 +116,22 @@ private:
 		translate_cloud(homogeneous.inverse());
 	}
 
+	void get_delta_theta_z(float& z_angle){
+		const Eigen::Matrix4f &mat = homogeneous;
+		float y_angle = atan2(-mat(2, 0), sqrt(pow(mat(0, 0), 2) + pow(mat(1, 0), 2)));
+		z_angle = atan2(mat(1, 0)/cos(y_angle), mat(0, 0)/cos(y_angle));
+		float x_angle = atan2(mat(2, 1)/cos(y_angle), mat(2, 2)/cos(y_angle));
+	}
+
+	void get_edge_parameters(void){
+		const float delta_x = homogeneous(0,3); 
+		const float delta_y = homogeneous(1,3);
+		float delta_theta=0.0;
+		get_delta_theta_z(delta_theta);
+		fprintf(stdout, "Edge parameters:\n%f\t%f\t%f\n", delta_x,
+				delta_y, rad2deg(delta_theta));
+	}
+	
 	void display_homogeneous_to_quaternion(void){
 		Eigen::Matrix3f rotate;
 		for(int i = 0; i<3 ; i++)
@@ -186,12 +140,12 @@ private:
 		Eigen::Quaternionf q(rotate);
 		
 		cout << "Homogeneous matrix: \n" << homogeneous << endl;
-		fprintf(stdout, "\nTranslation \n%f %f %f\n", homogeneous(0,3), homogeneous(1,3), homogeneous(2,3));
-		Eigen::Matrix<float, 4, 1> coeffs = q.coeffs();
-		fprintf(stdout, "Quaternion:\n%f %f %f %f\n", coeffs[0], coeffs[1], coeffs[2], coeffs[3]);
-		fprintf(stdout, "g2o edge:\n%f %f 0 0 0 %f %f\n", homogeneous(0,3), homogeneous(1,3), coeffs[2], coeffs[3]);
-		auto euler = q.toRotationMatrix().eulerAngles(0, 1, 2);
-		fprintf(stdout, "Quaternion to euler in degree: %g %g %g\n",rad2deg(euler[0]), rad2deg(euler[1]), rad2deg(euler[2]) );
+		// fprintf(stdout, "\nTranslation \n%f %f %f\n", homogeneous(0,3), homogeneous(1,3), homogeneous(2,3));
+		// Eigen::Matrix<float, 4, 1> coeffs = q.coeffs();
+		// fprintf(stdout, "Quaternion:\n%f %f %f %f\n", coeffs[0], coeffs[1], coeffs[2], coeffs[3]);
+		// fprintf(stdout, "g2o edge:\n%f %f 0 0 0 %f %f\n", homogeneous(0,3), homogeneous(1,3), coeffs[2], coeffs[3]);
+		// auto euler = q.toRotationMatrix().eulerAngles(0, 1, 2);
+		// fprintf(stdout, "Quaternion to euler in degree: %g %g %g\n",rad2deg(euler[0]), rad2deg(euler[1]), rad2deg(euler[2]) );
 	}
 
 	void simple_visualize(void){
@@ -211,12 +165,6 @@ private:
 		fprintf(stdout, "Assemlbed Point Cloud saved to: %s\n", output_path.c_str());
 	}
 
-	void get_delta_theta_z(float& z_angle){
-		const Eigen::Matrix4f &mat = homogeneous;
-		float y_angle = atan2(-mat(2, 0), sqrt(pow(mat(0, 0), 2) + pow(mat(1, 0), 2)));
-		z_angle = atan2(mat(1, 0)/cos(y_angle), mat(0, 0)/cos(y_angle));
-		float x_angle = atan2(mat(2, 1)/cos(y_angle), mat(2, 2)/cos(y_angle));
-	}
 
 public:
 	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2, 
@@ -240,17 +188,13 @@ public:
 			fill_correspondences();
 		}
 		
-		// simple_visualize();
+		simple_visualize();
 		simple_icp();
-		// display_homogeneous_to_quaternion();
-		// simple_visualize();
+		display_homogeneous_to_quaternion();
+		get_edge_parameters();
+		simple_visualize();
 	}
 
-	void get_edge_parameters(float& delta_x, float& delta_y, float& delta_theta){
-		delta_x = homogeneous(0,3); 
-		delta_y = homogeneous(1,3);
-		get_delta_theta_z(delta_theta);
-	}
 };
 
 #endif

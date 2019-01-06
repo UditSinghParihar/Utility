@@ -111,7 +111,7 @@ public:
 	void start_processing(void){
 		GenerateGraph graph_generator{poses, edges};
 		
-		for(int i=0; i<12; ++i){	
+		for(int i=0; i<rgb_images.size(); ++i){	
 			load_images(i, i+1);
 
 			vector<pair<int, int>> kps1_coord;

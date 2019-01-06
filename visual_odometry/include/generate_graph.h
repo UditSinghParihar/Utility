@@ -82,13 +82,13 @@ private:
 
 		const int length = 1;
 		plt::plot(x_points, y_points, "ro");
-		// for(int i=0; i<x_points.size(); ++i){
-		// 	vector<float> x_arrow{x_points[i], x_points[i] + length*cos(thetas[i])};
-		// 	vector<float> y_arrow{y_points[i], y_points[i] + length*sin(thetas[i])};
-		// 	plt::plot(x_arrow, y_arrow, "b->");
-		// }
-		// plt::xlim(-2, 30);
-		// plt::ylim(-2, 30);
+		for(int i=0; i<x_points.size(); ++i){
+			vector<float> x_arrow{x_points[i], x_points[i] + length*cos(thetas[i])};
+			vector<float> y_arrow{y_points[i], y_points[i] + length*sin(thetas[i])};
+			plt::plot(x_arrow, y_arrow, "b->");
+		}
+		plt::xlim(-2, 30);
+		plt::ylim(-2, 30);
 		plot_coordinate_axis();
 		plt::show();
 	}

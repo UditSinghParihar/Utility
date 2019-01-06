@@ -480,15 +480,6 @@
 	"buffers":
 	[
 		{
-			"file": "/home/udit/codes/pcl/opencv/feature_detection.cpp",
-			"settings":
-			{
-				"buffer_size": 7983,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "/home/udit/database_viewer/optimized.g2o",
 			"settings":
 			{
@@ -545,6 +536,7 @@
 	},
 	"file_history":
 	[
+		"/home/udit/codes/pcl/opencv/feature_detection.cpp",
 		"/home/udit/projects/loop_closure/README.md",
 		"/home/udit/data/rtabmap.launch",
 		"/home/udit/data/rtabmap.",
@@ -671,8 +663,7 @@
 		"/home/udit/softwares/isam/final_landmark_result.txt",
 		"/home/udit/softwares/isam/README",
 		"/home/udit/codes/isam_test.cpp",
-		"/home/udit/catkin_ws_extra/src/beginner_tutorials/src/listener_node.cpp",
-		"/home/udit/codes/template.h"
+		"/home/udit/catkin_ws_extra/src/beginner_tutorials/src/listener_node.cpp"
 	],
 	"find":
 	{
@@ -850,39 +841,11 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/home/udit/codes/pcl/opencv/feature_detection.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7983,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								19,
-								19
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "/home/udit/database_viewer/optimized.g2o",
 					"semi_transient": false,
 					"settings":
@@ -959,7 +922,7 @@
 	"project": "feature_detection.sublime-project",
 	"replace":
 	{
-		"height": 69.3181818182
+		"height": 44.3181818182
 	},
 	"save_all_on_build": true,
 	"select_file":
