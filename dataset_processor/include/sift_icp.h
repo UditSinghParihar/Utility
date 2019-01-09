@@ -90,6 +90,7 @@ private:
 				correspondences.push_back(pcl::Correspondence(cloud_indexes1[index1], cloud_indexes2[index2], 0.0));
 			}
 		}
+		cout << "Correspondence matched in 3d: " << correspondences.size() << endl;
 	}
 
 	void translate_cloud(const Eigen::Matrix4f& transform){
@@ -128,7 +129,7 @@ private:
 		const float delta_y = homogeneous(1,3);
 		float delta_theta=0.0;
 		get_delta_theta_z(delta_theta);
-		fprintf(stdout, "Edge parameters:\n%f\t%f\t%f\n", delta_x,
+		fprintf(stdout, "Edge parameters:\n%f\t%f\t%f(in degree)\n", delta_x,
 				delta_y, rad2deg(delta_theta));
 	}
 	

@@ -217,3 +217,7 @@ roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" depth_
 
 # Recording to rosbag
 rosbag record -O data1 /camera/aligned_depth_to_color/image_raw /camera/color/image_raw/compressed /camera/color/camera_info /tf_static
+
+# Process kill
+$ pgrep <process_name>
+$ kill <pid>
