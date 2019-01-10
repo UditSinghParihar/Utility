@@ -1,8 +1,7 @@
-#ifndef SIFT_ICP_H
-#define SIFT_ICP_H
+#ifndef ICP_H
+#define ICP_H
 
 #include <iostream>
-#include <algorithm>
 #include <opencv2/opencv.hpp>
 #include <pcl/point_types.h>
 #include <pcl/visualization/pcl_visualizer.h>
@@ -25,19 +24,12 @@ typedef pcl::PointCloud<PointT> PointCloudT;
 class CloudOperations{
 private:
 	Mat &rgb1, &rgb2, &depth1, &depth2;
-	vector<pair<int, int>>& kps1_coord;
-	vector<pair<int, int>>& kps2_coord;
-	vector<int> cloud_indexes1, cloud_indexes2;
 	PointCloudT::Ptr source, target;
 	pcl::Correspondences correspondences;
 	Eigen::Matrix4f homogeneous;
-	vector<int> cloud1_keypoints;
-	vector<int> cloud2_keypoints;
-	const int sift_enable;
-
+	
 private:
-	PointCloudT::Ptr images2cloud(const Mat& rgb_image, const Mat& depth_image, const vector<pair<int, int>> &coordinates, 
-										vector<int>& out_cloud_indexes, vector<int>& cloud_keypoints){
+	PointCloudT::Ptr images2cloud(const Mat& rgb_image, const Mat& depth_image){
 		const float f = 525, cx = 319.5, cy = 239.5;
 		PointCloudT::Ptr cloud(new PointCloudT());
 		cloud->is_dense = false;
@@ -65,13 +57,7 @@ private:
 					point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
 					point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
 					point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
-					std::pair<int, int> element = std::make_pair(x, y);
-					auto iter = std::find(coordinates.begin(), coordinates.end(), element);
-					if(iter != coordinates.end()){
-						out_cloud_indexes.push_back(image_index);
-						int element_index = distance(coordinates.begin(), iter);
-						cloud_keypoints.push_back(element_index);
-					}
+	
 					++image_index;
 					cloud->points.push_back(point);
 				}
@@ -82,38 +68,21 @@ private:
 		return cloud;
 	}
 
-	void fill_correspondences(void){
-		for(int index1=0; index1<cloud1_keypoints.size(); ++index1){
-			auto iter = std::find(cloud2_keypoints.begin(), cloud2_keypoints.end(), cloud1_keypoints[index1]);
-			if(iter != cloud2_keypoints.end()){
-				int index2 = distance(cloud2_keypoints.begin(), iter);
-				correspondences.push_back(pcl::Correspondence(cloud_indexes1[index1], cloud_indexes2[index2], 0.0));
-			}
-		}
-		cout << "Correspondence matched in 3d: " << correspondences.size() << endl;
-	}
-
 	void translate_cloud(const Eigen::Matrix4f& transform){
 		transformPointCloud(*target, *target, transform);
 	}
 
 	void simple_icp(void){
-		if(correspondences.size() == 0){
-			cout << "Doing align\n";
-			pcl::IterativeClosestPoint<PointT, PointT> icp;
-			icp.setInputSource(source);
-			icp.setInputTarget(target);
-			PointCloudT transformed;
-			icp.align(transformed);
-			homogeneous = icp.getFinalTransformation();
-			correspondences = (*icp.correspondences_);
-			fprintf(stdout, "Has converged?: %d\t Score: %g\n", icp.hasConverged(), icp.getFitnessScore());
-		}
-		else{
-			cout << "Doing estimateRigidTransformation\n";
-			pcl::registration::TransformationEstimationSVD<PointT, PointT> transform_estimation;
-			transform_estimation.estimateRigidTransformation(*source, *target, correspondences, homogeneous);
-		}
+		cout << "Doing align\n";
+		pcl::IterativeClosestPoint<PointT, PointT> icp;
+		icp.setInputSource(source);
+		icp.setInputTarget(target);
+		PointCloudT transformed;
+		icp.align(transformed);
+		homogeneous = icp.getFinalTransformation();
+		correspondences = (*icp.correspondences_);
+		fprintf(stdout, "Has converged?: %d\t Score: %g\n", icp.hasConverged(), icp.getFitnessScore());
+
 		translate_cloud(homogeneous.inverse());
 	}
 
@@ -168,26 +137,17 @@ private:
 
 
 public:
-	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2, 
-					vector<pair<int, int>>& arg_kps1_coord,
-					vector<pair<int, int>>& arg_kps2_coord,
-					const int arg_sift_enable=0):
-					kps1_coord{arg_kps1_coord},
-					kps2_coord{arg_kps2_coord},
+	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2):
 					rgb1{arg_rgb1},
 					rgb2{arg_rgb2},
 					depth1{arg_depth1},
 					depth2{arg_depth2},
 					source{new PointCloudT},
-					target{new PointCloudT},
-					sift_enable{arg_sift_enable}{};
+					target{new PointCloudT}{};
 	
 	void start_processing(void){
-		source = images2cloud(rgb1, depth1, kps1_coord, cloud_indexes1, cloud1_keypoints);
-		target = images2cloud(rgb2, depth2, kps2_coord, cloud_indexes2, cloud2_keypoints);
-		if(sift_enable == 1){
-			fill_correspondences();
-		}
+		source = images2cloud(rgb1, depth1);
+		target = images2cloud(rgb2, depth2);
 		
 		simple_visualize();
 		simple_icp();

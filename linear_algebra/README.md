@@ -21,3 +21,6 @@
 
 #### Algorithms Book ####
 1. [ ] [The Algorithm Design Manual](http://mimoza.marmara.edu.tr/~msakalli/cse706_12/SkienaTheAlgorithmDesignManual.pdf)
+
+#### Maths Book ####
+1. [ ] [Introduction to Applied Linear Algebra](http://vmls-book.stanford.edu/vmls.pdf)

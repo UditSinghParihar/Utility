@@ -12,8 +12,8 @@ class g2oParser{
 private:
 	vector<vector<float>>& transforms;
 	const char *g2o_file;
-	const string keyword = "EDGE_SE3:QUAT";
-	const int word_count = 9;
+	const string keyword = "VERTEX_SE3:QUAT";
+	const int word_count = 8;
 
 private:
 	vector<int> find_spaces(const string &line){
@@ -24,6 +24,7 @@ private:
 				index.push_back(i);
 			}
 		}
+		index.push_back(line.length());
 		return index;
 	}
 
@@ -66,13 +67,8 @@ public:
 	g2oParser(const char *file, vector<vector<float>>& arg_transforms):
 				g2o_file{file}, transforms{arg_transforms}{};
 
-	// vector<vector<float>> get_transforms(void){
-	// 	return transforms;
-	// }
-	
 	void start_processing(void){
 		parse_g2o_file();
-		print_transforms();
 	}
 };
 
