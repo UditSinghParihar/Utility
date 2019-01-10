@@ -89,14 +89,24 @@ private:
 		pose.theta_z = get_delta_theta_z(rotate);
 	}
 
+	int find_last_slash(const string& str){
+		int last_index = 0;
+		const char slash = '/';
+
+		for(int i=0; i<str.size(); ++i){
+			if(str[i] == slash){
+				last_index = i;
+			}
+		}
+		return last_index;
+	}
+
 	int get_image_id(const string &str){
-		int index = 0;
 		string result{};
-		while(str[index] != '.'){
+		for(int index=find_last_slash(str); str[index] != '.'; ++index){
 			if(isdigit(str[index])){
 				result += str[index];
 			}
-			++index;
 		}
 		return stoi(result);
 	}
@@ -140,6 +150,15 @@ private:
 		}
 	}
 
+	void write_relative_transforms(void){
+		ofstream file_write("image_pairs.txt");
+		for(int i=0; i<rgb_pairs.size(); ++i){
+			file_write << rgb_pairs[i].first << endl << rgb_pairs[i].second << endl
+						<< edges[i];
+		}
+		file_write.close();
+	}
+
 public:
 	GenerateRT(const vector<pair<string, string>>& rgbs,
 				const vector<pair<string, string>>& depths,
@@ -152,7 +171,8 @@ public:
 	
 	void start_processing(void){
 		generate_edges();
-		// print_edges();
+		print_edges();
+		write_relative_transforms();
 	}
 };
 

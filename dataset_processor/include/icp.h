@@ -11,6 +11,7 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/visualization/registration_visualizer.h>
 #include <cmath>
+#include "graph.h"
 
 using namespace cv;
 using namespace std;
@@ -27,6 +28,7 @@ private:
 	PointCloudT::Ptr source, target;
 	pcl::Correspondences correspondences;
 	Eigen::Matrix4f homogeneous;
+	const Edge& edge;
 	
 private:
 	PointCloudT::Ptr images2cloud(const Mat& rgb_image, const Mat& depth_image){
@@ -72,13 +74,13 @@ private:
 		transformPointCloud(*target, *target, transform);
 	}
 
-	void simple_icp(void){
+	void simple_icp(const Eigen::Matrix4f& guess){
 		cout << "Doing align\n";
 		pcl::IterativeClosestPoint<PointT, PointT> icp;
 		icp.setInputSource(source);
 		icp.setInputTarget(target);
 		PointCloudT transformed;
-		icp.align(transformed);
+		icp.align(transformed, guess);
 		homogeneous = icp.getFinalTransformation();
 		correspondences = (*icp.correspondences_);
 		fprintf(stdout, "Has converged?: %d\t Score: %g\n", icp.hasConverged(), icp.getFitnessScore());
@@ -98,8 +100,11 @@ private:
 		const float delta_y = homogeneous(1,3);
 		float delta_theta=0.0;
 		get_delta_theta_z(delta_theta);
-		fprintf(stdout, "Edge parameters:\n%f\t%f\t%f(in degree)\n", delta_x,
-				delta_y, rad2deg(delta_theta));
+
+		Edge final_edge{delta_x, delta_y, delta_theta, edge.from_id, edge.to_id};
+		cout << final_edge;  
+		// fprintf(stdout, "Edge parameters:\ndelta_x: %f delta_y: %f delta_theta: %f(deg)\n",
+		// 		delta_x, delta_y, rad2deg(delta_theta));
 	}
 	
 	void display_homogeneous_to_quaternion(void){
@@ -135,13 +140,24 @@ private:
 		fprintf(stdout, "Assemlbed Point Cloud saved to: %s\n", output_path.c_str());
 	}
 
+	void convert_edge_to_guess_matrix(Eigen::Matrix4f& guess){
+		guess(0, 3) = edge.delta_x;
+		guess(1, 3) = edge.delta_y;
+		
+		guess(0, 0) = cos(edge.delta_theta);
+		guess(0, 1) = -sin(edge.delta_theta);
+		guess(1, 0) = sin(edge.delta_theta);
+		guess(1, 1) = cos(edge.delta_theta);
+	}
 
 public:
-	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2):
+	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2,
+					const Edge& arg_edge):
 					rgb1{arg_rgb1},
 					rgb2{arg_rgb2},
 					depth1{arg_depth1},
 					depth2{arg_depth2},
+					edge{arg_edge},
 					source{new PointCloudT},
 					target{new PointCloudT}{};
 	
@@ -150,7 +166,11 @@ public:
 		target = images2cloud(rgb2, depth2);
 		
 		simple_visualize();
-		simple_icp();
+
+		Eigen::Matrix4f guess = Eigen::Matrix4f::Identity();
+		convert_edge_to_guess_matrix(guess);
+		
+		simple_icp(guess);
 		display_homogeneous_to_quaternion();
 		get_edge_parameters();
 		simple_visualize();

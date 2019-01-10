@@ -1,6 +1,7 @@
 #include <iostream>
 #include "keypoints_gui.h"
-#include "sift_icp.h"
+#include "icp.h"
+// #include "sift_icp.h"s
 
 int main(int argc, char const *argv[]){
 	if(argc != 5){
@@ -19,8 +20,10 @@ int main(int argc, char const *argv[]){
 	Mat depth1 = imread(argv[3], IMREAD_ANYDEPTH);
 	Mat depth2 = imread(argv[4], IMREAD_ANYDEPTH);
 
-	CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord, 1};
-	cloud_processor.start_processing();
+	// CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord, 1};
+	// cloud_processor.start_processing();
 	
+	CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2};
+	cloud_processor.start_processing();
 	return 0;
 }

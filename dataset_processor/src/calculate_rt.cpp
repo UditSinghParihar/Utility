@@ -32,6 +32,15 @@ void icp_refining(const vector<pair<string, string>>& rgb_pairs,
 					const vector<pair<string, string>>& depth_pairs, 
 					const vector<Edge>& edges){
 	
+	for(int i=0; i<rgb_pairs.size(); ++i){
+		Mat rgb1 = imread(rgb_pairs[i].first, IMREAD_COLOR );
+		Mat rgb2 = imread(rgb_pairs[i].second, IMREAD_COLOR );
+		Mat depth1 = imread(depth_pairs[i].first, IMREAD_ANYDEPTH);
+		Mat depth2 = imread(depth_pairs[i].second, IMREAD_ANYDEPTH);
+		
+		CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2, edges[i]};
+		cloud_processor.start_processing();
+	}
 }
 
 int main(int argc, char const *argv[]){
@@ -51,6 +60,8 @@ int main(int argc, char const *argv[]){
 	vector<Edge> edges;
 	GenerateRT rt_generator{rgb_pairs, depth_pairs, transforms, edges};
 	rt_generator.start_processing();
+
+	// icp_refining(rgb_pairs, depth_pairs, edges);
 
 	return 0;
 }

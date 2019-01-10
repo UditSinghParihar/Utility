@@ -257,7 +257,7 @@ public:
 		fprintf(stdout, "Size of kps1_coord: %lu\nSize of kps2_coord: %lu\n", kps1_coord.size(), kps2_coord.size());
 		source = images2cloud(rgb1, depth1, kps1_coord, cloud_indexes1, cloud1_keypoints);
 		target = images2cloud(rgb2, depth2, kps2_coord, cloud_indexes2, cloud2_keypoints);
-		fill_correspondences();
+		// fill_correspondences();
 		// Eigen::Affine3f translate = get_custom_translation();
 		// translate_cloud(translate);
 		simple_visualize();
