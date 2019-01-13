@@ -172,7 +172,7 @@ public:
 	void start_processing(void){
 		generate_edges();
 		print_edges();
-		write_relative_transforms();
+		// write_relative_transforms();
 	}
 };
 

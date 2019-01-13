@@ -70,7 +70,7 @@ private:
 		return cloud;
 	}
 
-	void translate_cloud(const Eigen::Matrix4f& transform){
+	void translate_cloud(const Eigen::Matrix4f& transform, PointCloudT::Ptr target){
 		transformPointCloud(*target, *target, transform);
 	}
 
@@ -80,12 +80,12 @@ private:
 		icp.setInputSource(source);
 		icp.setInputTarget(target);
 		PointCloudT transformed;
-		icp.align(transformed, guess);
+		icp.align(transformed);
 		homogeneous = icp.getFinalTransformation();
 		correspondences = (*icp.correspondences_);
 		fprintf(stdout, "Has converged?: %d\t Score: %g\n", icp.hasConverged(), icp.getFitnessScore());
 
-		translate_cloud(homogeneous.inverse());
+		translate_cloud(homogeneous.inverse(), target);
 	}
 
 	void get_delta_theta_z(float& z_angle){
@@ -123,10 +123,10 @@ private:
 		// fprintf(stdout, "Quaternion to euler in degree: %g %g %g\n",rad2deg(euler[0]), rad2deg(euler[1]), rad2deg(euler[2]) );
 	}
 
-	void simple_visualize(void){
+	void simple_visualize(PointCloudT::Ptr source, PointCloudT::Ptr target){
 		pcl::visualization::PCLVisualizer viewer("ICP");
 		viewer.addCoordinateSystem(1.0);
-		viewer.addCorrespondences<PointT>(source, target, correspondences);
+		// viewer.addCorrespondences<PointT>(source, target, correspondences);
 		pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb1(source);
 		pcl::visualization::PointCloudColorHandlerCustom<PointT> red(target, 230, 20, 20);
 		viewer.addPointCloud(source, rgb1, "source");
@@ -150,6 +150,13 @@ private:
 		guess(1, 1) = cos(edge.delta_theta);
 	}
 
+	void visualize_guess_transformation(const Eigen::Matrix4f guess){
+		PointCloudT::Ptr guess_rotated_point_cloud(new PointCloudT);
+		copyPointCloud(*target, *guess_rotated_point_cloud);
+		translate_cloud(guess, guess_rotated_point_cloud);
+		simple_visualize(source, guess_rotated_point_cloud);
+	}
+
 public:
 	CloudOperations(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2,
 					const Edge& arg_edge):
@@ -165,15 +172,16 @@ public:
 		source = images2cloud(rgb1, depth1);
 		target = images2cloud(rgb2, depth2);
 		
-		simple_visualize();
-
 		Eigen::Matrix4f guess = Eigen::Matrix4f::Identity();
 		convert_edge_to_guess_matrix(guess);
 		
+		visualize_guess_transformation(guess);
+	
+		translate_cloud(guess, target);	
 		simple_icp(guess);
 		display_homogeneous_to_quaternion();
 		get_edge_parameters();
-		simple_visualize();
+		simple_visualize(source, target);
 	}
 
 };

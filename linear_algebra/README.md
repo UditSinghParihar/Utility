@@ -24,3 +24,9 @@
 
 #### Maths Book ####
 1. [ ] [Introduction to Applied Linear Algebra](http://vmls-book.stanford.edu/vmls.pdf)
+2. [ ] [Introduction to Linear Algebra Fourth Edition](https://github.com/butterluo/btGitDoc/blob/master/algorithm/math/LinearAlgebra/Introduction%20to%20Linear%20Algebra%2C%204th%20edition--Gilbert%20Strang.pdf)
+3. [ ] [Problem set and Lecture Notes](http://web.mit.edu/18.06/www/Fall17/)
+
+#### Computer Vision ####
+1. [ ] [Computer Vision A Modern Approach](http://cmuems.com/excap/readings/forsyth-ponce-computer-vision-a-modern-approach.pdf)
+2. [ ] [Computer Vision: Algorithms and Applications](http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf)
