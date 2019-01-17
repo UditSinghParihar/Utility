@@ -27,7 +27,8 @@ int main(int argc, char const *argv[]){
 		Quaternionf q = AngleAxisf(deg2rad2(v[0]), Vector3f::UnitX())
 	    * AngleAxisf(deg2rad2(v[1]), Vector3f::UnitY())
 	    * AngleAxisf(deg2rad2(v[2]), Vector3f::UnitZ());
-	    cout << "euler to Quaternion: \n" << q.coeffs() << endl;		
+	    cout << "euler to Quaternion: \n" << q.coeffs() << endl;
+	    cout << "Rotation matrix: \n" << q.toRotationMatrix() << endl; 	
 		auto euler = q.toRotationMatrix().eulerAngles(0, 1, 2);
 		fprintf(stdout, "Quaternion to euler in degree: %g %g %g\n",rad2deg(euler[0]), rad2deg(euler[1]), rad2deg(euler[2]) );
 	}

@@ -23,8 +23,7 @@ struct ImageInfo{
 
 class GenerateKeypoints{
 private:
-	const string rgb1;
-	const string rgb2;
+	Mat &rgb1, &rgb2, &depth1, &depth2;
 	vector<pair<int, int>>& keypoints1;
 	vector<pair<int, int>>& keypoints2;
 
@@ -63,32 +62,45 @@ private:
 		}
 	}
 	
-	void start_gui(void){
-		Mat image1 = imread(rgb1, IMREAD_COLOR);
-		const string window_name1 = "opencv_viewer1";
-		
-		Mat image2 = imread(rgb2, IMREAD_COLOR);
-		const string window_name2 = "opencv_viewer2";
-
-		if(image1.empty() || image2.empty()){
-			fprintf(stdout, "Unable to open images\n");
-			cout << rgb1 << endl << rgb2 << endl;
-			return ;
+	void generate_composite_image(const Mat3b& rgb, const Mat& depth,
+									Mat3b& composite){
+		int counter = 0;
+		for(int y=0; y<rgb.rows; ++y){
+			for(int x=0; x<rgb.cols; ++x){
+				if(depth.at<unsigned short>(y, x) == 0){
+					++counter;
+					composite(y, x) = cv::Vec3b(0, 0, 0);
+				}
+				else{
+					composite(y, x) = rgb(y, x);
+				}
+			}
 		}
-	
-		ImageInfo info1{image1, keypoints1, window_name1};
-		ImageInfo info2{image2, keypoints2, window_name2};
+		cout << "Bad points gui: " << counter << endl;
+	}
 
+	void start_gui(void){
+		const string window_name1 = "opencv_viewer1";
+		const string window_name2 = "opencv_viewer2";
+	
 		namedWindow(window_name1, WINDOW_AUTOSIZE);
 		namedWindow(window_name2, WINDOW_AUTOSIZE);
 		moveWindow(window_name1, 10, 50);
 		moveWindow(window_name2, 700, 50);
+		
+		cv::Mat3b composite_image1(rgb1.size());
+		cv::Mat3b composite_image2(rgb2.size());
+		generate_composite_image(rgb1, depth1, composite_image1);
+		generate_composite_image(rgb2, depth2, composite_image2);
+
+		ImageInfo info1{composite_image1, keypoints1, window_name1};
+		ImageInfo info2{composite_image2, keypoints2, window_name2};
 
 		setMouseCallback(window_name1, on_mouse1, &info1);
 		setMouseCallback(window_name2, on_mouse2, &info2);
 
-		imshow(window_name1, image1);
-		imshow(window_name2, image2);
+		imshow(window_name1, composite_image1);
+		imshow(window_name2, composite_image2);
 
 		waitKey(0);
 
@@ -109,10 +121,13 @@ private:
 	}
 
 public:
-	GenerateKeypoints(const string image1, const string image2,
+	GenerateKeypoints(Mat& arg_rgb1, Mat& arg_rgb2, Mat& arg_depth1, Mat& arg_depth2,
 						vector<pair<int, int>>& kps1, vector<pair<int, int>>& kps2):
-						rgb1{image1}, rgb2{image2},
-						keypoints1{kps1}, keypoints2{kps2}{};
+						rgb1{arg_rgb1},
+						rgb2{arg_rgb2},
+						depth1{arg_depth1},
+						depth2{arg_depth2},
+						keypoints1{kps1}, keypoints2{kps2}{	};
 
 	void start_processing(void){
 		start_gui();
