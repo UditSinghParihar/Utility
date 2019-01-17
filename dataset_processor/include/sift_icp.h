@@ -77,6 +77,7 @@ private:
 				}
 			}
 		}
+		cout << "Bad points cloud: " << bad_image_index << endl;
 		cloud->width = cloud->points.size();
 		cloud->height = 1;
 		return cloud;

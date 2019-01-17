@@ -21,6 +21,8 @@ set(ALL_LIBS ${OpenCV_LIBS} ${PCL_LIBRARIES})
 
 add_executable(calculate_rt src/calculate_rt.cpp)
 add_executable(mouse_click src/mouse_click.cpp)
+add_executable(composite_gui src/composite_gui.cpp)
 
 target_link_libraries(calculate_rt ${ALL_LIBS})
 target_link_libraries(mouse_click ${ALL_LIBS})
+target_link_libraries(composite_gui ${ALL_LIBS})

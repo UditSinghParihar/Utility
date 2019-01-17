@@ -30,6 +30,14 @@ void simple_visualize(const PointCloudT::Ptr cloud1, const PointCloudT::Ptr clou
 void simple_visualize(const PointCloud<PointXYZ>::Ptr cloud1, const PointCloud<PointXYZ>::Ptr cloud2,const pcl::Correspondences& correspond={}){
 	pcl::visualization::PCLVisualizer viewer2("Custom cloud");
 	viewer2.addCorrespondences<PointXYZ>(cloud1, cloud2, correspond);
+	
+	viewer2.setShapeRenderingProperties(
+		pcl::visualization::RenderingProperties::PCL_VISUALIZER_LINE_WIDTH,
+		3, "correspondences");
+	viewer2.setShapeRenderingProperties(
+		pcl::visualization::RenderingProperties::PCL_VISUALIZER_COLOR,
+		0, 0, 220, "correspondences");
+
 	pcl::visualization::PointCloudColorHandlerCustom<PointXYZ> red_handle(cloud1, 230, 20, 20);
 	pcl::visualization::PointCloudColorHandlerCustom<PointXYZ> red_handle2(cloud2, 230, 20, 20);
 	viewer2.addPointCloud(cloud1, red_handle, "cloud1");
@@ -104,8 +112,15 @@ void shift_cloud(const PointCloud<PointXYZ>::Ptr source_cloud, const PointCloud<
 }
 
 void fill_correspondences(pcl::Correspondences& out_correspondences, const int num_points){
-	for(int i=0; i<num_points; ++i)
+	for(int i=0; i<2; ++i){
 		out_correspondences.push_back(pcl::Correspondence(i, i, 0.0));
+	}
+
+	int last_index = num_points-1;
+	for(int i=last_index; i>last_index-1; --i){
+		cout << i << endl;
+		out_correspondences.push_back(pcl::Correspondence(i, i, 0.0));
+	}
 }
 
 void real_cloud_icp(char const *argv[]){

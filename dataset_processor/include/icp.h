@@ -177,7 +177,7 @@ public:
 		
 		visualize_guess_transformation(guess);
 	
-		translate_cloud(guess, target);	
+		// translate_cloud(guess, target);	
 		simple_icp(guess);
 		display_homogeneous_to_quaternion();
 		get_edge_parameters();
