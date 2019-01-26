@@ -178,13 +178,11 @@ Vis/InlierDistance = "0.1"  # [Vis/EstimationType = 0] Maximum distance for feat
 
 rqt_plot /pose/twist/twist/linear/x /cmd_vel/linear/x
 
-source ~/softwares/tensorflow/venv/bin/activate # $ start_tf
 
 df -h 
 sudo du -cha --max-depth=1 | grep -E "M|G"
 
 
-python download_mp.py -o '/media/udit/Seagate Backup Plus Drive/Matterport_Dataset' & while true ; do du -h --max-depth=1 /media/udit/Seagate\ Backup\ Plus\ Drive/Matterport_Dataset/ ; done
  
 # Real time gpu monitor
 watch -n 1 nvidia-smi 
@@ -221,3 +219,18 @@ rosbag record -O data1 /camera/aligned_depth_to_color/image_raw /camera/color/im
 # Process kill
 $ pgrep <process_name>
 $ kill <pid>
+
+# Creating virtualenv
+$ virtualenv [optins] <environment-variable>
+# --system-site-packages : depends on global /usr/lib/python2.7/
+$ virtualenv --system-site-packages -p python3 venv
+
+$ source ./venv/bin/activate
+$ pip list
+
+$ source ~/softwares/tensorflow/venv/bin/activate # $ start_tf
+$ source ~/softwares/tensorflow3/venv3/bin/activate # $ start_tf3
+$ deactivate
+
+# [Not using/using] system packages
+# [rm/touch] tensorflow3/venv3/lib/python3.5/no-global-site-packages.txt

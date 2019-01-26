@@ -136,7 +136,7 @@ private:
 	}
 
 	void save_to_pcd(string output_path){
-		pcl::io::savePCDFileASCII(output_path, *source + *target);
+		pcl::io::savePCDFileASCII(output_path, *target);
 		fprintf(stdout, "Assemlbed Point Cloud saved to: %s\n", output_path.c_str());
 	}
 
@@ -177,11 +177,13 @@ public:
 		
 		visualize_guess_transformation(guess);
 	
-		// translate_cloud(guess, target);	
-		simple_icp(guess);
-		display_homogeneous_to_quaternion();
-		get_edge_parameters();
-		simple_visualize(source, target);
+		translate_cloud(guess, target);
+		save_to_pcd("rotated_cloud");
+
+		// simple_icp(guess);
+		// display_homogeneous_to_quaternion();
+		// get_edge_parameters();
+		// simple_visualize(source, target);
 	}
 
 };
