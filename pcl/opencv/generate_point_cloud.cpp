@@ -2,6 +2,8 @@
 #include <opencv2/opencv.hpp>
 #include <pcl/point_types.h>
 #include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/io/pcd_io.h>
+#include <cctype>
 
 using namespace std;
 using namespace cv;
@@ -31,9 +33,9 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 			if(depth_image.at<unsigned short>(y, x) == 0){
 				++bad_image_index;
 			}
-			// else if(rgb_image.at<cv::Vec3b>(y, x) == black_pixel){
-			// 	++background_index;
-			// }
+			else if(rgb_image.at<cv::Vec3b>(y, x) == black_pixel){
+				++background_index;
+			}
 			else{
 				point.z = depth_image.at<unsigned short>(y, x)/1000.0;
 				point.x = (x - cx) * point.z / f;
@@ -68,6 +70,25 @@ void simple_visualize(PointCloudT::Ptr cloud){
 		viewer.spinOnce();
 }
 
+void save_to_pcd(string output_path, PointCloudT::Ptr cloud){
+	pcl::io::savePCDFileASCII(output_path, *cloud);
+	fprintf(stdout, "Point Cloud saved to: %s\n", output_path.c_str());
+}
+
+string get_cloud_name(const string& image_name){
+	string cloud_name{};
+	for(char letter : image_name){
+		if(isdigit(letter)){
+			cloud_name += letter;	
+		}
+	}
+
+	cloud_name += ".pcd";
+	cout << "cloud_name: " << cloud_name << endl;
+	return cloud_name;
+
+}
+
 int main(int argc, char const *argv[]){
 	if(argc != 3){
 		fprintf(stdout, "Usage: %s rgb.png depth.png\n", argv[0]);
@@ -75,7 +96,7 @@ int main(int argc, char const *argv[]){
 	}
 
 	Mat rgb = imread(argv[1], IMREAD_COLOR );
-	Mat depth = imread(argv[1], IMREAD_ANYDEPTH);
+	Mat depth = imread(argv[2], IMREAD_ANYDEPTH);
 	
 	if(rgb.empty()){
 		fprintf(stdout, "Unable to open images\n");
@@ -86,6 +107,9 @@ int main(int argc, char const *argv[]){
 	PointCloudT::Ptr cloud(new PointCloudT);
 	images2cloud(cloud, rgb, depth);
 	simple_visualize(cloud);
-	
+
+	string final_cloud = get_cloud_name(argv[1]);
+	save_to_pcd(final_cloud, cloud);
+
 	return 0;
 }
