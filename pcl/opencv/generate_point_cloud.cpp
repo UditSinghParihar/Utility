@@ -60,6 +60,7 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	}
 	cloud->width = cloud->points.size();
 	cloud->height = 1;
+	fprintf(stdout, "Background black_pixels: %d \n", background_index);
 }
 
 void simple_visualize(PointCloudT::Ptr cloud){
