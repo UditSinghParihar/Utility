@@ -26,9 +26,9 @@ void quaternion_to_euler(const Eigen::Matrix3f& rotate){
 
 int main(int argc, char const *argv[]){
 	Eigen::Matrix3f rotation;
-	rotation <<	-0.978359,   0.192197, -0.0766393,
- -0.199858,  -0.973686,   0.109512,
--0.0535747,   0.122459,   0.991027;
+	rotation <<	0.286959,  -0.61849, -0.731523,
+ 0.794622, -0.272802,  0.542361,
+-0.535005, -0.736919,  0.413182;
 
 	rotation_to_euler(rotation);
 	quaternion_to_euler(rotation);
