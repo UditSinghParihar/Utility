@@ -234,3 +234,11 @@ $ deactivate
 
 # [Not using/using] system packages
 # [rm/touch] tensorflow3/venv3/lib/python3.5/no-global-site-packages.txt
+
+# ipsc commands
+$ ssh ipsc19@abacus.iiit.ac.in
+$ xXkK_oIL
+$ mpicc file.c -o file.out
+$ mpirun -np 10 file.out
+$ sbatch ipsc_job.sh # <output> slurm-<jobid>
+$ squeue

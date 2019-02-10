@@ -45,8 +45,8 @@ int main(int argc, char const *argv[]){
 											kps1_coord, kps2_coord);
 		keypoint_gui.start_processing();
 
-		// CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord, 1};
-		// cloud_processor.start_processing();
+		CloudOperations cloud_processor{rgb1, rgb2, depth1, depth2, kps1_coord, kps2_coord, 1};
+		cloud_processor.start_processing();
 	}
 
 	return 0;
