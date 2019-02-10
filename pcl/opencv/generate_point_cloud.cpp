@@ -25,7 +25,7 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	int image_index = 0;
 	int bad_image_index = 0;
 	int background_index = 0;
-	const int depth_threshold = 2500;
+	const int depth_threshold = 4000;
 	cv::Vec3b black_pixel{0, 0, 0};
 
 	for(int y=0; y<rgb_image.rows; ++y){
@@ -68,6 +68,8 @@ void simple_visualize(PointCloudT::Ptr cloud){
 	viewer.addCoordinateSystem(1.0);
 	pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb(cloud);
 	viewer.addPointCloud(cloud, rgb, "cloud");
+	viewer.setBackgroundColor (220, 220, 220);
+
 	while(! viewer.wasStopped())
 		viewer.spinOnce();
 }
@@ -95,12 +97,33 @@ void read_depth_image(const Mat& depth){
 	cout << depth;
 }
 
+void apply_mask(Mat& image, const string& side){
+	cv::Vec3b black_pixel{0, 0, 0};
+
+	if(side == "left"){
+		for(int y=0; y<image.rows; ++y){
+        	for(int x=0; x<(image.cols)/2; ++x){
+        		image.at<cv::Vec3b>(y, x) = black_pixel;
+        	}
+        }
+        cout << "Left side painted black\n";
+	}
+	else if(side == "right"){
+		for(int y=0; y<image.rows; ++y){
+        	for(int x=(image.cols)/2; x<image.cols; ++x){
+        		image.at<cv::Vec3b>(y, x) = black_pixel;
+        	}
+        }
+        cout << "Right side painted black\n";
+	}
+}
+
 int main(int argc, char const *argv[]){
 	if(argc != 3){
 		fprintf(stdout, "Usage: %s rgb.png depth.png\n", argv[0]);
 		return 1;
 	}
-
+	
 	Mat rgb = imread(argv[1], IMREAD_COLOR );
 	Mat depth = imread(argv[2], IMREAD_ANYDEPTH);
 	
@@ -110,6 +133,9 @@ int main(int argc, char const *argv[]){
 	}
 
 	display_image(rgb);
+	apply_mask(rgb, "left");
+	display_image(rgb);
+
 	PointCloudT::Ptr cloud(new PointCloudT);
 	images2cloud(cloud, rgb, depth);
 	simple_visualize(cloud);
