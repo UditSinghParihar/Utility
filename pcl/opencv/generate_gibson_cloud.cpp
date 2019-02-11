@@ -5,6 +5,8 @@
 #include <pcl/io/pcd_io.h>
 #include <cctype>
 
+#include "keypoints_gui.h"
+
 using namespace std;
 using namespace cv;
 
@@ -19,48 +21,42 @@ void display_image(const Mat& image){
 }
 
 void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth_image){
-	const float f = 570.3, cx = 320.0, cy = 240.0;
+	const float fx = 210, fy = 278.25, cx = 128.0, cy = 127.2;
 	cloud->is_dense = false;
-	float bad_point = std::numeric_limits<float>::quiet_NaN();
 	int image_index = 0;
 	int bad_image_index = 0;
-	int background_index = 0;
-	const int depth_threshold = 4000;
-	cv::Vec3b black_pixel{0, 0, 0};
+
+	cout << "Size of depth image channels: " << depth_image.channels() << endl;
+	cout << "Size of rgb image channels: " << rgb_image.channels() << endl;
+	
+	for(int x=0; x<rgb_image.cols; ++x){
+		cout << depth_image.at<unsigned short>(x, 150) << endl;
+	}
 
 	for(int y=0; y<rgb_image.rows; ++y){
 		for(int x=0; x<rgb_image.cols; ++x){
 			pcl::PointXYZRGB point;
-			if(depth_image.at<unsigned short>(y, x) == 0 || 
-				depth_image.at<unsigned short>(y, x) > depth_threshold){
-				++bad_image_index;
-			}
-			else if(rgb_image.at<cv::Vec3b>(y, x) == black_pixel){
-				++background_index;
-			}
-			else{
-				point.z = depth_image.at<unsigned short>(y, x)/1000.0;
-				point.x = (x - cx) * point.z / f;
-				point.y = (y - cy) * point.z / f;
-				
-				float temp_z = point.z; 
-				float temp_x = point.x;
-				float temp_y = point.y;
-				point.x = temp_z;
-				point.z = -temp_y;
-				point.y = -temp_x;
 
-				point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
-				point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
-				point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
-				++image_index;
-				cloud->points.push_back(point);
-			}
+			point.z = depth_image.at<unsigned short>(y, x)/1000.0;
+			point.x = (x - cx) * point.z / fx;
+			point.y = (y - cy) * point.z / fy;
+			
+			float temp_z = point.z; 
+			float temp_x = point.x;
+			float temp_y = point.y;
+			point.x = temp_z;
+			point.z = -temp_y;
+			point.y = -temp_x;
+
+			point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
+			point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
+			point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
+			++image_index;
+			cloud->points.push_back(point);
 		}
 	}
 	cloud->width = cloud->points.size();
 	cloud->height = 1;
-	fprintf(stdout, "Background black_pixels: %d \n", background_index);
 }
 
 void simple_visualize(PointCloudT::Ptr cloud){
@@ -68,8 +64,6 @@ void simple_visualize(PointCloudT::Ptr cloud){
 	viewer.addCoordinateSystem(1.0);
 	pcl::visualization::PointCloudColorHandlerRGBField<PointT> rgb(cloud);
 	viewer.addPointCloud(cloud, rgb, "cloud");
-	viewer.setBackgroundColor (220, 220, 220);
-
 	while(! viewer.wasStopped())
 		viewer.spinOnce();
 }
@@ -97,35 +91,12 @@ void read_depth_image(const Mat& depth){
 	cout << depth;
 }
 
-void apply_mask(Mat& image, const string& side){
-	cv::Vec3b black_pixel{0, 0, 0};
-	if(side == "left"){
-		for(int y=0; y<image.rows; ++y){
-        	for(int x=0; x<(image.cols)/2; ++x){
-        		image.at<cv::Vec3b>(y, x) = black_pixel;
-        	}
-        }
-        cout << "Left side painted black\n";
-	}
-	else if(side == "right"){
-		for(int y=0; y<image.rows; ++y){
-        	for(int x=(image.cols)/2; x<image.cols; ++x){
-        		image.at<cv::Vec3b>(y, x) = black_pixel;
-        	}
-        }
-        cout << "Right side painted black\n";
-	}
-	else if(side == "none"){
-		cout << "No mask is applied\n";
-	}
-}
-
 int main(int argc, char const *argv[]){
-	if(argc != 4){
-		fprintf(stdout, "Usage: %s rgb.png depth.png masking_side\n", argv[0]);
+	if(argc != 3){
+		fprintf(stdout, "Usage: %s rgb.png depth.png\n", argv[0]);
 		return 1;
 	}
-	
+
 	Mat rgb = imread(argv[1], IMREAD_COLOR );
 	Mat depth = imread(argv[2], IMREAD_ANYDEPTH);
 	
@@ -134,9 +105,11 @@ int main(int argc, char const *argv[]){
 		return 1;
 	}
 
-	apply_mask(rgb, argv[3]);
-	display_image(rgb);
+	// vector<Point2f> corners;
+	// gui::GenerateKeypoints keypoint_gui(rgb, corners);
+	// keypoint_gui.start_processing();
 
+	display_image(rgb);
 	PointCloudT::Ptr cloud(new PointCloudT);
 	images2cloud(cloud, rgb, depth);
 	simple_visualize(cloud);
