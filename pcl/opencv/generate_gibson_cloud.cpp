@@ -29,10 +29,6 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	cout << "Size of depth image channels: " << depth_image.channels() << endl;
 	cout << "Size of rgb image channels: " << rgb_image.channels() << endl;
 	
-	for(int x=0; x<rgb_image.cols; ++x){
-		cout << depth_image.at<unsigned short>(x, 150) << endl;
-	}
-
 	for(int y=0; y<rgb_image.rows; ++y){
 		for(int x=0; x<rgb_image.cols; ++x){
 			pcl::PointXYZRGB point;
@@ -47,7 +43,7 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 			point.x = temp_z;
 			point.z = -temp_y;
 			point.y = -temp_x;
-
+			
 			point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
 			point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
 			point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
