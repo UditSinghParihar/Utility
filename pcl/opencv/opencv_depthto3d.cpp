@@ -20,13 +20,12 @@ void display_image(const Mat& image){
 }
 
 void point_cloud_from_matrix(PointCloudT::Ptr cloud, const Mat3b& cloud_matrix){
-	cout << "Number of rows and cols:\n" << cloud_matrix.rows << "\t" << cloud_matrix.cols << endl;
 	for(int y=0; y<cloud_matrix.rows; ++y){
 		for(int x=0; x<cloud_matrix.cols; ++x){
 			PointT point;
-			point.x = cloud_matrix.at<cv::Vec3b>(y, x)[0];
-			point.y = cloud_matrix.at<cv::Vec3b>(y, x)[1];
-			point.z = cloud_matrix.at<cv::Vec3b>(y, x)[2];
+			point.x = cloud_matrix.at<Vec<float, 3>>(y, x)[0];
+			point.y = cloud_matrix.at<Vec<float, 3>>(y, x)[1];
+			point.z = cloud_matrix.at<Vec<float, 3>>(y, x)[2];
 			point.r = 235;
 			point.g = 5;
 			point.b = 5;
@@ -52,7 +51,7 @@ int main(int argc, char const *argv[]){
 	}
 
 	Mat rgb = imread(argv[1], IMREAD_COLOR);
-	Mat depth = imread(argv[2], IMREAD_ANYDEPTH);
+	Mat depth = imread(argv[2], CV_16UC1);
 	
 	display_image(rgb);
 
@@ -61,12 +60,15 @@ int main(int argc, char const *argv[]){
 		return 1;
 	}
 
-	const float f = 570.3, cx = 320.0, cy = 240.0;	
-	Mat K = (Mat_<double>(3,3) << f, 0, cx, 0, f, cy, 0, 0, 1);
+	const float fx = 210, fy = 278.25, cx = 128.0, cy = 127.2;	
+	Mat K = (Mat_<double>(3,3) << fx, 0, cx, 0, fy, cy, 0, 0, 1);
 	Mat cloud_matrix;
+
+	Mat depth_f;
+	depth.convertTo(depth, CV_32FC1);
 	
 	cv::rgbd::depthTo3d(depth, K, cloud_matrix);
-	cout << "some value: " << cloud_matrix.at<cv::Vec3b>(223, 43) << endl;
+	cout << "Some value of cloud_matrix pixel: " << cloud_matrix.at<Vec<float, 3>>(34, 112) << endl;
 
 	PointCloudT::Ptr cloud(new PointCloudT);
 	point_cloud_from_matrix(cloud, cloud_matrix);
