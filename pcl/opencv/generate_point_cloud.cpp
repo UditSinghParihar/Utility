@@ -25,7 +25,7 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	int image_index = 0;
 	int bad_image_index = 0;
 	int background_index = 0;
-	const int depth_threshold = 4000;
+	const int depth_threshold = 3000;
 	cv::Vec3b black_pixel{0, 0, 0};
 
 	for(int y=0; y<rgb_image.rows; ++y){

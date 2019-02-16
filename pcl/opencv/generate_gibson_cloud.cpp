@@ -33,7 +33,7 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 		for(int x=0; x<rgb_image.cols; ++x){
 			pcl::PointXYZRGB point;
 
-			point.z = depth_image.at<unsigned short>(y, x)/1000.0;
+			point.z = depth_image.at<float>(y, x)/1000.0;
 			point.x = (x - cx) * point.z / fx;
 			point.y = (y - cy) * point.z / fy;
 			
@@ -94,7 +94,7 @@ int main(int argc, char const *argv[]){
 	}
 
 	Mat rgb = imread(argv[1], IMREAD_COLOR );
-	Mat depth = imread(argv[2], IMREAD_ANYDEPTH);
+	Mat depth = imread(argv[2], CV_16UC1);
 	
 	if(rgb.empty()){
 		fprintf(stdout, "Unable to open images\n");
@@ -105,6 +105,8 @@ int main(int argc, char const *argv[]){
 	// gui::GenerateKeypoints keypoint_gui(rgb, corners);
 	// keypoint_gui.start_processing();
 
+	depth.convertTo(depth, CV_32FC1);
+	
 	display_image(rgb);
 	PointCloudT::Ptr cloud(new PointCloudT);
 	images2cloud(cloud, rgb, depth);
