@@ -1,0 +1,1144 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"in",
+				"indices"
+			],
+			[
+				"poin",
+				"points"
+			],
+			[
+				"ind",
+				"indices"
+			],
+			[
+				"get",
+				"get_source_points"
+			],
+			[
+				"bas",
+				"base"
+			],
+			[
+				"Point",
+				"Point3D"
+			],
+			[
+				"mat",
+				"matcher"
+			],
+			[
+				"base",
+				"base_points"
+			],
+			[
+				"base3",
+				"base_3D_"
+			],
+			[
+				"Poin",
+				"Point3D"
+			],
+			[
+				"pro",
+				"protected"
+			],
+			[
+				"min",
+				"min_distance"
+			],
+			[
+				"po",
+				"pow"
+			],
+			[
+				"math",
+				"cmath\tstandard header"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"poi",
+				"point"
+			],
+			[
+				"fil",
+				"fill_base_points"
+			],
+			[
+				"cl",
+				"cloud"
+			],
+			[
+				"ar",
+				"arg_y"
+			],
+			[
+				"nu",
+				"num2"
+			],
+			[
+				"num",
+				"num-1"
+			],
+			[
+				"be",
+				"begin"
+			],
+			[
+				"mu",
+				"multiply_5"
+			],
+			[
+				"print",
+				"printf\tprintf …"
+			],
+			[
+				"int",
+				"intrinsic"
+			],
+			[
+				"im",
+				"image_points"
+			],
+			[
+				"ima",
+				"images_path"
+			],
+			[
+				"pr",
+				"processed_image"
+			],
+			[
+				"Pc",
+				"PCLVisualizer"
+			],
+			[
+				"l",
+				"last_index"
+			],
+			[
+				"co",
+				"composite_image2"
+			],
+			[
+				"win",
+				"window_name2"
+			],
+			[
+				"com",
+				"composite_image1"
+			],
+			[
+				"co1",
+				"composite_image1"
+			],
+			[
+				"co2",
+				"composite_image2"
+			],
+			[
+				"rg",
+				"rgb"
+			],
+			[
+				"r",
+				"rgb1"
+			],
+			[
+				"Mat",
+				"Mat3b"
+			],
+			[
+				"dep",
+				"depth1"
+			],
+			[
+				"gue",
+				"guess"
+			],
+			[
+				"Poi",
+				"PointCloudT"
+			],
+			[
+				"gu",
+				"guess"
+			],
+			[
+				"tra",
+				"translate_target_cloud"
+			],
+			[
+				"sec",
+				"second_pose"
+			],
+			[
+				"fir",
+				"first_in_world_frame"
+			],
+			[
+				"del",
+				"delta_x"
+			],
+			[
+				"deg",
+				"deg2rad"
+			],
+			[
+				"edg",
+				"edges"
+			],
+			[
+				"ed",
+				"edges"
+			],
+			[
+				"std",
+				"stdout"
+			],
+			[
+				"se",
+				"second_frame_in_first"
+			],
+			[
+				"pos",
+				"pose2"
+			],
+			[
+				"pri",
+				"private"
+			],
+			[
+				"stdli",
+				"cstdlib\tstandard header"
+			],
+			[
+				"inc",
+				"inc\t#include <…>"
+			],
+			[
+				"ge",
+				"get_delta_theta_z"
+			],
+			[
+				"M",
+				"Matrix3f"
+			],
+			[
+				"tr",
+				"transform"
+			],
+			[
+				"vid",
+				"video_name"
+			],
+			[
+				"pu",
+				"push_back"
+			],
+			[
+				"arg",
+				"argc"
+			],
+			[
+				"kps",
+				"kps1_coord"
+			],
+			[
+				"keypo",
+				"keypoint_gui"
+			],
+			[
+				"ke",
+				"keypoints2"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			],
+			[
+				"image",
+				"image2"
+			],
+			[
+				"inf",
+				"info2"
+			],
+			[
+				"wind",
+				"window_name2"
+			],
+			[
+				"ope",
+				"opencv_viewer1"
+			],
+			[
+				"sta",
+				"start_processing"
+			],
+			[
+				"cou",
+				"counter"
+			],
+			[
+				"Imag",
+				"ImageInfo"
+			],
+			[
+				"open",
+				"opencv_viewer"
+			],
+			[
+				"opev",
+				"opencv2"
+			],
+			[
+				"goi",
+				"going_images"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"find",
+				"find_image_index"
+			],
+			[
+				"go",
+				"going_length"
+			],
+			[
+				"goin",
+				"going_end"
+			],
+			[
+				"comin",
+				"arg_coming"
+			],
+			[
+				"fin",
+				"find_image_index"
+			],
+			[
+				"de",
+				"depth"
+			],
+			[
+				"lin",
+				"lines"
+			],
+			[
+				"cty",
+				"cctype\tstandard header"
+			],
+			[
+				"line",
+				"line"
+			],
+			[
+				"wo",
+				"word"
+			],
+			[
+				"end",
+				"endl"
+			],
+			[
+				"traje",
+				"trajectories"
+			],
+			[
+				"a",
+				"arg_file"
+			],
+			[
+				"st",
+				"string\tstandard header"
+			],
+			[
+				"i",
+				"inc\t#include <…>"
+			],
+			[
+				"SIF",
+				"SIFT_ICP_H"
+			],
+			[
+				"gra",
+				"graph_visualizer"
+			],
+			[
+				"G",
+				"GraphVisualizer"
+			],
+			[
+				"graph",
+				"graph_generator"
+			],
+			[
+				"Ge",
+				"GenerateGraph"
+			],
+			[
+				"graphvisu",
+				"graph_visualizer"
+			],
+			[
+				"dle",
+				"delta_x"
+			],
+			[
+				"noi",
+				"noisy_poses"
+			],
+			[
+				"nois",
+				"noise"
+			],
+			[
+				"no",
+				"noise"
+			],
+			[
+				"nosi",
+				"noisy_poses"
+			],
+			[
+				"cur",
+				"current_pose_world_frame"
+			],
+			[
+				"d",
+				"delta_y"
+			],
+			[
+				"corr",
+				"correct_poses"
+			],
+			[
+				"cor",
+				"correct_edges"
+			],
+			[
+				"cu",
+				"current_frame_in_world_frame"
+			],
+			[
+				"new",
+				"new_pose_current_frame"
+			],
+			[
+				"z",
+				"z_angle"
+			],
+			[
+				"y",
+				"y_angle"
+			],
+			[
+				"sift",
+				"sift_enable"
+			],
+			[
+				"las",
+				"last-4"
+			],
+			[
+				"pose",
+				"poses"
+			],
+			[
+				"p",
+				"poses"
+			],
+			[
+				"add",
+				"add_loop_closing_edge"
+			],
+			[
+				"cloud",
+				"cloud_current_frame"
+			],
+			[
+				"point",
+				"points"
+			],
+			[
+				"my",
+				"my_tool_active"
+			],
+			[
+				"c",
+				"current_pose_world_frame"
+			],
+			[
+				"fr",
+				"from_id"
+			],
+			[
+				"edges",
+				"noisy_edges"
+			],
+			[
+				"corre",
+				"correct_poses"
+			],
+			[
+				"edge",
+				"edges"
+			],
+			[
+				"delt",
+				"delta_x"
+			],
+			[
+				"correc",
+				"correct_edges"
+			],
+			[
+				"th",
+				"theta_radian"
+			],
+			[
+				"the",
+				"theta_z"
+			],
+			[
+				"ne",
+				"new_pose_world_frame"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/udit/projects/OpenGR/demos/Super4PCS/super4pcs_test.cc",
+			"settings":
+			{
+				"buffer_size": 8405,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/projects/OpenGR/src/gr/algorithms/match4pcsBase.h",
+			"settings":
+			{
+				"buffer_size": 5199,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/projects/OpenGR/src/gr/algorithms/match4pcsBase.hpp",
+			"settings":
+			{
+				"buffer_size": 13369,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/projects/OpenGR/bases_visualization/find_point.cpp",
+			"settings":
+			{
+				"buffer_size": 5253,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/projects/OpenGR/src/gr/algorithms/congruentSetExplorationBase.h",
+			"settings":
+			{
+				"buffer_size": 8774,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/udit/projects/OpenGR/src/gr/algorithms/congruentSetExplorationBase.hpp",
+			"settings":
+			{
+				"buffer_size": 18180,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/c++_custom.sublime-build",
+					""
+				],
+				[
+					"Packages/User/c++_custom.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/c++_custom.sublime-build",
+				"Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 125.590911865,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/udit/codes/rotation_to_euler.cpp",
+		"/home/udit/codes/constexpr_fib.cpp",
+		"/home/udit/codes/launch_commands.txt",
+		"/home/udit/codes/pcl/opencv/CMakeLists.txt",
+		"/home/udit/resources/coursera_hack.txt",
+		"/home/udit/softwares/OpenGR/src/gr/algorithms/congruentSetExplorationBase.hpp",
+		"/home/udit/softwares/OpenGR/src/gr/algorithms/congruentSetExplorationBase.h",
+		"/home/udit/softwares/OpenGR/src/gr/algorithms/match4pcsBase.hpp",
+		"/home/udit/softwares/OpenGR/src/gr/algorithms/match4pcsBase.h",
+		"/home/udit/softwares/OpenGR/demos/Super4PCS/super4pcs_test.cc",
+		"/home/udit/codes/pcl/find_point.cpp",
+		"/home/udit/projects/OpenGR/bases_visualization/CMakeLists.txt",
+		"/home/udit/projects/OpenGR/.gitignore",
+		"/home/udit/softwares/OpenGR/demos/PCLWrapper/pcl/registration/impl/super4pcs.hpp",
+		"/home/udit/softwares/OpenGR/demos/PCLWrapper/pcl/registration/super4pcs.h",
+		"/home/udit/codes/pcl/colorize.cpp",
+		"/home/udit/codes/pcl/CMakeLists.txt",
+		"/home/udit/codes/pcl/opencv/sift_icp.cpp",
+		"/home/udit/backup/OpenGR/src/gr/algorithms/match4pcsBase.hpp",
+		"/home/udit/softwares/OpenGR/demos/PCLWrapper/main.cpp",
+		"/home/udit/codes/functor_accumulator.cpp",
+		"/home/udit/codes/functor_string.cpp",
+		"/home/udit/codes/functor.cpp",
+		"/home/udit/backup/OpenGR/demos/Super4PCS/super4pcs_test.cc",
+		"/home/udit/softwares/OpenGR/demos/PCLWrapper/CMakeLists.txt",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/include/keypoints_gui.h",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/calibrate_chessboard.cpp",
+		"/home/udit/softwares/OpenGR/demos/demo-utils.h",
+		"/home/udit/softwares/OpenGR/CMakeLists.txt",
+		"/home/udit/softwares/rtabmap/CMakeLists.txt",
+		"/home/udit/codes/dataset_processor/src/composite_gui.cpp",
+		"/home/udit/codes/dataset_processor/src/mouse_click.cpp",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/images.txt",
+		"/home/udit/Desktop/2dpoints.txt",
+		"/home/udit/codes/dataset_processor/src/calculate_rt.cpp",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/include/sift_icp.h",
+		"/home/udit/codes/dataset_processor/include/sift_icp.h",
+		"/home/udit/codes/pcl/opencv/generate_point_cloud.cpp",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/CMakeLists.txt",
+		"/home/udit/codes/dataset_processor/include/keypoints_gui.h",
+		"/home/udit/projects/cv_assignments/assignment1/data/Assignment1_Data/calibrate.py",
+		"/home/udit/softwares/opencv/samples/cpp/tutorial_code/calib3d/camera_calibration/camera_calibration.cpp",
+		"/home/udit/codes/dataset_processor/include/file_parser.h",
+		"/home/udit/softwares/opencv/modules/core/src/convert_c.cpp",
+		"/home/udit/Downloads/image_list.xml.txt",
+		"/home/udit/softwares/opencv/samples/cpp/tutorial_code/calib3d/camera_calibration/VID5.xml",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/VID5.xml",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/in_VID5.xml",
+		"/home/udit/projects/cv_assignments/assignment1/zhang_calibration/out_camera_data.yml",
+		"/home/udit/softwares/opencv/samples/cpp/tutorial_code/calib3d/camera_calibration/in_VID5.xml",
+		"/home/udit/softwares/opencv/samples/cpp/tutorial_code/calib3d/camera_calibration/CMakeLists.txt",
+		"/home/udit/projects/cv_assignments/assignment0/CMakeLists.txt",
+		"/usr/local/include/opencv4/opencv2/calib3d.hpp",
+		"/home/udit/softwares/opencv/samples/CMakeLists.example.in",
+		"/home/udit/softwares/opencv/samples/CMakeLists.txt",
+		"/home/udit/projects/cv_assignments/assignment1/data/Assignment1_Data/README.txt",
+		"/home/udit/softwares/Mask_RCNN/mrcnn/model.py",
+		"/home/udit/softwares/Mask_RCNN/mrcnn/utils.py",
+		"/home/udit/codes/mpi_test.c",
+		"/home/udit/.bashrc",
+		"/home/udit/codes/pcl/opencv/cloud_coordinate_axis.cpp",
+		"/home/udit/softwares/tensorflow3/venv3/lib/python3.5/site-packages/imgaug/imgaug.py",
+		"/home/udit/softwares/Mask_RCNN/mask_rcnn_coco.h5",
+		"/home/udit/softwares/Mask_RCNN/LICENSE",
+		"/home/udit/softwares/Mask_RCNN/samples/demo.py",
+		"/run/user/1000/jupyter/nbserver-22250-open.html",
+		"/home/udit/softwares/Mask_RCNN/mrcnn/visualize.py",
+		"/home/udit/softwares/Mask_RCNN/samples/coco/coco.py",
+		"/run/user/1000/jupyter/nbserver-16426-open.html",
+		"/home/udit/softwares/coco/PythonAPI/setup.py",
+		"/home/udit/softwares/cocoapi/README.txt",
+		"/home/udit/softwares/tensorflow3/imgui.ini",
+		"/var/lib/dpkg/info/cuda-repo-ubuntu1604-9-2-local.list",
+		"/home/udit/catkin_ws_extra/src/rostensorflow/classify_image.py",
+		"/home/udit/catkin_ws_extra/src/rostensorflow/image_recognition.py",
+		"/run/user/1000/jupyter/nbserver-26355-open.html",
+		"/usr/lib/python2.7/fractions.py",
+		"/home/udit/.local/share/Trash/files/extract_chroma_key/issues/issues.json",
+		"/home/udit/.local/share/Trash/files/mat_super4pcs_fast.txt",
+		"/home/udit/data/training_dataset/180_view/clouds_obj/mat_70_125.txt",
+		"/home/udit/softwares/OpenGR/demos/Super4PCS/CMakeLists.txt",
+		"/home/udit/softwares/OpenGR/demos/CMakeLists.txt",
+		"/home/udit/codes/dataset_processor/include/icp.h",
+		"/home/udit/codes/icp/icp_framework.py",
+		"/home/udit/softwares/OpenGR/build/demos/PCLWrapper/Makefile",
+		"/home/udit/softwares/OpenGR/src/gr/io/io.cc",
+		"/home/udit/softwares/OpenGR/src/gr/algorithms/CMakeLists.txt",
+		"/home/udit/softwares/OpenGR/scripts/run-example.bat",
+		"/home/udit/softwares/OpenGR/scripts/run-example.",
+		"/home/udit/codes/random_number.cpp",
+		"/home/udit/data/white_chair/obj_clouds/mat_super4pcs_fast.txt",
+		"/home/udit/codes/dataset_processor/include/graph.h",
+		"/home/udit/codes/dataset_processor/include/g2o_parser.h",
+		"/home/udit/data/training_dataset/3d_print_water_cooler_corridor/3d_print_water_cooler_corridor.txt",
+		"/home/udit/data/training_dataset/smaller_dataset/initial_guess.txt",
+		"/home/udit/data/training_dataset/180_view/clouds/cloud1.pcd",
+		"/home/udit/data/training_dataset/smaller_dataset/clouds/1a_ascii.pcd",
+		"/home/udit/data/training_dataset/smaller_dataset/clouds/8b.pcd",
+		"/home/udit/data/training_dataset/180_view/main_lab.txt",
+		"/home/udit/data/training_dataset/3d_print_water_cooler_corridor/180_pairs.txt",
+		"/home/udit/catkin_ws/src/rtabmap_ros/launch/custom_launch/export.launch",
+		"/home/udit/codes/eigen_transformation.cpp",
+		"/home/udit/codes/pcl/matrix_transformation.cpp",
+		"/home/udit/projects/personal_documents/passwords/password.md",
+		"/home/udit/Downloads/a.out",
+		"/home/udit/projects/path_finding_sfml_gui/README.md",
+		"/home/udit/projects/loop_closure/README.md",
+		"/home/udit/codes/GUI.cpp",
+		"/home/udit/codes/sfml_first_run.cpp",
+		"/home/udit/.cache/.fr-q5sLJh/SFML-2.5.1/share/SFML/readme.md",
+		"/media/udit/Studies/desktop files/SFML/SFML_test/StaticTiledMap.cpp",
+		"/media/udit/Studies/desktop files/SFML/SFML_test/StaticTiledMap.h",
+		"/media/udit/Studies/desktop files/SFML/SFML_test/GUI.cpp",
+		"/home/udit/projects/cv_assignments/assignment0/src/chroma_key.cpp",
+		"/home/udit/codes/dataset_processor/CMakeLists.txt",
+		"/home/udit/codes/linear_algebra/README.md",
+		"/home/udit/codes/matrix_multiplication.cpp",
+		"/media/udit/Shubodh/training_dataset/3d_printer_water_cooler_corridor/180_pairs.txt",
+		"/home/udit/data/training_dataset/180_view/180_pairs.txt",
+		"/home/udit/data/training_dataset/180_view/poses.g2o",
+		"/home/udit/codes/visual_odometry/include/graph.h",
+		"/home/udit/codes/visual_odometry/CMakeLists.txt",
+		"/home/udit/codes/visual_odometry/include/generate_graph.h",
+		"/home/udit/projects/cv_assignments/assignment0/include/directory_parser.h",
+		"/home/udit/codes/pcl/opencv/feature_detectors.cpp",
+		"/home/udit/projects/cv_assignments/README.md",
+		"/home/udit/.cache/.fr-lD48vl/docs/Documentation.md",
+		"/home/udit/.cache/.fr-EDjzJu/docs/Home.md"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"nvidia",
+			"Point3D",
+			"red_colorization",
+			"vector<Point3D>",
+			"print_bases",
+			"matcher",
+			"generatecongruents",
+			"Matcher",
+			"CongruentBaseType",
+			"base_3D_",
+			"coordinates",
+			"init",
+			"current_congruent_",
+			"align",
+			"processed_image",
+			"composite_image1",
+			"smaller_image",
+			"chessBoardFlags",
+			"display",
+			"showUndistorsed",
+			"help",
+			"cvConvertScale",
+			"HEAD",
+			"detect",
+			"request",
+			"urllib",
+			"request",
+			"TryQuadrilateral",
+			"SelectQuadrilateral",
+			"ComputeTransformation",
+			"match4pcsBase",
+			"FunctorBrute4pcs",
+			"Functor4pcs",
+			"FunctorSuper4pcs",
+			"printS4PCSParameterList",
+			"demos",
+			"install",
+			"bin",
+			"main",
+			"save_to_pcd",
+			"translate_cloud",
+			"Music",
+			"ImageInfo info1{composite_image1, keypoints1, window_name1};\n\t\tImageInfo info2{composite_image2, keypoints2, window_name2};",
+			"simple_visualize",
+			"VideoWriter"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Point",
+			"blue_colorization",
+			"smaller_image",
+			"image1",
+			"processed_image"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/udit/projects/OpenGR/demos/Super4PCS/super4pcs_test.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8405,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								942,
+								942
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 298.863636364,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/udit/projects/OpenGR/src/gr/algorithms/match4pcsBase.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5199,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4989,
+								4989
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 843.181818182,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/home/udit/projects/OpenGR/src/gr/algorithms/match4pcsBase.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13369,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/udit/projects/OpenGR/bases_visualization/find_point.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5253,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/udit/projects/OpenGR/src/gr/algorithms/congruentSetExplorationBase.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8774,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/home/udit/projects/OpenGR/src/gr/algorithms/congruentSetExplorationBase.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18180,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 272.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 240.0
+	},
+	"pinned_build_system": "Packages/User/c++_custom.sublime-build",
+	"project": "super4pcs.sublime-project",
+	"replace":
+	{
+		"height": 44.3181818182
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"nu",
+				"~/codes/random_number.cpp"
+			],
+			[
+				"lau",
+				"~/codes/launch_commands.txt"
+			],
+			[
+				"pos",
+				"~/database_viewer/poses_database.g2o"
+			],
+			[
+				"c++",
+				"~/.config/sublime-text-3/Packages/User/c++_custom.sublime-build"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 132.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
