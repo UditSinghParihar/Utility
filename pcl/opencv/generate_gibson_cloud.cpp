@@ -86,18 +86,31 @@ void read_depth_image(const Mat& depth){
 	cout << depth;
 }
 
+void coordinates_to_colors(const vector<Point2f>& coordinates, vector<Vec3b>& colors,
+							const Mat& image){
+	for(int i=0; i<coordinates.size(); ++i){
+		colors.push_back(image.at<cv::Vec3b>(coordinates[i]));
+	}
+}
+
 void generate_mask(Mat& image){
 	vector<Point2f> coordinates;
 	Mat arg_image = image.clone();
 	gui::GenerateKeypoints keypoint_gui(arg_image, coordinates);
 	keypoint_gui.start_processing();
 
+
 	if(coordinates.size() != 0){
+		vector<cv::Vec3b> selected_colors;
+		coordinates_to_colors(coordinates, selected_colors, image);
+		
 		cv::Vec3b black_pixel{0, 0, 0};
-		cv::Vec3b selected_pixel = image.at<cv::Vec3b>(coordinates[0]);
 		for(int y=0; y<image.rows; ++y){
 			for(int x=0; x<image.cols; ++x){
-				if(image.at<cv::Vec3b>(y, x) != selected_pixel){
+				cv::Vec3b pixel_color = image.at<cv::Vec3b>(y, x);
+				auto iter = std::find(selected_colors.begin(), selected_colors.end(),
+										pixel_color);
+				if(iter == selected_colors.end()){
 					image.at<cv::Vec3b>(y, x) = black_pixel;
 				}
 			}
@@ -113,7 +126,7 @@ int main(int argc, char const *argv[]){
 
 	Mat rgb = imread(argv[1], IMREAD_COLOR );
 	Mat depth = imread(argv[2], CV_16UC1);
-	// depth.convertTo(depth, CV_32FC1);
+	depth.convertTo(depth, CV_32FC1);
 	
 	if(rgb.empty() || depth.empty()){
 		fprintf(stdout, "Unable to open images\n");
