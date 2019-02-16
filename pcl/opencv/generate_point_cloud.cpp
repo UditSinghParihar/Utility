@@ -25,21 +25,21 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	int image_index = 0;
 	int bad_image_index = 0;
 	int background_index = 0;
-	const int depth_threshold = 3000;
+	const int depth_threshold = INT_MAX;
 	cv::Vec3b black_pixel{0, 0, 0};
 
 	for(int y=0; y<rgb_image.rows; ++y){
 		for(int x=0; x<rgb_image.cols; ++x){
 			pcl::PointXYZRGB point;
-			if(depth_image.at<unsigned short>(y, x) == 0 || 
-				depth_image.at<unsigned short>(y, x) > depth_threshold){
+			if(depth_image.at<float>(y, x) == 0 || 
+				depth_image.at<float>(y, x) > depth_threshold){
 				++bad_image_index;
 			}
 			else if(rgb_image.at<cv::Vec3b>(y, x) == black_pixel){
 				++background_index;
 			}
 			else{
-				point.z = depth_image.at<unsigned short>(y, x)/1000.0;
+				point.z = depth_image.at<float>(y, x);
 				point.x = (x - cx) * point.z / f;
 				point.y = (y - cy) * point.z / f;
 				
@@ -128,7 +128,8 @@ int main(int argc, char const *argv[]){
 	
 	Mat rgb = imread(argv[1], IMREAD_COLOR );
 	Mat depth = imread(argv[2], IMREAD_ANYDEPTH);
-	
+	depth.convertTo(depth, CV_32FC1);
+
 	if(rgb.empty()){
 		fprintf(stdout, "Unable to open images\n");
 		return 1;

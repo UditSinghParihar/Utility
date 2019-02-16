@@ -24,31 +24,30 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	const float fx = 210, fy = 278.25, cx = 128.0, cy = 127.2;
 	cloud->is_dense = false;
 	int image_index = 0;
-	int bad_image_index = 0;
-
-	cout << "Size of depth image channels: " << depth_image.channels() << endl;
-	cout << "Size of rgb image channels: " << rgb_image.channels() << endl;
+	cv::Vec3b black_pixel{0, 0, 0};
 	
 	for(int y=0; y<rgb_image.rows; ++y){
 		for(int x=0; x<rgb_image.cols; ++x){
-			pcl::PointXYZRGB point;
+			if(rgb_image.at<cv::Vec3b>(y, x) != black_pixel){			
+				pcl::PointXYZRGB point;
 
-			point.z = depth_image.at<float>(y, x)/1000.0;
-			point.x = (x - cx) * point.z / fx;
-			point.y = (y - cy) * point.z / fy;
-			
-			float temp_z = point.z; 
-			float temp_x = point.x;
-			float temp_y = point.y;
-			point.x = temp_z;
-			point.z = -temp_y;
-			point.y = -temp_x;
-			
-			point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
-			point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
-			point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
-			++image_index;
-			cloud->points.push_back(point);
+				point.z = depth_image.at<float>(y, x);
+				point.x = (x - cx) * point.z / fx;
+				point.y = (y - cy) * point.z / fy;
+				
+				float temp_z = point.z; 
+				float temp_x = point.x;
+				float temp_y = point.y;
+				point.x = temp_z;
+				point.z = -temp_y;
+				point.y = -temp_x;
+				
+				point.r = rgb_image.at<cv::Vec3b>(y, x)[2];
+				point.g = rgb_image.at<cv::Vec3b>(y, x)[1];
+				point.b = rgb_image.at<cv::Vec3b>(y, x)[0];
+				++image_index;
+				cloud->points.push_back(point);
+			}
 		}
 	}
 	cloud->width = cloud->points.size();
@@ -87,6 +86,25 @@ void read_depth_image(const Mat& depth){
 	cout << depth;
 }
 
+void generate_mask(Mat& image){
+	vector<Point2f> coordinates;
+	Mat arg_image = image.clone();
+	gui::GenerateKeypoints keypoint_gui(arg_image, coordinates);
+	keypoint_gui.start_processing();
+
+	if(coordinates.size() != 0){
+		cv::Vec3b black_pixel{0, 0, 0};
+		cv::Vec3b selected_pixel = image.at<cv::Vec3b>(coordinates[0]);
+		for(int y=0; y<image.rows; ++y){
+			for(int x=0; x<image.cols; ++x){
+				if(image.at<cv::Vec3b>(y, x) != selected_pixel){
+					image.at<cv::Vec3b>(y, x) = black_pixel;
+				}
+			}
+		}
+	}
+}
+
 int main(int argc, char const *argv[]){
 	if(argc != 3){
 		fprintf(stdout, "Usage: %s rgb.png depth.png\n", argv[0]);
@@ -95,19 +113,16 @@ int main(int argc, char const *argv[]){
 
 	Mat rgb = imread(argv[1], IMREAD_COLOR );
 	Mat depth = imread(argv[2], CV_16UC1);
+	// depth.convertTo(depth, CV_32FC1);
 	
-	if(rgb.empty()){
+	if(rgb.empty() || depth.empty()){
 		fprintf(stdout, "Unable to open images\n");
 		return 1;
 	}
 
-	// vector<Point2f> corners;
-	// gui::GenerateKeypoints keypoint_gui(rgb, corners);
-	// keypoint_gui.start_processing();
-
-	depth.convertTo(depth, CV_32FC1);
-	
+	generate_mask(rgb);
 	display_image(rgb);
+
 	PointCloudT::Ptr cloud(new PointCloudT);
 	images2cloud(cloud, rgb, depth);
 	simple_visualize(cloud);

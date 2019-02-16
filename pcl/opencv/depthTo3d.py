@@ -6,8 +6,8 @@ import pptk
 def main():
 	depth = cv2.imread(sys.argv[1], cv2.CV_16UC1)
 	
-	K = np.array([ [210, 0, 128],
-					[0, 278.25, 127.2],
+	K = np.array([ [570.3, 0, 320.0],
+					[0, 570.3, 240.0],
 					[0, 0, 1]])
 
 	# K = np.array([ [570.3, 0, 320.0],
