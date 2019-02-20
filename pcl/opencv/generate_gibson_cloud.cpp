@@ -21,7 +21,7 @@ void display_image(const Mat& image){
 }
 
 void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth_image){
-	const float fx = 210, fy = 278.25, cx = 128.0, cy = 127.2;
+	const float fx = 128, fy = 128, cx = 128.5, cy = 128.5;
 	cloud->is_dense = false;
 	int image_index = 0;
 	cv::Vec3b black_pixel{0, 0, 0};

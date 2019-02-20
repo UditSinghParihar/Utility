@@ -23,9 +23,9 @@ void point_cloud_from_matrix(PointCloudT::Ptr cloud, const Mat3b& cloud_matrix){
 	for(int y=0; y<cloud_matrix.rows; ++y){
 		for(int x=0; x<cloud_matrix.cols; ++x){
 			PointT point;
-			point.x = cloud_matrix.at<Vec<float, 3>>(y, x)[0];
-			point.y = cloud_matrix.at<Vec<float, 3>>(y, x)[1];
-			point.z = cloud_matrix.at<Vec<float, 3>>(y, x)[2];
+			point.x = cloud_matrix.at<Vec3b>(y, x)[0];
+			point.y = cloud_matrix.at<Vec3b>(y, x)[1];
+			point.z = cloud_matrix.at<Vec3b>(y, x)[2];
 			point.r = 235;
 			point.g = 5;
 			point.b = 5;
@@ -60,7 +60,7 @@ int main(int argc, char const *argv[]){
 		return 1;
 	}
 
-	const float fx = 210, fy = 278.25, cx = 128.0, cy = 127.2;	
+	const float fx = 525, fy = 525, cx = 319.5, cy = 239.5;	
 	Mat K = (Mat_<double>(3,3) << fx, 0, cx, 0, fy, cy, 0, 0, 1);
 	Mat cloud_matrix;
 
@@ -68,7 +68,7 @@ int main(int argc, char const *argv[]){
 	depth.convertTo(depth, CV_32FC1);
 	
 	cv::rgbd::depthTo3d(depth, K, cloud_matrix);
-	cout << "Some value of cloud_matrix pixel: " << cloud_matrix.at<Vec<float, 3>>(34, 112) << endl;
+	cout << "Some value of cloud_matrix pixel: " << cloud_matrix.at<Vec3b>(34, 112) << endl;
 
 	PointCloudT::Ptr cloud(new PointCloudT);
 	point_cloud_from_matrix(cloud, cloud_matrix);

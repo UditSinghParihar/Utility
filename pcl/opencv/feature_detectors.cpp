@@ -67,8 +67,8 @@ int main(int argc, char const *argv[]){
 
 	Mat mask1(rgb1.size(), CV_8UC1, Scalar::all(0)); 
 	Mat mask2(rgb2.size(), CV_8UC1, Scalar::all(0));
-	get_mask(mask1, 0, 0, 320, 480);
-	get_mask(mask2, 320, 0, 320, 480);
+	get_mask(mask1, rgb1.cols/2, 0, rgb1.cols/2, rgb1.rows);
+	get_mask(mask2, 0, 0, rgb2.cols/2, rgb2.rows);
 	display_image(rgb1);
 	display_image(mask1);
 	display_image(rgb2);

@@ -19,7 +19,7 @@ void display_image(const Mat& image){
 }
 
 void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth_image){
-	const float f = 570.3, cx = 320.0, cy = 240.0;
+	const float f = 525, cx = 319.5, cy = 239.5;
 	cloud->is_dense = false;
 	float bad_point = std::numeric_limits<float>::quiet_NaN();
 	int image_index = 0;
@@ -39,7 +39,7 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 				++background_index;
 			}
 			else{
-				point.z = depth_image.at<float>(y, x);
+				point.z = depth_image.at<float>(y, x)/1000;
 				point.x = (x - cx) * point.z / f;
 				point.y = (y - cy) * point.z / f;
 				
