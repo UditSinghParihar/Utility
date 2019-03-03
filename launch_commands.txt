@@ -242,3 +242,9 @@ $ mpicc file.c -o file.out
 $ mpirun -np 10 file.out
 $ sbatch ipsc_job.sh # <output> slurm-<jobid>
 $ squeue
+
+# ada commands
+ssh ipsc11@ada.iiit.ac.in
+gRVENTo7
+sint2
+nvcc file.cu

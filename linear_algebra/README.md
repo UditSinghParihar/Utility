@@ -30,3 +30,5 @@
 #### Computer Vision ####
 1. [ ] [Computer Vision A Modern Approach](http://cmuems.com/excap/readings/forsyth-ponce-computer-vision-a-modern-approach.pdf)
 2. [ ] [Computer Vision: Algorithms and Applications](http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf)
+3. [ ] [CV slides Penn State University](http://www.cse.psu.edu/~rtc12/CSE486/)
+4. [ ] [CV slides CMU](http://www.cs.cmu.edu/~16385/s17/)

@@ -15,6 +15,8 @@ void rotation_to_euler(const Eigen::Matrix3f& mat){
 
 	fprintf(stdout, "Rotation to euler(in degree):\nx_angle: %f\ty_angle: %f\tz_anlge: %f\n",
 			rad2deg(x_angle), rad2deg(y_angle), rad2deg(z_angle));
+	fprintf(stdout, "Rotation to euler(in degree):\n [%f %f %f]\n",
+			rad2deg(x_angle), rad2deg(y_angle), rad2deg(z_angle));
 }
 
 void quaternion_to_euler(const Eigen::Matrix3f& rotate){
@@ -26,9 +28,9 @@ void quaternion_to_euler(const Eigen::Matrix3f& rotate){
 
 int main(int argc, char const *argv[]){
 	Eigen::Matrix3f rotation;
-	rotation <<	0.868286,  -0.0284939,    0.495246,
-0.000382138,    0.998387,   0.0567722,
-  -0.496064,  -0.0491053,    0.866896;
+	rotation <<	 0.950071,   -0.30992, -0.0362567,
+  0.303037,   0.944128,   -0.12958 ,
+ 0.0743905,   0.112123,   0.990906 ;
 
 	rotation_to_euler(rotation);
 	quaternion_to_euler(rotation);
