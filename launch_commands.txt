@@ -201,7 +201,8 @@ tmux new -s <session-name>
 sudo service network-manager restart
 
 # installed packages
-sudo apt list --installed
+apt list --installed | grep -i <PACKAGE>
+apt -qq list <PACKAGE>
 
 # locally visualizing markdown file
 $ grip <path_to_markdown_file>
@@ -248,3 +249,10 @@ ssh ipsc11@ada.iiit.ac.in
 gRVENTo7
 sint2
 nvcc file.cu
+
+# Undo the last commit
+$ git commit -m "Something terribly misguided"
+$ git reset HEAD~                             
+<< edit files as necessary >>                 
+$ git add .                                   
+$ git commit -c ORIG_HEAD                     

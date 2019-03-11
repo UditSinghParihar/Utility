@@ -2,6 +2,7 @@
 
 1. [ ] SVD.
 	1. [Tutorial on SVD](https://fenix.tecnico.ulisboa.pt/downloadFile/3779576344458/singular-value-decomposition-fast-track-tutorial.pdf)
+	2. [SVD Derivation](https://graphics.stanford.edu/courses/cs205a-13-fall/assets/notes/chapter6.pdf)
 2. [ ] QR Decomposition.
 3. [ ] Cholesky Decomposition.
 4. [ ] Least square optimization.
@@ -26,7 +27,7 @@
 1. [ ] [Introduction to Applied Linear Algebra](http://vmls-book.stanford.edu/vmls.pdf)
 2. [ ] [Introduction to Linear Algebra Fourth Edition](https://github.com/butterluo/btGitDoc/blob/master/algorithm/math/LinearAlgebra/Introduction%20to%20Linear%20Algebra%2C%204th%20edition--Gilbert%20Strang.pdf)
 3. [ ] [Problem set and Lecture Notes](http://web.mit.edu/18.06/www/Fall17/)
-
+4. [ ] [Mathematical Methods for Robotics, Vision, and Graphics](https://graphics.stanford.edu/courses/cs205a-13-fall/notes.html)
 #### Computer Vision ####
 1. [ ] [Computer Vision A Modern Approach](http://cmuems.com/excap/readings/forsyth-ponce-computer-vision-a-modern-approach.pdf)
 2. [ ] [Computer Vision: Algorithms and Applications](http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf)

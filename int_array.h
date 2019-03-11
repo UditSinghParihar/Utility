@@ -1,12 +1,12 @@
-#ifndef INT_ARRAY_H
-#define INT_ARRAY_H
+#ifndef MYARRAY_H
+#define MYARRAY_H
 
 #include <iostream>
 #include <assert.h>
 
 template <typename T>
 
-class int_array{
+class MYARRAY{
 private:
 	int m_length;
 	T *m_data;	
@@ -15,10 +15,30 @@ public:
 		m_data = new T[length];
 		m_length = length;
 	}
-	int_array(int length){
+	MYARRAY(int length){
 		reallocate(length);
 	};
-	~int_array(){
+	MYARRAY(const std::initializer_list<T>& list):MYARRAY(list.size()){
+		int index=0;
+		for(auto& element : list){
+			m_data[index] = element;
+			++index;
+		}
+	}
+	MYARRAY& operator=(const std::initializer_list<T>& list){
+		if(m_data!=nullptr)
+			delete[] m_data;
+		m_length = list.size();
+		m_data = new T[m_length];
+
+		int index=0;
+		for(auto& element : list){
+			m_data[index] = element;
+			++index;
+		}
+		return *this;
+	}
+	~MYARRAY(){
 		delete[] m_data;
 		std::cout << "Destructor called.\n";
 	};
@@ -34,7 +54,7 @@ public:
 		assert(index >=0 && index < m_length);
 		return m_data[index];
 	}
-	friend std::ostream& operator<<(std::ostream &out, int_array &obj){
+	friend std::ostream& operator<<(std::ostream &out, MYARRAY &obj){
 		for(int i=0; i<obj.m_length; ++i)
 			out << obj[i] << " ";
 		return out;
