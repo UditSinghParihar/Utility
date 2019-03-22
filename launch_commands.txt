@@ -250,9 +250,9 @@ gRVENTo7
 sint2
 nvcc file.cu
 
-# Undo the last commit
+# Undo the last commit before pushing to the server
 $ git commit -m "Something terribly misguided"
-$ git reset HEAD~                             
-<< edit files as necessary >>                 
-$ git add .                                   
-$ git commit -c ORIG_HEAD                     
+$ git reset HEAD~
+<< edit files as necessary >>
+$ git add .
+$ git commit -c ORIG_HEAD
