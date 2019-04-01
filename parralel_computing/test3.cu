@@ -44,7 +44,7 @@ int main(void) {
 	cudaMemcpy(c, d_c, size, cudaMemcpyDeviceToHost);
 	print_five(a);
 	print_five(b);
-	pritf("c: %d\n", c);
+	printf("c: %d\n", c);
 
 	// Cleanup
 	free(a); free(b); free(c);
