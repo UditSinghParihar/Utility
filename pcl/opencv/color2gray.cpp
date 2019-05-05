@@ -14,7 +14,7 @@ int main(int argc, char const *argv[]){
 	Mat color_image = imread(argv[1], IMREAD_COLOR);
 	Mat gray_image;
 	cvtColor(color_image, gray_image, COLOR_BGR2GRAY);
-	imwrite("gray_image.jpg", gray_image);
+	// imwrite("gray_image.jpg", gray_image);
 	display(color_image);
 	display(gray_image);
 

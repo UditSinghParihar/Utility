@@ -256,3 +256,40 @@ $ git reset HEAD~
 << edit files as necessary >>
 $ git add .
 $ git commit -c ORIG_HEAD
+
+# Detecting SSD: 0 -> SSD and 1 -> HDD
+$ lsblk -d -o name,rota
+$ df -h
+
+# Backup of large files with progress bar - tar
+$ cd /media/hard_disk
+$ tar czf - /folder-with-big-files -P | pv -s $(du -sb /folder-with-big-files | awk '{print $1}') | gzip > big-files.tar.gz
+
+# Copying with progress bar - rsync
+$ rsync -r --human-readable --no-i-r --info=progress2 --info=name0 /source/folder /destination/folder
+# Resume rsync
+$ rsync -r --partial-dir=.rsync-partial --human-readable --no-i-r --info=progress2 --info=name0 /source/folder /destination/folder
+
+# OpenCV Types
+
++--------+----+----+----+----+------+------+------+------+
+|        | C1 | C2 | C3 | C4 | C(5) | C(6) | C(7) | C(8) |
++--------+----+----+----+----+------+------+------+------+
+| CV_8U  |  0 |  8 | 16 | 24 |   32 |   40 |   48 |   56 |
+| CV_8S  |  1 |  9 | 17 | 25 |   33 |   41 |   49 |   57 |
+| CV_16U |  2 | 10 | 18 | 26 |   34 |   42 |   50 |   58 |
+| CV_16S |  3 | 11 | 19 | 27 |   35 |   43 |   51 |   59 |
+| CV_32S |  4 | 12 | 20 | 28 |   36 |   44 |   52 |   60 |
+| CV_32F |  5 | 13 | 21 | 29 |   37 |   45 |   53 |   61 |
+| CV_64F |  6 | 14 | 22 | 30 |   38 |   46 |   54 |   62 |
++--------+----+----+----+----+------+------+------+------+
+
+> CV_8U -> 0-255
+> CV_32F -> 0-1.0
+> Write / display -> CV_8U
+
+> img.type()
+
+> for(i = 1:rows)
+>   for(j = 1:cols)
+>     img.at<uchar>(i,j)

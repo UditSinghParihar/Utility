@@ -23,6 +23,6 @@ int main(){
     
     int a = 5;
     int *p = &a;
-    cout << ;
+    cout << *p;
     return 0; 
 } 
