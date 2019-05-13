@@ -80,7 +80,8 @@ $ roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" visu
 <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="1 0 0 0 0 0 1 link1_parent link1 100" />
 </launch>
 
-$ rosrun tf static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms
+$ rosrun tf static_transform_publisher 
+x y z yaw pitch roll frame_id child_frame_id period_in_ms
 $ rosrun tf static_transform_publisher 0.2 0 0.45 0 0 0 base_link camera_link 100
 
 # argument -> passed through command line ; param -> set up on launch file
@@ -261,6 +262,10 @@ $ git commit -c ORIG_HEAD
 $ lsblk -d -o name,rota
 $ df -h
 
+# Laptop model number
+$ sudo dmidecode | grep -A 9 "System Information"
+$ sudo dmidecode | less
+
 # Backup of large files with progress bar - tar
 $ cd /media/hard_disk
 $ tar czf - /folder-with-big-files -P | pv -s $(du -sb /folder-with-big-files | awk '{print $1}') | gzip > big-files.tar.gz
@@ -293,3 +298,6 @@ $ rsync -r --partial-dir=.rsync-partial --human-readable --no-i-r --info=progres
 > for(i = 1:rows)
 >   for(j = 1:cols)
 >     img.at<uchar>(i,j)
+
+# Download wget 
+$ wget url -q --show-progress
