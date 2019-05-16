@@ -301,3 +301,13 @@ $ rsync -r --partial-dir=.rsync-partial --human-readable --no-i-r --info=progres
 
 # Download wget 
 $ wget url -q --show-progress
+
+# Passing output from cmd2 as parameter to cmd1
+cmd1 -options $(cmd2)
+# Example
+ du -cha $(sudo find . -iname "*.bag")
+
+ # Mounting device 
+ sudo ntfsfix /dev/sdb1		# Only if error in mounting
+ sudo fdisk -l 		# Assuming device at /dev/sdb1
+ sudo mount -t ntfs /dev/sdb1 /media
