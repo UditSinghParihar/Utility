@@ -311,3 +311,6 @@ cmd1 -options $(cmd2)
  sudo ntfsfix /dev/sdb1		# Only if error in mounting
  sudo fdisk -l 		# Assuming device at /dev/sdb1
  sudo mount -t ntfs /dev/sdb1 /media
+
+ # Sourcing tmux
+ tmux source ~/.tmux.conf

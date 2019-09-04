@@ -4,6 +4,7 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include <pcl/io/pcd_io.h>
 #include <cctype>
+#include <set>
 
 using namespace std;
 using namespace cv;
@@ -19,7 +20,7 @@ void display_image(const Mat& image){
 }
 
 void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth_image){
-	const float f = 525, cx = 319.5, cy = 239.5;
+	const float f = 383.70, cx = 319.5, cy = 239.5;
 	cloud->is_dense = false;
 	float bad_point = std::numeric_limits<float>::quiet_NaN();
 	int image_index = 0;
@@ -27,6 +28,7 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	int background_index = 0;
 	const int depth_threshold = INT_MAX;
 	cv::Vec3b black_pixel{0, 0, 0};
+	std::set<float> list; 
 
 	for(int y=0; y<rgb_image.rows; ++y){
 		for(int x=0; x<rgb_image.cols; ++x){
@@ -39,6 +41,9 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 				++background_index;
 			}
 			else{
+				float value = depth_image.at<float>(y, x);
+				list.insert(value);
+
 				point.z = depth_image.at<float>(y, x)/1000;
 				point.x = (x - cx) * point.z / f;
 				point.y = (y - cy) * point.z / f;
@@ -60,7 +65,11 @@ void images2cloud(PointCloudT::Ptr cloud, const Mat& rgb_image, const Mat& depth
 	}
 	cloud->width = cloud->points.size();
 	cloud->height = 1;
-	fprintf(stdout, "Background black_pixels: %d \n", background_index);
+	fprintf(stdout, "Background black_pixels: %d\n", background_index);
+	fprintf(stderr, "size of list: %lu\n", list.size());
+	for(auto e : list)
+		std::cout << e << " ";
+	std::cout << "\n";
 }
 
 void simple_visualize(PointCloudT::Ptr cloud){
@@ -142,8 +151,8 @@ int main(int argc, char const *argv[]){
 	images2cloud(cloud, rgb, depth);
 	simple_visualize(cloud);
 
-	string final_cloud = get_cloud_name(argv[1]);
-	save_to_pcd(final_cloud, cloud);
+	// string final_cloud = get_cloud_name(argv[1]);
+	// save_to_pcd(final_cloud, cloud);
 
 	// read_depth_image(depth);
 

@@ -3,9 +3,9 @@ project(OpenCV)
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(OpenCV REQUIRED)
-
 include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
+
 
 include_directories(include)
 
