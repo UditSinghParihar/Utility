@@ -314,3 +314,14 @@ cmd1 -options $(cmd2)
 
  # Sourcing tmux
  tmux source ~/.tmux.conf
+
+ # Opencv conflict between ROS and python3
+ export PYTHONPATH="/home/cair/softwares/tensorflow3/venv3/lib/python3.5/site-packages":$PYTHONPATH
+
+# List to numpy array
+npArray = np.asarray(list)
+
+# realsense-viewer error : undefined symbol: libusb_get_parent
+$ which realsense-viewer
+$ ldd realsense-viewer | grep libusb
+$ mv /opt/mvIMPACT_Acquire/lib/x86_64/libusb-1.0.so.0 ~/backup/ 
