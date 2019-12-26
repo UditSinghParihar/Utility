@@ -140,7 +140,11 @@ rosbag record -O rrc1 /pose /camera/rgb/image_rect_color /camera/depth_registere
 
 Visual odometry:
 rosbag record -O rrc1a /camera/rgb/image_rect_color /camera/depth_registered/image_raw /camera/rgb/camera_info /tf
-roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" rtabmapviz:=true use_sim_time:=true
+roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" rtabmapviz:=true use_sim
+
+
+
+_time:=true
 rosbag play --clock rrc1a.bag -d 5 -r 0.8
 
 
@@ -307,13 +311,16 @@ cmd1 -options $(cmd2)
 # Example
  du -cha $(sudo find . -iname "*.bag")
 
- # Mounting device 
- sudo ntfsfix /dev/sdb1		# Only if error in mounting
- sudo fdisk -l 		# Assuming device at /dev/sdb1
- sudo mount -t ntfs /dev/sdb1 /media
+# Checking whether ubuntu detected hard disk or not
+ls /dev/ | grep sd # Do it with and without hard disk plugged
 
- # Sourcing tmux
- tmux source ~/.tmux.conf
+# Mounting device 
+sudo ntfsfix /dev/sdb1		# Only if error in mounting
+sudo fdisk -l 		# Assuming device at /dev/sdb1
+sudo mount -t ntfs /dev/sdb1 /media
+
+# Sourcing tmux
+tmux source ~/.tmux.conf
 
  # Opencv conflict between ROS and python3
  export PYTHONPATH="/home/cair/softwares/tensorflow3/venv3/lib/python3.5/site-packages":$PYTHONPATH
@@ -325,3 +332,20 @@ npArray = np.asarray(list)
 $ which realsense-viewer
 $ ldd realsense-viewer | grep libusb
 $ mv /opt/mvIMPACT_Acquire/lib/x86_64/libusb-1.0.so.0 ~/backup/ 
+
+# Force “git push” to overwrite remote files as well remote commits
+git push -f origin master
+
+# Passing output from one command as input to another command
+cmd1 -arg1 $(cmd2 -arg2)
+
+# Creating symbolic link
+ln -s source_file link
+
+# RTABMAP problem of libfreenect*.so.* or librealsense*.so.*
+ldd catkin_ws/devel/lib/rtabmap_ros/rtabmap | grep not # To see what links are missing
+# For installing libfreenect*.so.*
+$ sudo apt-get install ros-kinetic-rtabmap ros-kinetic-rtabmap-ros
+$ sudo apt-get remove ros-kinetic-rtabmap ros-kinetic-rtabmap-ros
+# Install librealsense*.so.* from synaptic
+
