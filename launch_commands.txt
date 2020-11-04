@@ -227,7 +227,7 @@ $ pgrep <process_name>
 $ kill <pid>
 
 # Creating virtualenv
-$ virtualenv [optins] <environment-variable>
+$ virtualenv [options] <environment-variable>
 # --system-site-packages : depends on global /usr/lib/python2.7/
 $ virtualenv --system-site-packages -p python3 venv
 
@@ -325,6 +325,14 @@ tmux source ~/.tmux.conf
  # Opencv conflict between ROS and python3
  export PYTHONPATH="/home/cair/softwares/tensorflow3/venv3/lib/python3.5/site-packages":$PYTHONPATH
 
+ # Undoing python3 and switching back to python2
+ export PYTHONPATH="" && source ~/.bashrc
+
+# Using cv2 - 4.1.1 in virtual environment
+# Run this inside virtual env
+export PYTHONPATH="/home/cair/softwares/tensorflow3/venv3/lib/python3.5/site-packages":$PYTHONPATH 
+
+
 # List to numpy array
 npArray = np.asarray(list)
 
@@ -335,6 +343,9 @@ $ mv /opt/mvIMPACT_Acquire/lib/x86_64/libusb-1.0.so.0 ~/backup/
 
 # Force “git push” to overwrite remote files as well remote commits
 git push -f origin master
+
+# Undoing the git push to github:
+git push -f origin HEAD^:master
 
 # Passing output from one command as input to another command
 cmd1 -arg1 $(cmd2 -arg2)
@@ -349,3 +360,56 @@ $ sudo apt-get install ros-kinetic-rtabmap ros-kinetic-rtabmap-ros
 $ sudo apt-get remove ros-kinetic-rtabmap ros-kinetic-rtabmap-ros
 # Install librealsense*.so.* from synaptic
 
+# Problem of RTABMAP for particular librealsense*.so* file
+# rtabmap: error while loading shared libraries: librealsense2.so.2.30: cannot open shared object file:
+ No such file or directory
+# WITH_REALSENSE2 = OFF # Set in ccmake of rtabmap/build
+
+# Remapping a topic
+# Published topic: "hello". Wanted topic: "chatter"
+$ <remap from="chatter" to="hello"/>    # Inside launch file 
+
+# TF problem while working with Bagfiles    
+1. `rosparam set use_sim_time true` $ Ensuring all nodes use same time  
+2. `rosbag play <file.bag> --clock` $ To use simulation time  
+3. `rosrun tf static_transform_publisher 
+x y z yaw pitch roll frame_id child_frame_id period_in_ms` $ tf would also be published in simulated time  
+4. `roslaunch rtabmap_ros rtabmap.launch` $ Launch any node using rosbag topics and static tf info
+
+
+# Compressing/Extracting using terminal
+tar -czvf name-of-archive.tar.gz /path/to/directory-or-file
+tar -xzvf archive.tar.gz
+
+# Extracting file compressed using Ubuntu GUI:
+tar xf data.tar
+
+# Concatanating csv files with excluding header of first one
+sed 1d img_pairs*.csv > img_pairs_comb.csv
+
+# wget downloading of a directory:
+wget -r -nH --cut-dirs=2 --no-parent --reject="index.html*" <url>
+
+# Downloading ScanNet:  
+wget -r -A .sens -I /ScanNet/v2/scans/scene000*,/ScanNet/v2/scans/scene001*,/ScanNet/v2/scans/scene002*,/ScanNet/v2/scans/scene003*,/ScanNet/v2/scans/scene004* -nH --cut-dirs=3 --no-parent --reject="index.html*" http://datasets.rrc.iiit.ac.in/ScanNet/v2/scans/
+
+# Killing process by its name:  
+kill $(pgrep python) 
+kill $(pgrep <process_name>)
+
+# Opening Nerdtree from a file:
+:NERDTreeFocus
+
+# Using SIFT with opencv:
+pip uninstall opencv-python opencv-contrib-python
+pip install opencv-python==3.4.2.16 opencv-contrib-python==3.4.2.16
+
+# Reverting git add 
+git reset file
+
+# Reverting git commit 
+git reset --soft HEAD~1
+
+# Editing git config for username and email-id
+git config --local user.name UditSinghParihar
+git config --local user.email uditsinghparihar96@gmail.com
