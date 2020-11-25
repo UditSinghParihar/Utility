@@ -413,3 +413,10 @@ git reset --soft HEAD~1
 # Editing git config for username and email-id
 git config --local user.name UditSinghParihar
 git config --local user.email uditsinghparihar96@gmail.com
+
+# Debugging cuda error:  
+CUDA_LAUNCH_BLOCKING=1 python [YOUR_PROGRAM]
+
+# Restarting sftp for neon server:  
+ps aux | grep sftp  
+kill <neon_server_pid>
