@@ -417,6 +417,24 @@ git config --local user.email uditsinghparihar96@gmail.com
 # Debugging cuda error:  
 CUDA_LAUNCH_BLOCKING=1 python [YOUR_PROGRAM]
 
-# Restarting sftp for neon server:  
-ps aux | grep sftp  
-kill <neon_server_pid>
+# Restarting sftp for neon server: 
+1. Close the remote files open in sublime.     
+2. ps aux | grep sftp  
+3. kill <neon_server_pid>
+
+# Changing remote url to forked branch: 
+git remote set-url origin https://github.com/user/FORK.git
+
+# Creating a new repository out of an original repository after commiting changes  
+1. Clone the original repository.  
+2. Create a new repository.  
+3. Change the remote url for pushing changes, in local repository to the newly
+created repository.  
+4. Push the commits in local repository.  
+
+# Changing access time and creation of all files recursively in a directory:  
+find /path/to/dir -exec touch  {} \;
+# Seeing access time:  
+ls -ul file.txt
+# Seeing all files having access time older than 10 days:  
+find /path/to/dir -atime +10
