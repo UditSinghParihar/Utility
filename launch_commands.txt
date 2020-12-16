@@ -438,3 +438,8 @@ find /path/to/dir -exec touch  {} \;
 ls -ul file.txt
 # Seeing all files having access time older than 10 days:  
 find /path/to/dir -atime +10
+
+# Mounting remote directory  
+sudo mkdir /mnt/blue_scratch
+sudo sshfs -o allow_other udit@blue.iiit.ac.in:/scratch/udit/ /mnt/blue_scratch
+sudo sshfs -o allow_other udit@blue.iiit.ac.in:/home/udit/ /mnt/blue
