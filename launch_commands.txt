@@ -439,7 +439,29 @@ ls -ul file.txt
 # Seeing all files having access time older than 10 days:  
 find /path/to/dir -atime +10
 
+
 # Mounting remote directory  
 sudo mkdir /mnt/blue_scratch
 sudo sshfs -o allow_other udit@blue.iiit.ac.in:/scratch/udit/ /mnt/blue_scratch
 sudo sshfs -o allow_other udit@blue.iiit.ac.in:/home/udit/ /mnt/blue
+
+# Debugging sshfs
+sudo umount -l /mnt/blue
+killall sshfs
+
+# Open3d normals calculation:
+pip uninstall open3d open3d-python
+pip install open3d==0.9.0.0
+pcd.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=0.1, max_nn=30))
+
+# Kill file manager processes
+nautilus -q
+
+Accessing tensorBoard on local machine while training on server:  
+1. `ssh -L localhost:16006:localhost:6006 udit@blue.iiit.ac.in`  
+2. `tensorboard --logdir runs/`  # On Server
+3. `http://localhost:16006/`   # On Local machine
+
+
+
+
