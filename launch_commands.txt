@@ -463,5 +463,6 @@ Accessing tensorBoard on local machine while training on server:
 3. `http://localhost:16006/`   # On Local machine
 
 
-
+# Increasing number of open files limit in np.load:  
+ulimit -n 4096
 
