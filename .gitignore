@@ -6,6 +6,7 @@ keras/
 *.out
 *.o
 *.s
+*.swp
 
 neural-networks-and-deep-learning/
 

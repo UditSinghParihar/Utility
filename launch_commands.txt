@@ -216,6 +216,10 @@ $ grip <path_to_markdown_file>
 # Launch
 roslaunch realsense2_camera rs_camera.launch align_depth:=true
 
+# Installing realsense2: 
+export ROS_VER=kinetic 
+sudo apt-get install ros-$ROS_VER-realsense2-camera ros-$ROS_VER-realsense2-description
+
 # Mapping
 roslaunch rtabmap_ros rtabmap.launch rtabmap_args:="--delete_db_on_start" depth_topic:=/camera/aligned_depth_to_color/image_raw rgb_topic:=/camera/color/image_raw camera_info_topic:=/camera/color/camera_info
 
@@ -465,4 +469,9 @@ Accessing tensorBoard on local machine while training on server:
 
 # Increasing number of open files limit in np.load:  
 ulimit -n 4096
+
+# Keyboard enable/disable
+xinput list
+xinput float 12
+xinput reattach 12 3
 
