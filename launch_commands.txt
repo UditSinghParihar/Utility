@@ -55,7 +55,7 @@ position(visual_odometry/short term) v/s trajectory(loop closure/long term)
 # Error in transformations for wheel odometry 
 
 $ rosrun tf view_frames && evince frames.pdf
-$ rosrun tf tf_echo <source> <target>
+$ rosrun tf tf_echo <source> <target>  # Tsource_target == target wrt source
 launch file -> sequentially launches
 
 #/base_link -> rotational center
@@ -475,3 +475,10 @@ xinput list
 xinput float 12
 xinput reattach 12 3
 
+
+# OpenCV color space:  
+`imread`, `imwrite` and `imshow` uses BGR order  
+im_rgb = cv2.cvtColor(im_cv, cv2.COLOR_BGR2RGB)
+
+# Matplotlib color space:  
+matplotlib's `imshow` uses RGB order   
